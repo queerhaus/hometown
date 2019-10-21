@@ -19,6 +19,8 @@ class AboutController < ApplicationController
     @contents          = toc_generator.html
     @table_of_contents = toc_generator.toc
     @blocks            = DomainBlock.with_user_facing_limitations.by_severity if display_blocks?
+
+    @allows            = InstanceFilter.new(allowed: true).results
   end
 
   def terms; end
