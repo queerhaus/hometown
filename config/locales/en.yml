@@ -1196,6 +1196,7 @@ en:
     mastodon-light: Mastodon (Light)
     macaron: Macaron (Pastel light)
     fairy-floss: Fairy Floss (Pastel dark)
+    queerhaus: queer.haus
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
