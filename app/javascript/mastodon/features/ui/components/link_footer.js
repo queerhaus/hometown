@@ -46,28 +46,24 @@ class LinkFooter extends React.PureComponent {
 
     return (
       <div className='getting-started__footer'>
+        <p>
+          <FormattedMessage
+            id='getting_started.queerhaus_notice'
+            defaultMessage='fluffy bunnies make us happy 🐰'
+          />
+        </p>
+
         <ul>
-          {invitesEnabled && <li><a href='/invites' target='_blank'><FormattedMessage id='getting_started.invite' defaultMessage='Invite people' /></a> · </li>}
-          {withHotkeys && <li><Link to='/keyboard-shortcuts'><FormattedMessage id='navigation_bar.keyboard_shortcuts' defaultMessage='Hotkeys' /></Link> · </li>}
-          <li><a href='/auth/edit'><FormattedMessage id='getting_started.security' defaultMessage='Security' /></a> · </li>
-          <li><a href='/about/more' target='_blank'><FormattedMessage id='navigation_bar.info' defaultMessage='About this server' /></a> · </li>
-          <li><a href='https://joinmastodon.org/apps' target='_blank'><FormattedMessage id='navigation_bar.apps' defaultMessage='Mobile apps' /></a> · </li>
-          <li><a href='/terms' target='_blank'><FormattedMessage id='getting_started.terms' defaultMessage='Terms of service' /></a> · </li>
-          <li><a href='/settings/applications' target='_blank'><FormattedMessage id='getting_started.developers' defaultMessage='Developers' /></a> · </li>
+          <li><a href='/about/more' target='_blank'>About us</a> · </li>
           <li><a href='https://docs.joinmastodon.org' target='_blank'><FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' /></a> · </li>
           <li><a href='/auth/sign_out' onClick={this.handleLogoutClick}><FormattedMessage id='navigation_bar.logout' defaultMessage='Logout' /></a></li>
         </ul>
 
         <p>
           <FormattedMessage
-            id='getting_started.open_source_notice'
-            defaultMessage='Mastodon is open source software. You can contribute or report issues on GitHub at {github}.'
-            values={{ github: <span><a href={source_url} rel='noopener noreferrer' target='_blank'>{repository}</a> (v{version})</span> }}
-          />
-          <FormattedMessage
-            id='getting_started.hometown_open_source_notice'
-            defaultMessage='Hometown is also open source, at {hometown} (v1.0.3).'
-            values={{ hometown: <span><a href='https://github.com/hometown-fork/hometown' rel='noopener' target='_blank'>hometown-fork/hometown</a></span> }}
+            id='getting_started.queerhaus_open_source_notice'
+            defaultMessage='we are open source at {github}'
+            values={{ github: <span><a href='https://github.com/queerhaus/hometown' rel='noopener' target='_blank'>queerhaus/hometown</a></span> }}
           />
         </p>
       </div>
