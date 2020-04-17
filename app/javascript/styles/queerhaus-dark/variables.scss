@@ -1,16 +1,16 @@
 // FAIRY FLOSS VARIABLES
 
 // Purples
-$purple1: #2e2b3b;
-$purple2: #504b68;
-$purple3: #5f5676;
-$purple4: #c8c4d4;
-$purple5: #474059;
-$purpleicon: #ada6bf;
+$purple1: #202031;
+$purple2: #29243d;
+$purple3: #39314f;
+$purple4: #5f5676;
+$purpleicon: #5f5676;
 $purpleborder: #5f5676;
-$purplescrollbar: #5a5475;
-$mint: #c2ffdf;
-$pink: #ffb8d1;
+$purplescrollbar: #5f5676;
+$purpletext: #8b7fa5;
+$mint: #ae53b7;
+$pink: #ae53b7;
 $lemon: #fff683;
 $coral: #ff857f;
 
@@ -23,10 +23,10 @@ $warning-red: #ff5050 !default;      // Sunset Orange
 $gold-star: #ca8f04 !default;        // Dark Goldenrod
 
 // Values from the classic Mastodon UI
-$classic-base-color: $purple1;         // Midnight Express
-$classic-primary-color: $purple4;      // Echo Blue
-$classic-secondary-color: #d9e1e8;    // Pattens Blue
-$classic-highlight-color: #ff857f;    // Summer Sky
+$classic-base-color: $purple1;
+$classic-primary-color: $purpletext;
+$classic-secondary-color: #d9e1e8;
+$classic-highlight-color: $pink;
 
 // Variables for defaults in UI
 $base-shadow-color: $black !default;
@@ -38,7 +38,7 @@ $error-value-color: $error-red !default;
 
 // Tell UI to use selected colors
 $ui-base-color: $classic-base-color !default;                  // Darkest
-$ui-base-lighter-color: lighten($ui-base-color, 26%) !default; // Lighter darkest
+$ui-base-lighter-color: $purple2 !default; // Lighter darkest
 $ui-primary-color: $classic-primary-color !default;            // Lighter
 $ui-secondary-color: $classic-secondary-color !default;        // Lightest
 $ui-highlight-color: $classic-highlight-color !default;
@@ -46,10 +46,10 @@ $ui-highlight-color: $classic-highlight-color !default;
 // Variables for texts
 $primary-text-color: $white !default;
 $darker-text-color: $ui-primary-color !default;
-$dark-text-color: $purpleicon !default;
+$dark-text-color: $purpletext !default;
 $secondary-text-color: $ui-secondary-color !default;
 $highlight-text-color: $ui-highlight-color !default;
-$action-button-color: $purpleicon !default;
+$action-button-color: $purpletext !default;
 // For texts on inverted backgrounds
 $inverted-text-color: $ui-base-color !default;
 $lighter-text-color: $ui-base-lighter-color !default;

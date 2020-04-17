@@ -80,7 +80,7 @@
 // FAIRY FLOSS CHANGES
 
 html {
-  scrollbar-color: $purple3 rgba($purple3, 0.25);
+  scrollbar-color: $purple4 rgba($purple4, 0.25);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -103,9 +103,13 @@ html {
     background-color: $mint;
   }
 
+.layout-multiple-columns .column-link {
+  background-color: $purple2;
+}
+
 // text
 .status__display-name, .column-header, .column-link, .navigation-bar strong {
-  color: $purple4;
+  color: $purpletext;
 }
 
 .ui,
@@ -114,11 +118,11 @@ html {
 }
 
 .drawer__header {
-  background: $purple3;
+  background: $purple2;
 
   a {
     &:hover, &:focus {
-      background: darken($purple3, 8%);
+      background: darken($purple2, 8%);
     }
   }
 }
@@ -126,14 +130,14 @@ html {
 .search__input {
   &:hover, &:focus {
     background: $purple2;
-    color: $purple4;
+    color: $purpletext;
   }
   background: $purple2;
-  color: $purple4;
+  color: $purpletext;
 }
 
 ::placeholder {
-  color: $purple4;
+  color: $purpletext;
 }
 
 .search-popout, .search-popout h4 {
@@ -142,11 +146,11 @@ html {
 }
 
 .drawer__inner, .drawer__inner__mastodon {
-  background: $purple3;
+  background: $purple2;
 }
 
 .compose-form .compose-form__buttons-wrapper {
-  background: lighten($purple4, 8%);
+  background: $purple4;
 }
 
 .text-icon-button.active {
@@ -154,8 +158,13 @@ html {
 }
 
 
+.tabs-bar__wrapper {
+  background-color: $purple1;
+}
+
 .column-header, .column-header__button, .column-header__back-button {
-  background: $purple5;
+  background: $purple4;
+  color: $purple2;
 }
 
 .notification__filter-bar button.active::after, .notification__filter-bar a.active::after, .account__section-headline button.active::after, .account__section-headline a.active::after {
@@ -178,26 +187,22 @@ html {
   background: $purple2;
 }
 
-.column-link {
-  background: $purple3;
-}
-
 // link previews
 
 .status-card.compact {
-    border-color: darken($purple5, 8%);
-    background: $purple5;
+    border-color: darken($purple4, 8%);
+    background: $purple4;
 }
 
 .status-card__image {
-  background: $purple3;
+  background: $purple4;
 }
 
 .status-card__content {
-  background: $purple5;
+  background: $purple4;
 
   &:hover, &:focus {
-    background: darken($purple5, 4%);
+    background: darken($purple4, 4%);
   }
 }
 
@@ -205,9 +210,7 @@ html {
   color: $mint;
 }
 
-.react-toggle--checked .react-toggle-track, .react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background: $pink;
-}
+
 
 .react-toggle-track, .react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
   background: $purple2;
@@ -215,7 +218,6 @@ html {
 
 .column-header__collapsible-inner, .column-header__button.active, .column-header__button.active:hover, .column-header__button.active:focus {
   background: $purple3;
-  color: $purpleicon;
 }
 
 .column-inline-form, .column-back-button {
@@ -235,8 +237,8 @@ html {
 }
 
 .detailed-status__action-bar {
-  border-top: 1px solid lighten($purple3, 8%);
-  border-bottom: 1px solid lighten($purple3, 8%);
+  border-top: 1px solid lighten($purple4, 8%);
+  border-bottom: 1px solid lighten($purple4, 8%);
 }
 
 .focusable:focus {
@@ -283,11 +285,11 @@ a.mention, .notification__message .fa {
 }
 
 .poll__chart {
-  color: lighten($coral, 4%);
+  color: lighten($pink, 4%);
 }
 
 .poll__chart.leading {
-  color: $coral;
+  color: $pink;
 }
 
 .emoji-mart-bar:first-child {
@@ -308,7 +310,7 @@ a.mention, .notification__message .fa {
 // profile in deck view
 
 .account__header__bar {
-  background: $purple5;
+  background: $purple4;
 }
 
 .account__header__image {
@@ -340,11 +342,11 @@ a.mention, .notification__message .fa {
 // public profiles
 
 .public-layout .header {
-  background: $purple3;
+  background: $purple4;
 }
 
 .public-layout .header .brand:active, .public-layout .header .brand:focus, .public-layout .header .brand:hover {
-  background: darken($purple3, 4%);
+  background: darken($purple4, 4%);
 }
 
 .public-layout .public-account-header__bar .avatar img {
@@ -365,9 +367,9 @@ a.mention, .notification__message .fa {
 }
 
 .public-layout .header .nav-button {
-  background: darken($purple3, 4%);
+  background: darken($purple4, 4%);
   &:hover, &:focus {
-    background: darken($purple3, 8%);
+    background: darken($purple4, 8%);
   }
 }
 
@@ -380,7 +382,7 @@ a.mention, .notification__message .fa {
 }
 
 .public-layout .public-account-bio {
-  background: $purple3;
+  background: $purple4;
 }
 
 .hero-widget__text {
@@ -396,7 +398,7 @@ a.mention, .notification__message .fa {
 }
 
 .oauth-prompt strong, .follow-prompt strong {
-  color: $purple4;
+  color: $purpletext;
 }
 
 .simple_form input[type=text]:active, .simple_form input[type=text]:focus, .simple_form input[type=number]:active, .simple_form input[type=number]:focus, .simple_form input[type=email]:active, .simple_form input[type=email]:focus, .simple_form input[type=password]:active, .simple_form input[type=password]:focus, .simple_form textarea:active, .simple_form textarea:focus {
@@ -411,7 +413,12 @@ a.mention, .notification__message .fa {
 // admin zone
 
 .admin-wrapper .content h2 {
-  color: $purple4;
+  color: $purpletext;
+}
+
+
+.admin-wrapper .content {
+  background: $purple2;
 }
 
 .admin-wrapper .sidebar-wrapper {
@@ -458,20 +465,20 @@ a.mention, .notification__message .fa {
 }
 
 .table > tbody > tr:nth-child(odd) > td, .table > tbody > tr:nth-child(odd) > th {
-  background: $purple3;
+  background: $purple4;
 }
 
 // directory
 
 .accounts-table tbody td {
-  background: $purple3;
+  background: $purple4;
 }
 
 .page-header {
   background: $purpleborder;
 
   h1 {
-    color: $purple4;
+    color: $purpletext;
   }
 }
 
@@ -493,15 +500,15 @@ a.mention, .notification__message .fa {
 // about/more
 
 .landing-page__call-to-action {
-  background: $purple3;
+  background: $purple4;
 }
 
 .rich-formatting h3, .rich-formatting h4, .rich-formatting h2, .rich-formatting h1 {
-  color: lighten($purpleicon, 8%);
+  color: $purpletext;
 }
 
 .landing-page__information strong {
-  color: lighten($purpleicon, 10%);
+  color: $purpletext;
 }
 
 // about
@@ -511,19 +518,19 @@ a.mention, .notification__message .fa {
 }
 
 ::-webkit-input-placeholder { /* Edge */
-  color: $purpleicon;
+  color: $purpletext;
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: $purpleicon;
+  color: $purpletext;
 }
 
 ::placeholder {
-  color: $purpleicon;
+  color: $purpletext;
 }
 
 .landing .hero-widget__footer {
-  background: $purple3;
+  background: $purple2;
 }
 
 .status.status-direct:not(.read), .account {
