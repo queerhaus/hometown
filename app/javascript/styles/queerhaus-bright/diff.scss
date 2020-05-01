@@ -101,11 +101,6 @@ a.status-card.compact:hover  {
   margin-right: -1px;
 }
 
-.directory__card,
-.table-of-contents {
-  border: 1px solid lighten($ui-base-color, 8%);
-}
-
 .column-back-button,
 .column-header {
   background: $blue;
@@ -810,17 +805,23 @@ button.icon-button i.fa-retweet:hover {
   }
 
   .header {
-    background: $ui-base-color;
+    background: $blue;
 
-    @media screen and (max-width: $no-gap-breakpoint) {
-      border: 0;
+    .nav-button {
+      background: lighten($blue, 10%);
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: $pink;
+      }
     }
 
     .brand {
       &:hover,
       &:focus,
       &:active {
-        background: lighten($ui-base-color, 4%);
+        background: lighten($blue, 10%);
       }
     }
   }
