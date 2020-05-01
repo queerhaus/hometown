@@ -1243,6 +1243,8 @@ en:
     contrast: Mastodon (High contrast)
     default: Mastodon (Dark)
     mastodon-light: Mastodon (Light)
+    queerhaus-dark: queer.haus (Dark Purple)
+    queerhaus-bright: queer.haus (Bright Bubbles)
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

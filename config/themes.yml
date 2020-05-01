@@ -1,3 +1,5 @@
 default: styles/application.scss
 contrast: styles/contrast.scss
 mastodon-light: styles/mastodon-light.scss
+queerhaus-dark: styles/queerhaus-dark.scss
+queerhaus-bright: styles/queerhaus-bright.scss
