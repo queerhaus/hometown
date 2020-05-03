@@ -207,15 +207,6 @@ a.status-card.compact:hover  {
   }
 }
 
-.getting-started .navigation-bar {
-  border-top: 1px solid lighten($ui-base-color, 8%);
-  border-bottom: 1px solid lighten($ui-base-color, 8%);
-
-  @media screen and (max-width: $no-gap-breakpoint) {
-    border-top: 0;
-  }
-}
-
 .compose-form__autosuggest-wrapper,
 .poll__text input[type="text"],
 .compose-form .spoiler-input__input,
