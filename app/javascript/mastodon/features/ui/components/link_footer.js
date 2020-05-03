@@ -46,13 +46,6 @@ class LinkFooter extends React.PureComponent {
 
     return (
       <div className='getting-started__footer'>
-        <p>
-          <FormattedMessage
-            id='getting_started.queerhaus_notice'
-            defaultMessage='fluffy bunnies make us happy 🐰'
-          />
-        </p>
-
         <ul>
           <li><a href='/about/more' target='_blank'>About us</a> · </li>
           <li><a href='https://docs.joinmastodon.org' target='_blank'><FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' /></a> · </li>
@@ -62,7 +55,7 @@ class LinkFooter extends React.PureComponent {
         <p>
           <FormattedMessage
             id='getting_started.queerhaus_open_source_notice'
-            defaultMessage='we are open source at {github}'
+            defaultMessage='we are open source {github}'
             values={{ github: <span><a href='https://github.com/queerhaus/hometown' rel='noopener' target='_blank'>queerhaus/hometown</a></span> }}
           />
         </p>
