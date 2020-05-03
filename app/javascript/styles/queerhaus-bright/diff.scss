@@ -40,6 +40,29 @@ body.error  {
   background: none;
 }
 
+
+.account-role.admin {
+  background-color: $purple-dark;
+  color: $white;
+  border: 0;
+}
+.account-role.mod {
+  background-color: $purple;
+  color: $white;
+  border: 0;
+}
+
+.flash-message.notice {
+  color: $green-dark;
+  background-color: rgba($green-dark, 0.1);
+  border-color: $green-dark;
+}
+.flash-message.alert {
+  color: $pink;
+  background-color: rgba($pink-dark, 0.1);
+  border-color: $pink;
+}
+
 // Change the colors of button texts
 .button {
   color: $white;
@@ -800,13 +823,6 @@ button.icon-button i.fa-retweet:hover {
 }
 
 .public-layout {
-  .account__section-headline {
-    border: 1px solid lighten($ui-base-color, 8%);
-
-    @media screen and (max-width: $no-gap-breakpoint) {
-      border-top: 0;
-    }
-  }
 
   .header,
   .public-account-header,
@@ -815,7 +831,8 @@ button.icon-button i.fa-retweet:hover {
   }
 
   .public-account-bio,
-  .hero-widget__text {
+  .hero-widget__text,
+  .hero-widget__img {
     background: $account-background-color;
   }
 
