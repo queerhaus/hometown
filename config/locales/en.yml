@@ -191,7 +191,7 @@ en:
       username: Username
       warn: Warn
       web: Web
-      whitelisted: Whitelisted
+      whitelisted: allowlisted
     action_logs:
       actions:
         assigned_to_self_report: "%{name} assigned report %{target} to themselves"
@@ -200,15 +200,15 @@ en:
         create_account_warning: "%{name} sent a warning to %{target}"
         create_announcement: "%{name} created new announcement %{target}"
         create_custom_emoji: "%{name} uploaded new emoji %{target}"
-        create_domain_allow: "%{name} whitelisted domain %{target}"
+        create_domain_allow: "%{name} allowlisted domain %{target}"
         create_domain_block: "%{name} blocked domain %{target}"
         create_email_domain_block: "%{name} blacklisted e-mail domain %{target}"
         demote_user: "%{name} demoted user %{target}"
         destroy_announcement: "%{name} deleted announcement %{target}"
         destroy_custom_emoji: "%{name} destroyed emoji %{target}"
-        destroy_domain_allow: "%{name} removed domain %{target} from whitelist"
+        destroy_domain_allow: "%{name} removed domain %{target} from allowlist"
         destroy_domain_block: "%{name} unblocked domain %{target}"
-        destroy_email_domain_block: "%{name} whitelisted e-mail domain %{target}"
+        destroy_email_domain_block: "%{name} allowlisted e-mail domain %{target}"
         destroy_status: "%{name} removed status by %{target}"
         disable_2fa_user: "%{name} disabled two factor requirement for user %{target}"
         disable_custom_emoji: "%{name} disabled emoji %{target}"
@@ -305,12 +305,12 @@ en:
       week_interactions: interactions this week
       week_users_active: active this week
       week_users_new: users this week
-      whitelist_mode: Whitelist mode
+      whitelist_mode: allowlist mode
     domain_allows:
-      add_new: Whitelist domain
-      created_msg: Domain has been successfully whitelisted
-      destroyed_msg: Domain has been removed from the whitelist
-      undo: Remove from whitelist
+      add_new: Add domain to allowlist
+      created_msg: Domain has been successfully added to allowlist
+      destroyed_msg: Domain has been removed from the allowlist
+      undo: Remove from allowlist
     domain_blocks:
       add_new: Add new domain block
       created_msg: Domain block is now being processed
@@ -405,7 +405,7 @@ en:
       pending: Waiting for relay's approval
       save_and_enable: Save and enable
       setup: Setup a relay connection
-      signatures_not_enabled: Relays will not work correctly while secure mode or whitelist mode is enabled
+      signatures_not_enabled: Relays will not work correctly while secure mode or allowlist mode is enabled
       status: Status
       title: Relays
     report_notes:
