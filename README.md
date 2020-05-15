@@ -84,6 +84,13 @@ You can open issues for bugs you've found or features you think are missing. You
 
 **IRC channel**: #mastodon on irc.freenode.net
 
+## Local development environment
+
+Mastodon comes with a preconfigured local environment using vagrant. You have to install Vagrant and Virtualbox on your machine for it to work.
+
+An admin account with the e-mail `admin@mastodon.local` and password `mastodonadmin` is created automatically during setup. Use that to login.
+
+
 ## License
 
 Copyright (C) 2016-2020 Eugen Rochko & other Mastodon contributors (see [AUTHORS.md](AUTHORS.md))
