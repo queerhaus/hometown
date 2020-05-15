@@ -86,6 +86,13 @@ Hometown uses [semantic versioning](https://semver.org) and follows a versioning
 
 Setting up your Hometown development environment is [exactly like setting up your Mastodon development environment](https://docs.joinmastodon.org/dev/overview/). Pull requests should be made to the `hometown-dev` branch, which is our default branch in Github.
 
+## Local development environment
+
+Mastodon comes with a preconfigured local environment using vagrant. You have to install Vagrant and Virtualbox on your machine for it to work.
+
+An admin account with the e-mail `admin@mastodon.local` and password `mastodonadmin` is created automatically during setup. Use that to login.
+
+
 ## License
 
 Copyright (C) 2016-2020 Eugen Rochko & other Mastodon contributors (see [AUTHORS.md](AUTHORS.md))
