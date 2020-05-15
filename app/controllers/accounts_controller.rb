@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
       format.rss do
         expires_in 1.minute, public: true
 
-        @statuses = filtered_statuses.without_reblogs.limit(PAGE_SIZE)
+        @statuses = filtered_statuses.without_local_only.without_reblogs.limit(PAGE_SIZE)
         @statuses = cache_collection(@statuses, Status)
         render xml: RSS::AccountSerializer.render(@account, @statuses, params[:tag])
       end
@@ -71,7 +71,11 @@ class AccountsController < ApplicationController
   end
 
   def default_statuses
-    @account.statuses.where(visibility: [:public, :unlisted])
+    if current_user.nil?
+      @account.statuses.without_local_only.where(visibility: [:public, :unlisted])
+    else
+      @account.statuses.where(visibility: [:public, :unlisted])
+    end
   end
 
   def only_media_scope
