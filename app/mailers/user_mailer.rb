@@ -19,7 +19,7 @@ class UserMailer < Devise::Mailer
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
       mail to: @resource.unconfirmed_email.presence || @resource.email,
-           subject: I18n.t(@resource.pending_reconfirmation? ? 'devise.mailer.reconfirmation_instructions.subject' : 'devise.mailer.confirmation_instructions.subject', instance: @instance),
+           subject: I18n.t(@resource.pending_reconfirmation? ? 'devise.mailer.reconfirmation_instructions.subject' : 'devise.mailer.confirmation_instructions.subject', instance: @instance, title: Setting.site_title),
            template_name: @resource.pending_reconfirmation? ? 'reconfirmation_instructions' : 'confirmation_instructions'
     end
   end
@@ -32,7 +32,7 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('devise.mailer.reset_password_instructions.subject')
+      mail to: @resource.email, subject: I18n.t('devise.mailer.reset_password_instructions.subject', title: Setting.site_title)
     end
   end
 
@@ -43,7 +43,7 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('devise.mailer.password_change.subject')
+      mail to: @resource.email, subject: I18n.t('devise.mailer.password_change.subject', title: Setting.site_title)
     end
   end
 
@@ -54,7 +54,7 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('devise.mailer.email_changed.subject')
+      mail to: @resource.email, subject: I18n.t('devise.mailer.email_changed.subject', title: Setting.site_title)
     end
   end
 
@@ -98,7 +98,7 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('user_mailer.welcome.subject')
+      mail to: @resource.email, subject: I18n.t('user_mailer.welcome.subject', title: Setting.site_title)
     end
   end
 
@@ -110,7 +110,7 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('user_mailer.backup_ready.subject')
+      mail to: @resource.email, subject: I18n.t('user_mailer.backup_ready.subject', title: Setting.site_title)
     end
   end
 
