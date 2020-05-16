@@ -107,7 +107,6 @@ export default class DetailedStatus extends ImmutablePureComponent {
     let media           = '';
     let applicationLink = '';
     let reblogLink = '';
-    let localOnly = '';
     let reblogIcon = 'retweet';
     let favouriteLink = '';
 
@@ -195,10 +194,6 @@ export default class DetailedStatus extends ImmutablePureComponent {
       );
     }
 
-    if(status.get('local_only')) {
-      localOnly = <span> · <i className='fa fa-chain-broken' title={intl.formatMessage(messages.local_only)} /></span>;
-    }
-
     if (this.context.router) {
       favouriteLink = (
         <Link to={`/statuses/${status.get('id')}/favourites`} className='detailed-status__link'>
@@ -219,6 +214,18 @@ export default class DetailedStatus extends ImmutablePureComponent {
       );
     }
 
+    // TODO not very pretty, but it works
+    let visibility = status.get('visibility');
+    let visibilityText = intl.formatMessage({ id: 'privacy.' + visibility + '.short', defaultMessage: visibility });
+    if (status.get('local_only')) {
+      let local_only_text = intl.formatMessage({ id: 'privacy.local_only.short', defaultMessage: 'Local-only' });
+      if (visibility === 'public') {
+        visibilityText = local_only_text;
+      } else {
+        visibilityText += ` (${local_only_text})`;
+      }
+    }
+
     return (
       <div style={outerStyle}>
         <div ref={this.setRef} className={classNames('detailed-status', { compact })}>
@@ -234,7 +241,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
           <div className='detailed-status__meta'>
             <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
               <FormattedDate value={new Date(status.get('created_at'))} hour12={false} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
-            </a>{applicationLink} · {reblogLink} · {favouriteLink}{localOnly}
+            </a> · <span>{visibilityText}</span>{applicationLink} · {reblogLink} · {favouriteLink}
           </div>
         </div>
       </div>

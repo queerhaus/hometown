@@ -1126,10 +1126,15 @@
 }
 
 .status__relative-time,
-.notification__relative_time {
+.notification__relative_time,
+.status__visibility {
   color: $dark-text-color;
   float: right;
   font-size: 14px;
+}
+
+.status__visibility {
+  padding-right: 15px;
 }
 
 .status__display-name {
