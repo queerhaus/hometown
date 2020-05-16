@@ -2,7 +2,7 @@
 
 class REST::StatusSerializer < ActiveModel::Serializer
   attributes :id, :created_at, :in_reply_to_id, :in_reply_to_account_id,
-             :sensitive, :spoiler_text, :visibility, :language,
+             :sensitive, :spoiler_text, :visibility, :local_only, :language,
              :uri, :url, :replies_count, :reblogs_count,
              :favourites_count, :local_only
 
@@ -56,6 +56,10 @@ class REST::StatusSerializer < ActiveModel::Serializer
     else
       object.visibility
     end
+  end
+
+  def local_only
+    object.local_only
   end
 
   def uri
