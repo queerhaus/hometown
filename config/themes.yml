@@ -3,3 +3,5 @@ contrast: styles/contrast.scss
 mastodon-light: styles/mastodon-light.scss
 macaron: styles/macaron.scss
 fairy-floss: styles/fairy-floss.scss
+queerhaus-dark: styles/queerhaus-dark.scss
+queerhaus-bright: styles/queerhaus-bright.scss

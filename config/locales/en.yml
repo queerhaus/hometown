@@ -1338,6 +1338,8 @@ en:
     mastodon-light: Mastodon (Light)
     macaron: Macaron (Pastel light)
     fairy-floss: Fairy Floss (Pastel dark)
+    queerhaus-dark: queer.haus (Dark Purple)
+    queerhaus-bright: queer.haus (Bright Bubbles)
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
