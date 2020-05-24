@@ -990,6 +990,8 @@ en:
       '43200': 12 hours
       '604800': 1 week
       '86400': 1 day
+      '1209600': 2 weeks
+      '2419200': 4 weeks
     expires_in_prompt: Never
     generate: Generate invite link
     invited_by: 'You were invited by:'
