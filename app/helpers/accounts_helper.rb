@@ -99,10 +99,10 @@ module AccountsHelper
   end
 
   def svg_logo
-    content_tag(:svg, tag(:use, 'xlink:href' => '#mastodon-svg-logo'), 'viewBox' => '0 0 216.4144 232.00976')
+    content_tag(:svg, tag(:use, 'xlink:href' => '#fediverse'), 'viewBox' => '0 0 742.753 742.753')
   end
 
-  def svg_logo_full
-    content_tag(:svg, tag(:use, 'xlink:href' => '#mastodon-svg-logo-full'), 'viewBox' => '0 0 713.35878 175.8678')
+  def svg_logo_color
+    content_tag(:svg, tag(:use, 'xlink:href' => '#fediverse-color'), 'viewBox' => '0 0 742.753 742.753')
   end
 end
