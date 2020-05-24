@@ -87,7 +87,7 @@ class PostStatusService < BaseService
     end
   end
 
-  def local_only_option(local_only, in_reply_to, federation_setting)
+  def local_only_option(local_only, in_reply_to, force_local_only)
     if local_only.nil?
       if in_reply_to && in_reply_to.local_only
         return true
@@ -95,7 +95,7 @@ class PostStatusService < BaseService
       if in_reply_to && !in_reply_to.local_only
         return false
       end
-      return !federation_setting
+      return force_local_only
     end
     local_only
   end
@@ -178,7 +178,7 @@ class PostStatusService < BaseService
       visibility: @visibility,
       language: language_from_option(@options[:language]) || @account.user&.setting_default_language&.presence || LanguageDetector.instance.detect(@text, @account),
       application: @options[:application],
-      local_only: local_only_option(@options[:local_only], @in_reply_to, @account.user&.setting_default_federation),
+      local_only: local_only_option(@options[:local_only], @in_reply_to, @account.user&.setting_force_local_only),
       rate_limit: @options[:with_rate_limit],
     }.compact
   end
