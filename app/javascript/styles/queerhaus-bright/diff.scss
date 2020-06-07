@@ -140,6 +140,7 @@ a.status-card.compact:hover  {
 .column-header {
   background: $blue;
   border-radius: 25px;
+  margin: 0 3px;
 
   @media screen and (max-width: $no-gap-breakpoint) {
     border-top: 0;
@@ -1100,4 +1101,8 @@ button.icon-button i.fa-retweet:hover {
 .status__content a.unhandled-link,
 .reply-indicator__content a.unhandled-link {
   color: $ui-highlight-color;
+}
+
+.columns-area--mobile {
+  margin: 0 3px;
 }
