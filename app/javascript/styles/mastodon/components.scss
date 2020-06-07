@@ -1135,6 +1135,12 @@
 
 .status__visibility {
   padding-right: 15px;
+
+  @media screen and (max-width: 400px) {
+    /* could not figure out how to make this gracefully hide based on space,
+       so just hiding it on small screens where it will break the status layout */
+    display: none;
+  }
 }
 
 .status__display-name {
