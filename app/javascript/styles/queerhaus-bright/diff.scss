@@ -1122,3 +1122,27 @@ button.icon-button i.fa-retweet:hover {
 .columns-area--mobile {
   margin: 0 3px;
 }
+
+
+.search-page .drawer__inner.darker {
+  background: none;
+}
+.search-results__header {
+  background: $green;
+  border-radius: 25px;
+}
+.search-results__section h5 {
+  background: none;
+  border: 0;
+  color: $purple-darker;
+}
+.search-results__section .status,
+.search-results__section .account,
+.search-results__section .trends__item {
+  background: $white;
+  border-radius: 25px;
+  margin-bottom: 10px;
+}
+.search-results__section .account {
+  background: $blue;
+}
