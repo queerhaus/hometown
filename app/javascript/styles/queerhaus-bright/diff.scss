@@ -938,8 +938,14 @@ button.icon-button i.fa-retweet:hover {
     ul a {
       color: $purple-dark;
     }
-    .grid .column-2 h4 a {
-      color: $black;
+    .grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .grid .column-1 {
+      text-align: center;
+    }
+    .grid .column-2 {
+      text-align: right;
     }
   }
 
