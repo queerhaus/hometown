@@ -15,6 +15,7 @@ import { shortNumberFormat } from 'mastodon/utils/numbers';
 import { followAccount, unfollowAccount, blockAccount, unblockAccount, unmuteAccount } from 'mastodon/actions/accounts';
 import { openModal } from 'mastodon/actions/modal';
 import { initMuteModal } from 'mastodon/actions/mutes';
+import classNames from 'classnames';
 
 const messages = defineMessages({
   follow: { id: 'account.follow', defaultMessage: 'Follow' },
@@ -159,7 +160,7 @@ class AccountCard extends ImmutablePureComponent {
     }
 
     return (
-      <div className='directory__card'>
+      <div className={classNames('directory__card', account.get('acct').indexOf('@') === -1 ? 'card-local' : '')}>
         <div className='directory__card__img'>
           <img src={autoPlayGif ? account.get('header') : account.get('header_static')} alt='' />
         </div>
