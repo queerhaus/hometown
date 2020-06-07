@@ -109,7 +109,6 @@ a.status-card.compact:hover  {
 }
 
 .directory__card__img {
-  background: $blue;
   border-radius: 25px 25px 0 0;
 }
 
@@ -121,13 +120,26 @@ a.status-card.compact:hover  {
   border: 0;
 }
 
+.directory__card__img,
+.directory__card__extra {
+  background: $white;
+}
 .directory__card__bar {
+  background: $ui-base-color;
+}
+
+.card-local .directory__card__extra,
+.card-local .directory__card__img {
+  background: $blue;
+}
+.card-local .directory__card__bar {
   background: $blue-dark;
 }
 
 .filter-form {
   margin: 0 25px;
   background: $blue-dark;
+  border-radius: 0 0 25px 25px;
 }
 
 .scrollable .directory__list {
@@ -996,8 +1008,7 @@ button.icon-button i.fa-retweet:hover {
   border-radius: 25px;
 }
 
-.account__header__bar,
-.directory__card__extra {
+.account__header__bar {
   background: $blue;
   border: 0;
 }
