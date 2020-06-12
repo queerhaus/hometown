@@ -388,6 +388,15 @@ a.status-card.compact:hover  {
   padding: 15px;
   margin-top: 10px;
 }
+.status__content .status__content__text {
+  max-height: 20px * 15; // 15 lines is roughly above 500 characters
+  overflow: hidden;
+}
+.status__content__read-more-button {
+  color: $purple-dark;
+  margin-left: 15px;
+}
+
 .columns-area--mobile .status__content {
   padding: 15px;
 }
