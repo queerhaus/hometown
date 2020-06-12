@@ -111,7 +111,7 @@ a.status-card.compact:hover  {
 .directory__card {
   border-radius: 25px;
   background: $white;
-  box-shadow: inset 0 0 25px -10px $ui-base-color;
+  box-shadow: inset 0 0 25px -10px $ui-base-lighter-color;
 }
 .directory__card.card-local {
   box-shadow: inset 0 0 25px -10px $purple;
@@ -1056,13 +1056,17 @@ button.icon-button i.fa-retweet:hover {
 
 .account-timeline__header {
   margin-top: 10px;
-  background: $blue-dark;
+  background: $white;
   border-radius: 25px;
+  box-shadow: inset 0 0 25px -10px $ui-base-lighter-color;
+}
+.account-timeline__header.account-local {
+  box-shadow: inset 0 0 25px -10px $purple;
 }
 
 .account__header__bar {
-  background: $blue;
   border: 0;
+  background: none;
 }
 
 .account__header__tabs__buttons .icon-button {
@@ -1076,14 +1080,17 @@ button.icon-button i.fa-retweet:hover {
 }
 
 .account__header__bio .account__header__fields {
+  margin: 0 15px;
   border: 0;
+  background: $ui-base-color;
+  border-radius: 25px;
 }
-.account__header__fields {
-  border: 0;
-  background: $blue-dark;
+.account-local .account__header__bio .account__header__fields {
+  background: $purple-light;
 }
+
 .account__header__fields dl {
-  border-color: $blue;
+  border-color: $white;
 }
 
 .account__header__image {
