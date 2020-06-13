@@ -383,7 +383,8 @@ a.status-card.compact:hover  {
   background: none;
 }
 
-.status__content {
+.status .status__content,
+.detailed-status .status__content {
   background: $white;
   box-shadow: inset 0 0 25px -10px $purple;
   border-radius: 25px;
