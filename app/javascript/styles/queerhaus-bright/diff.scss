@@ -6,11 +6,14 @@ html {
   min-height: 100%;
 }
 
-body,
-body.lighter,
-body.error  {
-  min-height: 100%;
-  background: $pink;
+.body-background {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: $blue-light;
   background: linear-gradient(125deg,
     darken($yellow, 5%) 0%,
     darken($purple, 5%) 25%,
@@ -18,9 +21,9 @@ body.error  {
     darken($purple, 5%) 75%,
     darken($yellow, 5%) 100%
   );
+  background-size: 100%;
   background-attachment: fixed;
 }
-
 
 .account {
   border: none;
@@ -1095,9 +1098,7 @@ button.icon-button i.fa-retweet:hover {
 }
 
 .account__header__image {
-  background: none;
-}
-.account__header__image img {
+  background: $purple-light;
   border-radius: 25px 25px 0 0;
 }
 
