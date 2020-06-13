@@ -23,6 +23,10 @@ html {
   );
 }
 
+body.admin .body-background {
+  display: none;
+}
+
 .account {
   border: none;
 }
