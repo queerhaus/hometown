@@ -4,9 +4,9 @@
   - if current_user&.staff?
     .fields-row
       .fields-row__column.fields-row__column-6.fields-group
-        = f.input :max_uses, wrapper: :with_label, collection: [1, 5, 10, 20, 50, 100, 200, 500], label_method: lambda { |num| I18n.t('invites.max_uses', count: num) }, prompt: I18n.t('invites.max_uses_prompt'), selected: 1
+        = f.input :max_uses, wrapper: :with_label, collection: [1, 5, 10, 20, 50, 100, 200, 500], label_method: lambda { |num| I18n.t('invites.max_uses', count: num) }, prompt: I18n.t('invites.max_uses_prompt')
       .fields-row__column.fields-row__column-6.fields-group
-        = f.input :expires_in, wrapper: :with_label, collection: [1.day, 1.week, 2.week, 4.week].map(&:to_i), label_method: lambda { |i| I18n.t("invites.expires_in.#{i}") }, prompt: I18n.t('invites.expires_in_prompt'), selected: 1.week
+        = f.input :expires_in, wrapper: :with_label, collection: [1.day, 1.week, 2.week, 4.week].map(&:to_i), label_method: lambda { |i| I18n.t("invites.expires_in.#{i}") }, prompt: I18n.t('invites.expires_in_prompt')
   - else
     .fields-row
       .fields-row__column.fields-row__column-6.fields-group
