@@ -19,7 +19,6 @@ jobs:
     name: Prepare Docker Image
     runs-on: ubuntu-18.04
     steps:
-      -   uses: rlespinasse/github-slug-action@881085b #v1.1.0
       -   uses: actions/checkout@v1
 
       -   name: Build docker image using previous image as cache
@@ -28,8 +27,6 @@ jobs:
             docker pull $DOCKER_IMAGE_BUILD:latest || true
             docker build --cache-from $DOCKER_IMAGE_BUILD:latest --target build-dep --tag $DOCKER_IMAGE_BUILD:latest .
             docker push $DOCKER_IMAGE_BUILD:latest
-            docker pull $DOCKER_IMAGE:latest || true
-            docker build --cache-from $DOCKER_IMAGE_BUILD:latest --cache-from $DOCKER_IMAGE:latest --tag $DOCKER_IMAGE:latest .
-            docker push $DOCKER_IMAGE:latest
-            docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:$GITHUB_REF_SLUG
-            docker push $DOCKER_IMAGE:$GITHUB_REF_SLUG
+            docker pull $DOCKER_IMAGE:master || true
+            docker build --cache-from $DOCKER_IMAGE_BUILD:latest --cache-from $DOCKER_IMAGE:master --tag $DOCKER_IMAGE:master .
+            docker push $DOCKER_IMAGE:master
