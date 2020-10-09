@@ -72,7 +72,8 @@
               %p= t('about.unavailable_content_description.suspended')
               = render partial: 'domain_blocks', locals: { domain_blocks: blocks }
 
-          %h2#allowlist= 'Allowlist'
+          %h2#allowlist= 'Our allowlist'
+          %p= 'We federate only with these other instances in the fediverse. See our reasoning for this above.'
           %ul{ style: 'columns: 3 200px' }
             - @allows.each do |site|
               %li
