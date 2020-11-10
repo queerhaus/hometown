@@ -1,0 +1,49 @@
+// Dependent colors
+$black: #000000;
+$white: #ffffff;
+$transparent: transparent;
+
+$pink: #c144d5;
+$purple: #bd7fff;
+$blue: #9ea4ee;
+$turquoise: #7bc6d9;
+// $pink-light: hsl(292, 100%, 86%);
+
+$classic-base-color: #282c37;
+$classic-primary-color: $pink;
+$classic-highlight-color: #721d80;
+$classic-secondary-color: $purple;
+$classic-alternative-color: $blue;
+
+// Differences
+$success-green: lighten(#3c754d, 8%);
+
+$base-overlay-background: $white !default;
+$valid-value-color: $success-green !default;
+
+$ui-base-color: $classic-secondary-color !default;
+$ui-base-lighter-color: #b0c0cf;
+$ui-primary-color: $classic-primary-color;
+$ui-secondary-color: darken($classic-highlight-color, 60%) !default;
+$ui-highlight-color: $classic-primary-color;
+
+$primary-text-color: $black !default;
+$darker-text-color: darken($classic-highlight-color, 60%) !default;
+$highlight-text-color: $classic-highlight-color;
+$link-text-color: $classic-highlight-color;
+$dark-text-color: #444b5d;
+$action-button-color: #606984;
+
+$inverted-text-color: $black !default;
+$lighter-text-color: $classic-base-color !default;
+$light-text-color: #444b5d;
+
+// Newly added variables
+$account-background-color: $white !default;
+
+$border-radius-light: 4px;
+$card-background: rgba($white, 0.2);
+$card-background-action: rgba($white, 0.75);
+$card-box-shadow: inset 0 0 150px 5px rgba($white, 0.3);
+
+$post-spacer: 0.75rem;
