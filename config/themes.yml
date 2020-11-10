@@ -5,3 +5,4 @@ macaron: styles/macaron.scss
 fairy-floss: styles/fairy-floss.scss
 queerhaus-dark: styles/queerhaus-dark.scss
 queerhaus-bright: styles/queerhaus-bright.scss
+queerhaus-light: styles/queerhaus-light.scss
