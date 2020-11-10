@@ -1268,6 +1268,7 @@ en:
     fairy-floss: Fairy Floss (Pastel dark)
     queerhaus-dark: queer.haus (Dark Purple)
     queerhaus-bright: queer.haus (Bright Bubbles)
+    queerhaus-light: queer.haus (Light)
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
