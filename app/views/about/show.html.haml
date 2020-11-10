@@ -7,9 +7,10 @@
 
 .landing
   .landing__brand
+    = image_tag '/qh-logo.png', class: 'qh-landing-logo'
     %h1
       = link_to root_url, class: 'brand' do
-        = site_title
+        = site_title    
 
   .landing__grid
     .landing__grid__column.landing__grid__column-registration
