@@ -1,0 +1,63 @@
+// Dependent colors
+$black: #000000;
+$white: #ffffff;
+$transparent: transparent;
+
+$pink: #bd3bc4;
+$purple: #bd7fff;
+$purple-acid: #b042ff;
+$blue: #9ea4ee;
+$turquoise: #95e8c3;
+$yellow: #e5b90b;
+// $pink-gradient: #c572ba;
+// $turquoise: #7bc6d9;
+
+$classic-highlight-color: #761985;
+$classic-base-color: darken($classic-highlight-color, 20%);
+$classic-primary-color: $pink;
+$classic-secondary-color: $purple;
+$classic-alternative-color: $blue;
+
+// Differences
+$gold-star: $yellow;
+$red-bookmark: #fb6a6a;
+$success-green: #2c6d41;
+
+$base-overlay-background: $white !default;
+$valid-value-color: $success-green !default;
+
+$ui-base-color: $classic-secondary-color !default;
+$ui-base-tab-color: lighten($ui-base-color, 6%);
+$ui-active-tab-color: lighten($ui-base-color, 10%);
+$ui-primary-color: $classic-primary-color;
+$ui-secondary-color: darken($classic-highlight-color, 20%) !default;
+$ui-highlight-color: $classic-primary-color;
+$ui-link-color: #8f31ed;
+// $ui-link-color: #852ac6;
+$ui-base-border: 1px solid $purple-acid;
+$ui-light-border: 1px solid $ui-base-tab-color;
+$ui-background-light: #f8f6fe;
+
+$primary-text-color: $black !default;
+$darker-text-color: darken($classic-highlight-color, 20%) !default;
+$highlight-text-color: $classic-highlight-color;
+$dark-text-color: #444b5d;
+$action-button-color: #5c657f;
+$action-button-active-color: #9e51ec; // derived from link color
+// $action-button-active-color: #6cc6d5; // turquoise variant
+
+$inverted-text-color: $black !default;
+$lighter-text-color: $classic-base-color !default;
+$light-text-color: #444b5d;
+
+$border-radius-light: 8px;
+$border-radius-light-s: 6px;
+$border-radius-light-xs: 4px;
+$card-background: rgba($white, 0.3);
+$card-background-action: rgba($white, 0.75);
+$card-background-action-light: rgba($white, 0.5);
+$card-box-shadow: inset 0 0 150px 5px rgba($white, 0.3);
+$account-background-color: rgba($white, 0.6) !default;
+$dropdown-background: $ui-background-light;
+
+$post-spacer: 0.5rem;

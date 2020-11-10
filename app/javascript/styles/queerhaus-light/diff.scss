@@ -1,0 +1,1638 @@
+// Notes!
+// Sass color functions, "darken" and "lighten" are automatically replaced.
+
+html {
+  scrollbar-color: $ui-base-color rgba($ui-base-color, 0.25);
+}
+
+.body-background {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba($ui-base-color, 0.5);
+  background: linear-gradient(
+    165deg,
+    lighten($purple, 1%) 0%,
+    lighten($blue, 1%) 40%,
+    lighten($turquoise, 1%) 100%
+  );
+}
+
+body {
+  background: rgba($ui-base-color, 0.5);
+}
+
+body.admin .body-background {
+  display: none;
+}
+
+.admin-wrapper {
+  .content-wrapper {
+    background: lighten($ui-base-color, 8%);
+  }
+
+  .sidebar-wrapper.sidebar-wrapper--empty {
+    background: lighten($ui-base-color, 8%);
+  }
+
+  .sidebar-wrapper__inner {
+    background: darken($ui-base-color, 4%);
+  }
+
+  .sidebar ul {
+    ul {
+      background: lighten($ui-base-color, 4%);
+    }
+
+    a {
+      &:hover {
+        background: rgba($white, 0.1);
+      }
+
+      &.selected {
+        background: $ui-base-color;
+      }
+    }
+
+    .simple-navigation-active-leaf a {
+      background: lighten($ui-base-color, 8%);
+      color: $darker-text-color;
+
+      &:hover {
+        background-color: rgba($white, 0.1);
+      }
+    }
+  }
+}
+
+// Change the colors of button texts
+.button {
+  color: $white;
+  border-radius: $border-radius-light;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: darken($ui-primary-color, 4%);
+  }
+
+  &.button-alternative-2 {
+    color: $white;
+  }
+}
+
+button[type="button"] {
+  border-radius: $border-radius-light;
+}
+
+.status-card {
+  border-radius: $border-radius-light;
+}
+
+a.status-card {
+  border: none;
+  background-color: $card-background;
+
+  &:hover {
+    background-color: rgba($white, 0.5);
+  }
+
+  &.compact {
+    border: none;
+    background-color: $card-background;
+
+    &:hover {
+      background-color: rgba($white, 0.5);
+    }
+  }
+}
+
+.status-card__image {
+  background: lighten($classic-alternative-color, 5%);
+}
+
+.status-card__content {
+  background-color: $card-background-action-light;
+}
+
+.status-card__actions button,
+.status-card__actions a {
+  color: rgba($white, 0.8);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $white;
+  }
+}
+
+// Change default background colors of columns
+.column > .scrollable,
+.getting-started,
+.column-inline-form,
+.error-column,
+.regeneration-indicator {
+  background: none;
+  border: none;
+  border-top: 0;
+}
+
+.directory__card__img {
+  background: darken($ui-base-color, 12%);
+}
+
+.filter-form,
+.directory__card__bar {
+  background: $ui-active-tab-color;
+  border-radius: $border-radius-light;
+  border: $ui-base-border;
+  border-top: 0;
+}
+
+.card__img {
+  background: darken($ui-base-color, 8%);
+  border-radius: $border-radius-light $border-radius-light 0 0;
+}
+
+.card.h-card {
+  .card__img img {
+    border-radius: $border-radius-light $border-radius-light 0 0;
+  }
+  .card__bar {
+    border-radius: 0 0 $border-radius-light $border-radius-light;
+    background: $account-background-color;
+  }
+
+  &:hover {
+    background: transparent;
+    .card__bar {
+      background: $card-background-action;
+    }
+  }
+}
+
+.scrollable .directory__list {
+  width: calc(100% + 2px);
+  margin-left: -1px;
+  margin-right: -1px;
+}
+
+.directory__card,
+.table-of-contents {
+  border: $ui-base-border;
+}
+
+// Profile directory cards
+
+.scrollable {
+  .directory__list {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.directory__list {
+  .directory__card {
+    &.card-local {
+      border-radius: $border-radius-light;
+      border: 0;
+
+      .directory__card__img {
+        border-radius: $border-radius-light $border-radius-light 0 0;
+      }
+
+      .directory__card__bar {
+        background: $account-background-color;
+        border-radius: 0;
+        border-left: $ui-base-border !important;
+        border-right: $ui-base-border !important;
+        border-bottom: 0 !important;
+      }
+
+      .directory__card__extra {
+        background: $account-background-color;
+        border-left: $ui-base-border;
+        border-right: $ui-base-border;
+
+        .account__header__content {
+          border: 0;
+        }
+
+        &:last-child {
+          background: $ui-active-tab-color;
+          border-radius: 0 0 $border-radius-light $border-radius-light;
+          border-top: $ui-base-border;
+          border-bottom: $ui-base-border;
+        }
+      }
+    }
+  }
+}
+
+.column-back-button,
+.column-header {
+  color: $darker-text-color;
+  background: lighten($ui-base-color, 4%);
+  border: $ui-base-border;
+  border-radius: $border-radius-light;
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-top: 0;
+    border-radius: 0;
+  }
+
+  &--slim-button {
+    top: -50px;
+    right: 0;
+  }
+}
+
+.column-header__back-button,
+.column-header__button,
+.column-header__button.active,
+.account__header__bar,
+.directory__card__extra {
+  background-color: transparent;
+}
+
+.column-header__button.active {
+  color: $highlight-text-color;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $highlight-text-color;
+    background-color: transparent;
+  }
+}
+
+.column-header {
+  & > .column-header__back-button {
+    color: $highlight-text-color;
+  }
+}
+
+.account__header {
+  background: $account-background-color;
+  box-shadow: $card-box-shadow;
+  border-bottom: 0;
+  border-radius: $border-radius-light $border-radius-light 0 0;
+  margin-top: $post-spacer;
+}
+
+.account__header__bar {
+  border: $ui-base-border;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.account__section-headline {
+  background: $ui-base-tab-color;
+  border: $ui-base-border;
+  border-radius: 0 0 $border-radius-light $border-radius-light;
+
+  a.active {
+    background: $ui-active-tab-color;
+    border-left: $ui-base-border;
+    border-right: $ui-base-border;
+    border-radius: 0 0 $border-radius-light $border-radius-light;
+
+    &:first-child {
+      border-left: 0;
+    }
+    &:last-child {
+      border-right: 0;
+    }
+
+    &::before {
+      content: none;
+    }
+    &::after {
+      content: none;
+    }
+  }
+}
+
+.account__header__bar .avatar .account__avatar {
+  border-color: $ui-background-light;
+}
+
+.getting-started__footer a {
+  color: $ui-secondary-color;
+  text-decoration: underline;
+}
+
+.confirmation-modal__secondary-button,
+.confirmation-modal__cancel-button,
+.mute-modal__cancel-button,
+.block-modal__cancel-button {
+  color: $darker-text-color;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $primary-text-color;
+  }
+}
+
+.column-subheading {
+  background: lighten($ui-base-color, 4%);
+  border-bottom: $ui-base-border;
+}
+
+.getting-started,
+.scrollable {
+  .column-link {
+    background: $transparent;
+    border-bottom: $ui-base-border;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: $ui-base-color;
+    }
+  }
+}
+
+.column-link--transparent {
+  color: $darker-text-color;
+
+  &.active {
+    color: $highlight-text-color;
+  }
+}
+
+.getting-started__wrapper {
+  background: $account-background-color;
+  border: $ui-base-border;
+  border-radius: $border-radius-light;
+  height: unset !important;
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-top: 0;
+    border-radius: 0;
+  }
+}
+
+.getting-started {
+  .navigation-bar {
+    // border-top: $ui-base-border;
+    border-bottom: $ui-base-border;
+
+    @media screen and (max-width: $no-gap-breakpoint) {
+      border-top: 0;
+    }
+  }
+
+  .column-link:last-child {
+    border-bottom: 0;
+    border-radius: 0 0 $border-radius-light $border-radius-light;
+  }
+}
+
+.navigation-panel {
+  hr {
+    border-top: 1px solid $blue;
+  }
+}
+.compose-form__autosuggest-wrapper,
+.poll__option input[type="text"],
+.compose-form .spoiler-input__input,
+.compose-form__poll-wrapper select,
+.search__input,
+.setting-text,
+.box-widget input[type="text"],
+.box-widget input[type="email"],
+.box-widget input[type="password"],
+.box-widget textarea,
+.statuses-grid .detailed-status,
+.audio-player {
+  border: $ui-base-border;
+  border-radius: $border-radius-light;
+}
+
+.setting-text {
+  background: $card-background-action;
+}
+
+.box-widget input[type="text"],
+.box-widget input[type="email"],
+.box-widget input[type="password"],
+.box-widget textarea,
+.poll__option input[type="text"],
+.compose-form__poll-wrapper select {
+  background: transparent;
+}
+
+.compose-form .spoiler-input__input {
+  border: none;
+  background: $card-background-action;
+}
+
+.search__input {
+  background: $card-background;
+  box-shadow: $card-box-shadow;
+  color: darken($highlight-text-color, 4%);
+
+  &:focus {
+    background: $card-background-action-light;
+  }
+
+  &::placeholder {
+    color: rgba($highlight-text-color, 0.75);
+  }
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-top: 0;
+    border-bottom: 0;
+  }
+}
+
+.search__icon {
+  .fa {
+    color: rgba($highlight-text-color, 0.3);
+  }
+
+  .fa.active {
+    opacity: 1;
+  }
+
+  .fa-times-circle {
+    &:hover {
+      color: rgba($highlight-text-color, 0.3);
+    }
+  }
+}
+
+.list-editor .search .search__input {
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.compose-form__poll-wrapper select {
+  background: transparent
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='#{hex-color(darken($ui-base-color, 8%))}'/></svg>")
+    no-repeat right 8px center / auto 16px;
+}
+
+.compose-form__poll-wrapper,
+.compose-form__poll-wrapper .poll__footer {
+  border-top-color: darken($ui-base-color, 8%);
+}
+
+.notification__filter-bar {
+  margin-top: $post-spacer;
+  background: $ui-base-tab-color;
+  border: $ui-base-border;
+  border-radius: $border-radius-light;
+
+  button {
+    border-radius: $border-radius-light;
+    background: $ui-base-tab-color;
+
+    &.active {
+      background: lighten($ui-base-color, 2%);
+
+      &:before {
+        content: none;
+      }
+      &:after {
+        content: none;
+      }
+
+      &:first-child {
+        border-left: 0;
+        border-right: $ui-base-border;
+        border-radius: $border-radius-light 0 $border-radius-light
+          $border-radius-light;
+      }
+      &:last-child {
+        border-right: 0;
+        border-left: $ui-base-border;
+        border-radius: 0 $border-radius-light $border-radius-light
+          $border-radius-light;
+      }
+    }
+  }
+}
+
+.compose-form .compose-form__buttons-wrapper {
+  background: $ui-base-tab-color;
+  border: $ui-base-border;
+  // border-top: 0;
+  border-radius: 0 0 $border-radius-light $border-radius-light;
+}
+
+.drawer__header,
+.drawer__inner {
+  background: transparent;
+  border: none;
+}
+
+.drawer__inner__mastodon {
+  background: transparent;
+
+  img {
+    max-width: 80px;
+  }
+}
+
+button.icon-button {
+  border-radius: $border-radius-light;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $card-background;
+  }
+
+  &.bookmark-icon.active {
+    color: $red-bookmark;
+  }
+}
+
+button.icon-button.start-icon.active {
+  color: $gold-star !important;
+}
+
+.account__header__tabs__buttons .icon-button {
+  border-radius: $border-radius-light;
+  background: $card-background;
+  &:hover {
+    background: $card-background-action;
+  }
+}
+
+// Change the colors used in compose-form
+.compose-form {
+  .compose-form__modifiers {
+    background-color: transparent;
+
+    .compose-form__upload__actions .icon-button {
+      color: darken($white, 7%);
+
+      &:active,
+      &:focus,
+      &:hover {
+        color: $white;
+      }
+    }
+
+    .compose-form__upload-description input {
+      color: darken($white, 7%);
+
+      &::placeholder {
+        color: darken($white, 7%);
+      }
+    }
+  }
+
+  .autosuggest-textarea__textarea {
+    background: transparent;
+  }
+
+  .autosuggest-textarea__suggestions {
+    background: $ui-base-tab-color;
+  }
+
+  .autosuggest-textarea__suggestions__item {
+    &:hover,
+    &:focus,
+    &:active,
+    &.selected {
+      background: darken($ui-base-color, 4%);
+    }
+  }
+}
+
+.compose-panel,
+.compose-form {
+  .compose-form__autosuggest-wrapper {
+    border-bottom: 0;
+    background-color: $card-background-action;
+    border-radius: $border-radius-light $border-radius-light 0 0;
+  }
+}
+
+.emoji-button img {
+  opacity: 1;
+}
+
+.emoji-mart-bar {
+  border-color: darken($ui-base-color, 4%);
+
+  &:first-child {
+    background: $ui-base-tab-color;
+  }
+}
+
+.emoji-mart-search input {
+  background: rgba($ui-base-color, 0.3);
+  border-color: $ui-base-color;
+}
+
+.focusable:focus {
+  background: rgba($white, 0.5);
+  border-radius: $border-radius-light;
+
+  .detailed-status,
+  .detailed-status__action-bar,
+  .status.status.status-direct {
+    background: transparent;
+  }
+
+  .status {
+    background-color: transparent;
+  }
+}
+
+.status.status-direct {
+  background: darken($ui-base-color, 4%);
+
+  &:not(.read) {
+    background: $card-background;
+    box-shadow: inset 0 0 70px 5px rgba($white, 0.75);
+  }
+}
+
+.icon-button.disabled {
+  color: lighten($action-button-color, 13%);
+}
+
+.detailed-status,
+.detailed-status__action-bar {
+  background: transparent;
+}
+
+.detailed-status__wrapper {
+  margin-top: $post-spacer;
+  border-radius: $border-radius-light;
+  background: $card-background;
+  box-shadow: $card-box-shadow;
+}
+
+.detailed-status__action-bar {
+  border: none;
+}
+
+// Change the background colors of status__content__spoiler-link
+.reply-indicator__content .status__content__spoiler-link,
+.status__content .status__content__spoiler-link {
+  background: $ui-base-color;
+
+  &:hover {
+    background: darken($ui-base-color, 4%);
+  }
+}
+
+.status__content__read-more-button {
+  color: $ui-link-color;
+}
+
+// Change the background colors of media and video spoilers
+.media-spoiler,
+.video-player__spoiler {
+  background: $ui-base-color;
+}
+
+.privacy-dropdown.active .privacy-dropdown__value.active .icon-button {
+  color: $white;
+}
+
+.account-gallery__item a {
+  background-color: $ui-base-color;
+}
+
+// Change the colors used in the dropdown menu
+.dropdown-menu {
+  background: $dropdown-background;
+
+  .dropdown-menu__arrow {
+    &.bottom {
+      border-bottom-color: $dropdown-background;
+    }
+    &.top {
+      border-top-color: $dropdown-background;
+    }
+    &.left {
+      border-left-color: $dropdown-background;
+    }
+    &.right {
+      border-right-color: $dropdown-background;
+    }
+  }
+
+  &__arrow {
+    &.left {
+      border-left-color: $white;
+    }
+
+    &.top {
+      border-top-color: $white;
+    }
+
+    &.bottom {
+      border-bottom-color: $white;
+    }
+
+    &.right {
+      border-right-color: $white;
+    }
+  }
+
+  &__item {
+    a {
+      background: transparent;
+      color: $darker-text-color;
+    }
+  }
+}
+
+// Change the text colors on inverted background
+.privacy-dropdown__option.active,
+.privacy-dropdown__option:hover,
+.privacy-dropdown__option.active .privacy-dropdown__option__content,
+.privacy-dropdown__option.active .privacy-dropdown__option__content strong,
+.privacy-dropdown__option:hover .privacy-dropdown__option__content,
+.privacy-dropdown__option:hover .privacy-dropdown__option__content strong,
+.dropdown-menu__item a:active,
+.dropdown-menu__item a:focus,
+.dropdown-menu__item a:hover,
+.actions-modal ul li:not(:empty) a.active,
+.actions-modal ul li:not(:empty) a.active button,
+.actions-modal ul li:not(:empty) a:active,
+.actions-modal ul li:not(:empty) a:active button,
+.actions-modal ul li:not(:empty) a:focus,
+.actions-modal ul li:not(:empty) a:focus button,
+.actions-modal ul li:not(:empty) a:hover,
+.actions-modal ul li:not(:empty) a:hover button,
+.simple_form .block-button,
+.simple_form .button,
+.simple_form button {
+  color: $white;
+}
+
+.dropdown-menu__separator {
+  border-bottom-color: darken($ui-base-color, 4%);
+}
+
+// Change the background colors of modals
+.actions-modal,
+.boost-modal,
+.confirmation-modal,
+.mute-modal,
+.block-modal,
+.report-modal,
+.embed-modal,
+.error-modal,
+.onboarding-modal,
+.report-modal__comment .setting-text__wrapper,
+.report-modal__comment .setting-text {
+  background: $dropdown-background;
+  border: $ui-base-border;
+}
+
+.report-modal__comment {
+  border-right-color: darken($ui-base-color, 8%);
+}
+
+.report-modal__container {
+  border-top-color: darken($ui-base-color, 8%);
+}
+
+.column-header__collapsible-inner {
+  background: lighten($ui-base-color, 8%);
+  border: $ui-base-border;
+  border-top: 0;
+  border-radius: $border-radius-light;
+}
+
+.focal-point__preview strong {
+  color: $white;
+}
+
+.boost-modal__action-bar,
+.confirmation-modal__action-bar,
+.mute-modal__action-bar,
+.block-modal__action-bar,
+.onboarding-modal__paginator,
+.error-modal__footer {
+  background: $ui-base-tab-color;
+
+  .onboarding-modal__nav,
+  .error-modal__nav {
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: lighten($ui-base-color, 12%);
+    }
+  }
+}
+
+.display-case__case {
+  background: $transparent;
+}
+
+.embed-modal .embed-modal__container .embed-modal__html {
+  background: $transparent;
+  border: $ui-base-border;
+
+  &:focus {
+    border-color: darken($ui-base-color, 12%);
+    background: $transparent;
+  }
+}
+
+.react-toggle-track {
+  background: $ui-secondary-color;
+}
+
+.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background: lighten($ui-secondary-color, 10%);
+}
+
+.react-toggle.react-toggle--checked:hover:not(.react-toggle--disabled)
+  .react-toggle-track {
+  background: darken($ui-highlight-color, 10%);
+}
+
+// Change the default color used for the text in an empty column or on the error column
+.empty-column-indicator,
+.error-column {
+  color: $primary-text-color;
+  background: $transparent;
+}
+
+.tabs-bar {
+  background: lighten($ui-base-color, 4%);
+  border: $ui-base-border;
+  border-bottom: 0;
+  border-radius: $border-radius-light;
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-top: 0;
+    border-radius: 0;
+  }
+
+  &__link {
+    color: $darker-text-color;
+    padding-bottom: 14px;
+    border-bottom-width: 1px;
+    border-bottom-color: darken($ui-base-color, 8%);
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: transparent;
+      border-bottom-color: darken($ui-base-color, 8%);
+    }
+
+    &.active {
+      border-bottom: 2px solid $highlight-text-color;
+      color: $highlight-text-color;
+    }
+  }
+}
+
+// Change the default colors used on some parts of the profile pages
+.activity-stream-tabs {
+  background: $account-background-color;
+  border-bottom-color: darken($ui-base-color, 8%);
+}
+
+.box-widget,
+.nothing-here,
+.page-header,
+.directory__tag > a,
+.directory__tag > div,
+.landing-page__call-to-action,
+.contact-widget,
+.landing .hero-widget__text,
+.landing-page__information.contact-widget {
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+}
+
+.box-widget {
+  background: $account-background-color;
+  box-shadow: $card-box-shadow;
+  border: none;
+  border-radius: $border-radius-light;
+}
+
+.landing .hero-widget__text {
+  border-top: 0;
+  border-bottom: 0;
+  border-radius: $border-radius-light;
+}
+
+.simple_form {
+  .hint code {
+    background: $card-background;
+  }
+  .button,
+  button {
+    border-radius: $border-radius-light;
+  }
+
+  .input.with_label .label_input > label {
+    color: $darker-text-color;
+  }
+
+  select {
+    background: $card-background
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='#{hex-color(darken($ui-base-color, 12%))}'/></svg>")
+      no-repeat right 8px center / auto 16px;
+    border-radius: $border-radius-light;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    color: $highlight-text-color;
+    background: $card-background;
+    border-color: $ui-base-color;
+    border-radius: $border-radius-light;
+
+    &:hover {
+      border-color: darken($ui-base-color, 12%);
+    }
+
+    &:focus,
+    &:active,
+    &:focus:invalid:not(:placeholder-shown) {
+      background: $card-background-action-light;
+      border-color: darken($ui-base-color, 12%);
+    }
+
+    &::placeholder {
+      color: rgba($highlight-text-color, 0.75);
+    }
+  }
+}
+
+input[type="checkbox"]:checked + span {
+  border-color: $ui-primary-color;
+  background-color: $ui-primary-color;
+}
+
+.landing .hero-widget__footer {
+  background: $card-background-action;
+  // border: $ui-base-border;
+  border-radius: $border-radius-light;
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border: 0;
+  }
+
+  .account {
+    border: none;
+  }
+}
+
+.brand__tagline {
+  color: $ui-secondary-color;
+}
+
+.directory__tag > a {
+  &:hover,
+  &:active,
+  &:focus {
+    background: $ui-base-color;
+  }
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border: 0;
+  }
+}
+
+.directory__tag.active > a,
+.directory__tag.active > div {
+  border-color: $ui-highlight-color;
+
+  &,
+  h4,
+  h4 small,
+  .fa,
+  .trends__item__current {
+    color: $white;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: $ui-highlight-color;
+  }
+}
+
+.batch-table {
+  &__toolbar,
+  &__row,
+  .nothing-here {
+    border-color: darken($ui-base-color, 8%);
+  }
+}
+
+.activity-stream {
+  border: $ui-base-border;
+
+  &--under-tabs {
+    border-top: 0;
+  }
+
+  .entry {
+    background: $account-background-color;
+
+    .detailed-status.light,
+    .more.light,
+    .status.light {
+      border-bottom-color: darken($ui-base-color, 8%);
+    }
+  }
+
+  .status.light {
+    .status__content {
+      color: $primary-text-color;
+    }
+
+    .display-name {
+      strong {
+        color: $primary-text-color;
+      }
+    }
+  }
+}
+
+.accounts-grid {
+  .account-grid-card {
+    .controls {
+      .icon-button {
+        color: $darker-text-color;
+      }
+    }
+
+    .name {
+      a {
+        color: $primary-text-color;
+      }
+    }
+
+    .username {
+      color: $darker-text-color;
+    }
+
+    .account__header__content {
+      color: $primary-text-color;
+    }
+  }
+}
+
+.simple_form,
+.table-form {
+  .warning {
+    box-shadow: none;
+    background: rgba($error-red, 0.5);
+    text-shadow: none;
+  }
+
+  .recommended {
+    border-color: $ui-highlight-color;
+    color: $ui-highlight-color;
+    background-color: rgba($ui-highlight-color, 0.1);
+  }
+}
+
+.compose-form .compose-form__warning {
+  border-color: $ui-highlight-color;
+  background-color: $card-background-action-light;
+  border-radius: $border-radius-light;
+
+  &,
+  a {
+    color: $ui-highlight-color;
+  }
+}
+
+.status__content,
+.reply-indicator__content {
+  a {
+    color: $ui-link-color;
+
+    &.unhandled-link {
+      color: $ui-link-color;
+    }
+  }
+}
+
+.reply-indicator {
+  background: $card-background;
+  border-radius: $border-radius-light;
+
+  &__cancel {
+    .icon-button.inverted {
+      color: $action-button-color;
+    }
+  }
+}
+
+.button.logo-button {
+  color: $white;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: darken($ui-primary-color, 4%);
+  }
+
+  svg {
+    fill: $white;
+  }
+}
+
+.public-layout {
+  position: relative;
+  min-height: 100vh;
+
+  .account__section-headline {
+    border: $ui-base-border;
+
+    @media screen and (max-width: $no-gap-breakpoint) {
+      border-top: 0;
+    }
+  }
+
+  .header,
+  .public-account-header,
+  .public-account-bio {
+    box-shadow: none;
+  }
+
+  .public-account-bio {
+    background: $account-background-color;
+    box-shadow: $card-box-shadow;
+    border-radius: $border-radius-light;
+  }
+
+  .hero-widget__text {
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    a {
+      display: block;
+      padding-bottom: 1rem;
+      color: $ui-link-color;
+    }
+  }
+
+  .header {
+    background: $ui-base-color;
+    border: $ui-base-border;
+    margin-bottom: 0;
+
+    @media screen and (max-width: $no-gap-breakpoint) {
+      border: 0;
+    }
+
+    .brand {
+      &:hover,
+      &:focus,
+      &:active {
+        background: darken($ui-base-color, 4%);
+      }
+    }
+  }
+
+  .public-account-header {
+    &__image {
+      background: darken($ui-base-color, 12%);
+
+      &::after {
+        box-shadow: none;
+      }
+    }
+
+    &__bar {
+      &::before {
+        background: $account-background-color;
+        border: $ui-base-border;
+        border-top: 0;
+      }
+
+      .avatar img {
+        border-color: $account-background-color;
+      }
+
+      @media screen and (max-width: $no-columns-breakpoint) {
+        background: $account-background-color;
+        border: $ui-base-border;
+        border-top: 0;
+      }
+    }
+
+    &__tabs {
+      &__name {
+        h1,
+        h1 small {
+          color: $white;
+
+          @media screen and (max-width: $no-columns-breakpoint) {
+            color: $primary-text-color;
+          }
+        }
+      }
+    }
+
+    &__extra {
+      .public-account-bio {
+        border: 0;
+      }
+
+      .public-account-bio .account__header__fields {
+        border-color: darken($ui-base-color, 8%);
+      }
+    }
+  }
+
+  .container:last-child {
+    position: unset;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 1.5rem;
+
+    h4,
+    li,
+    ul,
+    ul a {
+      color: $darker-text-color;
+    }
+
+    .grid {
+      div[class*="column-"] {
+        h4,
+        h4 a {
+          color: $darker-text-color;
+        }
+      }
+      .column-0 {
+        grid-row: 1 !important;
+        grid-column: 2 !important;
+      }
+      .column-2 {
+        grid-row: 1 !important;
+        grid-column: 3 !important;
+      }
+      .column-4 {
+        grid-column: 4 !important;
+        grid-row: 1 !important;
+        text-align: right;
+      }
+    }
+  }
+}
+
+.hero-widget__text {
+  background: $account-background-color;
+  box-shadow: $card-box-shadow;
+  border-radius: $border-radius-light;
+}
+
+.notification__filter-bar button.active::after,
+.account__section-headline a.active::after {
+  border-color: transparent transparent $white;
+}
+
+.hero-widget,
+.box-widget,
+.contact-widget,
+.landing-page__information.contact-widget,
+.moved-account-widget,
+.memoriam-widget,
+.activity-stream,
+.nothing-here,
+.directory__tag > a,
+.directory__tag > div,
+.card > a,
+.page-header,
+.compose-form .compose-form__warning {
+  box-shadow: none;
+}
+
+.audio-player .video-player__controls button,
+.audio-player .video-player__time-sep,
+.audio-player .video-player__time-current,
+.audio-player .video-player__time-total {
+  color: $primary-text-color;
+}
+
+.status,
+.conversation {
+  border-radius: $border-radius-light;
+  background-color: $card-background;
+  box-shadow: $card-box-shadow;
+  border: none;
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-bottom: 1px solid lighten($classic-alternative-color, 4%);
+    border-radius: 0;
+  }
+}
+
+.status__wrapper,
+.conversation {
+  margin: $post-spacer 0;
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    margin: 0;
+  }
+}
+
+.tabs-bar__wrapper {
+  background: none;
+}
+
+.status__visibility,
+.status__relative-time {
+  padding: 3px 6px;
+}
+
+.status__visibility {
+  border-radius: $border-radius-light-xs;
+  background: $card-background;
+  margin-right: 6px;
+}
+
+.loading-bar {
+  background-color: $ui-primary-color;
+}
+
+.loading-indicator__figure {
+  border: 0 solid $ui-primary-color;
+}
+
+.qh-landing-logo {
+  width: 80px;
+  padding-right: 2rem;
+}
+
+.landing__brand {
+  align-items: center;
+
+  h1 a.brand {
+    color: $pink;
+    font-family: "queerhaus-font", "mastodon-font-sans-serif", sans-serif;
+    letter-spacing: 1rem;
+    font-size: 3.8rem;
+    font-weight: 200;
+  }
+}
+
+.account__avatar {
+  border-radius: $border-radius-light-s;
+
+  &-overlay-base {
+    border-radius: $border-radius-light-xs;
+  }
+  &-overlay-overlay {
+    border-radius: $border-radius-light-xs - 1px;
+  }
+}
+
+.account__header {
+  &__image {
+    background: $ui-base-color;
+  }
+
+  &__bio {
+    .account__header__fields {
+      padding: 0 10px;
+      border: 0;
+
+      a {
+        color: $purple-acid;
+      }
+
+      dl {
+        border: $ui-light-border;
+        border-bottom: 0;
+
+        dd {
+          background: $card-background;
+        }
+
+        dt {
+          background: rgba(lighten($ui-base-color, 12%), 0.5);
+          border-right: $ui-light-border;
+        }
+
+        &:first-child {
+          border-radius: $border-radius-light $border-radius-light 0 0;
+
+          dd {
+            border-radius: 0 $border-radius-light 0 0;
+          }
+
+          dt {
+            border-radius: $border-radius-light 0 0 0;
+          }
+        }
+
+        &:last-child {
+          border-radius: 0 0 $border-radius-light $border-radius-light;
+          border-bottom: $ui-light-border;
+
+          dd {
+            border-radius: 0 0 $border-radius-light 0;
+          }
+
+          dt {
+            border-radius: 0 0 0 $border-radius-light;
+          }
+        }
+
+        &:first-child:last-child {
+          border-radius: $border-radius-light;
+
+          dd {
+            border-radius: 0 $border-radius-light $border-radius-light 0;
+          }
+
+          dt {
+            border-radius: $border-radius-light 0 0 $border-radius-light;
+          }
+        }
+      }
+    }
+  }
+
+  .account__avatar {
+    border-radius: $border-radius-light;
+  }
+}
+
+.container-alt {
+  .logo-container {
+    @media screen and (max-width: $no-gap-breakpoint) {
+      margin: 2rem 0;
+    }
+  }
+  .form-container {
+    background: $account-background-color;
+    box-shadow: $card-box-shadow;
+    border-radius: $border-radius-light;
+    margin-bottom: 2rem;
+
+    @media screen and (max-width: $no-gap-breakpoint) {
+      margin: 10px 6px;
+    }
+
+    .hero-widget__text {
+      background: none;
+      box-shadow: none;
+      padding: 0;
+    }
+  }
+}
+
+.flash-message {
+  border-radius: $border-radius-light;
+}
+
+.item-list {
+  .column-subheading:first-child {
+    border: $ui-base-border;
+    border-bottom: 0;
+    border-radius: $border-radius-light $border-radius-light 0 0;
+  }
+
+  .column-link {
+    background: $card-background-action;
+    border: $ui-base-border;
+    border-bottom: 0;
+  }
+
+  article:first-child {
+    .column-link {
+      border-radius: $border-radius-light $border-radius-light 0 0;
+    }
+  }
+  article:last-child {
+    .column-link {
+      border-radius: 0 0 $border-radius-light $border-radius-light;
+      border-bottom: $ui-base-border;
+    }
+  }
+}
+
+.input-copy {
+  background: $card-background;
+  border-radius: $border-radius-light;
+
+  &:hover {
+    background: $card-background-action-light;
+  }
+  input[type="text"] {
+    background: none !important;
+  }
+}
+
+.media-gallery {
+  border-radius: $border-radius-light;
+}
+
+.load-more {
+  margin: $post-spacer 0;
+  background: $card-background;
+  border-radius: $border-radius-light;
+
+  &:hover {
+    background: $card-background-action-light;
+  }
+}
+
+.load-gap {
+  border: 0;
+}
+
+.radio-button__input {
+  border-color: darken($ui-primary-color, 4%);
+
+  &.checked {
+    border-color: darken($ui-primary-color, 4%);
+    background: darken($ui-primary-color, 4%);
+  }
+}
+
+.rich-formatting a {
+  color: $ui-link-color;
+}
+
+// .introduction__frame background
+.public-layout {
+  .landing-page__call-to-action {
+    background: $card-background;
+    border-radius: $border-radius-light;
+    box-shadow: $card-box-shadow;
+
+    .row__mascot {
+      margin: 0;
+
+      .landing-page__mascot {
+        left: 0;
+        bottom: 0;
+
+        img {
+          height: 110%;
+        }
+      }
+    }
+  }
+
+  .contact-widget {
+    background: $card-background;
+    border-radius: $border-radius-light;
+    box-shadow: $card-box-shadow;
+  }
+
+  .table-of-contents {
+    background: lighten($ui-base-color, 4%);
+    min-height: unset;
+    border-radius: $border-radius-light;
+
+    li {
+      a {
+        border-bottom: $ui-base-border;
+      }
+
+      &:last-child a {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .grid-4 {
+    .column-3 .box-widget {
+      margin-bottom: 8rem;
+    }
+  }
+}
