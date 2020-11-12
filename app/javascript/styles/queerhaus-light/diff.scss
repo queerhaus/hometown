@@ -38,10 +38,15 @@ body.admin .body-background {
 // Change the colors of button texts
 .button {
   color: $white;
+  border-radius: $border-radius-light-s;
 
   &.button-alternative-2 {
     color: $white;
   }
+}
+
+.status-card {
+  border-radius: $border-radius-light-s;
 }
 
 a.status-card {
@@ -150,8 +155,44 @@ a.status-card {
   }
 }
 
+.account__header {
+  background: $account-background-color;
+  box-shadow: $card-box-shadow;
+  border: 1px solid darken($ui-base-color, 8%);
+  border-bottom: 0;
+  border-radius: $border-radius-light $border-radius-light 0 0;
+  margin-top: $post-spacer;
+}
+
+.account__section-headline {
+  background: lighten($ui-base-color, 6%);
+  border: 1px solid darken($ui-base-color, 8%);
+  border-radius: 0 0 $border-radius-light $border-radius-light;
+
+  a.active {
+    background: lighten($ui-base-color, 10%);
+    border-left: 1px solid darken($ui-base-color, 8%);
+    border-right: 1px solid darken($ui-base-color, 8%);
+    border-radius: 0 0 $border-radius-light $border-radius-light;
+
+    &:first-child {
+      border-left: 0;
+    }
+    &:last-child {
+      border-right: 0;
+    }
+
+    &::before {
+      content: none;
+    }
+    &::after {
+      content: none;
+    }
+  }
+}
+
 .account__header__bar .avatar .account__avatar {
-  border-color: $white;
+  border-color: $ui-background-light;
 }
 
 .getting-started__footer a {
@@ -163,7 +204,7 @@ a.status-card {
 .confirmation-modal__cancel-button,
 .mute-modal__cancel-button,
 .block-modal__cancel-button {
-  color: darken($ui-base-color, 26%);
+  color: $darker-text-color;
 
   &:hover,
   &:focus,
@@ -199,12 +240,25 @@ a.status-card {
   }
 }
 
-.getting-started .navigation-bar {
-  border-top: 1px solid darken($ui-base-color, 8%);
-  border-bottom: 1px solid darken($ui-base-color, 8%);
+.getting-started__wrapper {
+  background: $account-background-color;
+  border: 1px solid darken($ui-base-color, 8%);
+  border-radius: $border-radius-light;
+}
 
-  @media screen and (max-width: $no-gap-breakpoint) {
-    border-top: 0;
+.getting-started {
+  .navigation-bar {
+    // border-top: 1px solid darken($ui-base-color, 8%);
+    border-bottom: 1px solid darken($ui-base-color, 8%);
+
+    @media screen and (max-width: $no-gap-breakpoint) {
+      border-top: 0;
+    }
+  }
+
+  .column-link:last-child {
+    border-bottom: 0;
+    border-radius: 0 0 $border-radius-light $border-radius-light;
   }
 }
 
@@ -229,6 +283,10 @@ a.status-card {
   border-radius: $border-radius-light;
 }
 
+.box-widget input[type="text"],
+.box-widget input[type="email"],
+.box-widget input[type="password"],
+.box-widget textarea,
 .poll__option input[type="text"],
 .compose-form__poll-wrapper select {
   background: transparent;
@@ -285,14 +343,46 @@ a.status-card {
 }
 
 .notification__filter-bar {
+  margin-top: $post-spacer;
+  background: lighten($ui-base-color, 6%);
   border: 1px solid darken($ui-base-color, 8%);
-  border-top: 0;
+  border-radius: $border-radius-light;
+
+  button {
+    border-radius: $border-radius-light;
+    background: lighten($ui-base-color, 6%);
+
+    &.active {
+      background: $ui-base-color;
+
+      &:before {
+        content: none;
+      }
+      &:after {
+        content: none;
+      }
+
+      &:first-child {
+        border-left: 0;
+        border-right: 1px solid darken($ui-base-color, 8%);
+        border-radius: $border-radius-light 0 $border-radius-light
+          $border-radius-light;
+      }
+      &:last-child {
+        border-right: 0;
+        border-left: 1px solid darken($ui-base-color, 8%);
+        border-radius: 0 $border-radius-light $border-radius-light
+          $border-radius-light;
+      }
+    }
+  }
 }
 
 .compose-form .compose-form__buttons-wrapper {
-  background: $ui-base-color;
+  background: lighten($ui-base-color, 6%);
   border: 1px solid darken($ui-base-color, 8%);
-  border-top: 0;
+  // border-top: 0;
+  border-radius: 0 0 $border-radius-light $border-radius-light;
 }
 
 .drawer__header,
@@ -303,6 +393,36 @@ a.status-card {
 
 .drawer__inner__mastodon {
   background: transparent;
+
+  img {
+    max-width: 80px;
+  }
+}
+
+.icon-button {
+  border-radius: $border-radius-light-s;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $card-background;
+  }
+
+  &.active {
+    color: $ui-primary-color;
+  }
+
+  &.start-icon.active {
+    color: $gold-star;
+  }
+
+  &.bookmark-icon.active {
+    color: $red-bookmark;
+  }
+}
+
+.account__header__tabs__buttons .icon-button {
+  border-radius: $border-radius-light-s;
 }
 
 // Change the colors used in compose-form
@@ -333,10 +453,6 @@ a.status-card {
     background: transparent;
   }
 
-  .compose-form__buttons-wrapper {
-    background: lighten($ui-base-color, 6%);
-  }
-
   .autosuggest-textarea__suggestions {
     background: lighten($ui-base-color, 6%);
   }
@@ -354,6 +470,7 @@ a.status-card {
 .compose-panel,
 .compose-form {
   .compose-form__autosuggest-wrapper {
+    border-bottom: 0;
     background-color: $card-background-action;
     border-radius: $border-radius-light $border-radius-light 0 0;
   }
@@ -378,7 +495,9 @@ a.status-card {
 
 // Change the background colors of statuses
 .focusable:focus {
-  background: $ui-base-color;
+  background: $blue;
+  box-shadow: $card-box-shadow;
+  border-radius: $border-radius-light;
 }
 
 .status.status-direct {
@@ -386,7 +505,7 @@ a.status-card {
 }
 
 .focusable:focus .status.status-direct {
-  background: darken($ui-base-color, 8%);
+  // background: darken($ui-base-color, 8%);
 }
 
 .detailed-status,
@@ -431,7 +550,22 @@ a.status-card {
 
 // Change the colors used in the dropdown menu
 .dropdown-menu {
-  background: $classic-secondary-color;
+  background: $dropdown-background;
+
+  .dropdown-menu__arrow {
+    &.bottom {
+      border-bottom-color: $dropdown-background;
+    }
+    &.top {
+      border-top-color: $dropdown-background;
+    }
+    &.left {
+      border-left-color: $dropdown-background;
+    }
+    &.right {
+      border-right-color: $dropdown-background;
+    }
+  }
 
   &__arrow {
     &.left {
@@ -500,7 +634,7 @@ a.status-card {
 .onboarding-modal,
 .report-modal__comment .setting-text__wrapper,
 .report-modal__comment .setting-text {
-  background: $transparent;
+  background: $dropdown-background;
   border: 1px solid darken($ui-base-color, 8%);
 }
 
@@ -585,7 +719,6 @@ a.status-card {
     border-top: 0;
   }
 
-  // WIP
   &__link {
     color: $darker-text-color;
     padding-bottom: 14px;
@@ -621,14 +754,18 @@ a.status-card {
 .contact-widget,
 .landing .hero-widget__text,
 .landing-page__information.contact-widget {
-  background: $transparent;
-  border: 1px solid darken($ui-base-color, 8%);
-
   @media screen and (max-width: $no-gap-breakpoint) {
     border-left: 0;
     border-right: 0;
     border-top: 0;
   }
+}
+
+.box-widget {
+  background: $account-background-color;
+  box-shadow: $card-box-shadow;
+  border: none;
+  border-radius: $border-radius-light;
 }
 
 .landing .hero-widget__text {
@@ -637,24 +774,46 @@ a.status-card {
 }
 
 .simple_form {
+  .button {
+    border-radius: $border-radius-light;
+  }
+
   input[type="text"],
   input[type="number"],
   input[type="email"],
   input[type="password"],
   textarea {
+    border-color: $ui-base-color;
+    color: $highlight-text-color;
+
     &:hover {
       border-color: darken($ui-base-color, 12%);
+    }
+
+    &:focus,
+    &:active,
+    &:focus:invalid:not(:placeholder-shown) {
+      background: $card-background;
+      border-color: darken($ui-base-color, 12%);
+    }
+
+    &::placeholder {
+      color: rgba($highlight-text-color, 0.75);
     }
   }
 }
 
 .landing .hero-widget__footer {
-  background: $transparent;
-  border: 1px solid darken($ui-base-color, 8%);
-  border-top: 0;
+  background: $card-background-action;
+  // border: 1px solid darken($ui-base-color, 8%);
+  border-radius: $border-radius-light;
 
   @media screen and (max-width: $no-gap-breakpoint) {
     border: 0;
+  }
+
+  .account {
+    border: none;
   }
 }
 
@@ -817,7 +976,19 @@ a.status-card {
   .public-account-bio,
   .hero-widget__text {
     background: $account-background-color;
-    border: 1px solid darken($ui-base-color, 8%);
+    box-shadow: $card-box-shadow;
+    border-radius: $border-radius-light;
+  }
+
+  .hero-widget__text {
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    a {
+      display: block;
+      padding: 1rem 0;
+    }
   }
 
   .header {
@@ -887,6 +1058,46 @@ a.status-card {
       }
     }
   }
+
+  .container:last-child {
+    position: unset;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+    h4,
+    li,
+    ul,
+    ul a {
+      color: $darker-text-color;
+    }
+
+    .grid {
+      div[class*="column-"] {
+        h4,
+        h4 a {
+          color: $darker-text-color;
+        }
+      }
+      .column-0 {
+        grid-row: 1 !important;
+        grid-column: 2 !important;
+      }
+      .column-2 {
+        grid-row: 1 !important;
+        grid-column: 3 !important;
+      }
+      .column-4 {
+        grid-column: 4 !important;
+        grid-row: 1 !important;
+        text-align: right;
+      }
+    }
+  }
 }
 
 .notification__filter-bar button.active::after,
@@ -940,8 +1151,8 @@ a.status-card {
 }
 
 .status__visibility {
-  border-radius: $border-radius-light;
-  background: rgba($white, 0.25);
+  border-radius: $border-radius-light-xs;
+  background: $card-background;
   margin-right: 6px;
 }
 
@@ -951,4 +1162,42 @@ a.status-card {
 
 .loading-indicator__figure {
   border: 0 solid $ui-primary-color;
+}
+
+.qh-landing-logo {
+  width: 80px;
+  padding-right: 2rem;
+}
+
+.landing__brand {
+  align-items: center;
+  font-family: "queerhaus-font", "mastodon-font-sans-serif", sans-serif;
+  letter-spacing: 1rem;
+  font-size: 1rem;
+  font-weight: 200;
+
+  h1 a.brand {
+    color: $pink;
+  }
+}
+
+.account__avatar {
+  border-radius: $border-radius-light-s;
+
+  &-overlay-base {
+    border-radius: $border-radius-light-xs;
+  }
+  &-overlay-overlay {
+    border-radius: $border-radius-light-xs - 1px;
+  }
+}
+
+.account__header {
+  &__image {
+    background: $ui-base-color;
+  }
+
+  .account__avatar {
+    border-radius: $border-radius-light;
+  }
 }
