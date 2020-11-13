@@ -18,7 +18,7 @@ html {
   left: 0;
   height: 100%;
   width: 100%;
-  background: $purple;
+  background: rgba($ui-base-color, 0.5);
   background: linear-gradient(
     165deg,
     lighten($purple, 5%) 0%,
@@ -28,11 +28,50 @@ html {
 }
 
 body {
-  background: $classic-secondary-color;
+  background: rgba($ui-base-color, 0.5);
 }
 
 body.admin .body-background {
   display: none;
+}
+
+.admin-wrapper {
+  .content-wrapper {
+    background: lighten($ui-base-color, 8%);
+  }
+
+  .sidebar-wrapper.sidebar-wrapper--empty {
+    background: lighten($ui-base-color, 8%);
+  }
+
+  .sidebar-wrapper__inner {
+    background: darken($ui-base-color, 4%);
+  }
+
+  .sidebar ul {
+    ul {
+      background: lighten($ui-base-color, 4%);
+    }
+
+    a {
+      &:hover {
+        background: rgba($white, 0.1);
+      }
+
+      &.selected {
+        background: $ui-base-color;
+      }
+    }
+
+    .simple-navigation-active-leaf a {
+      background: lighten($ui-base-color, 8%);
+      color: $darker-text-color;
+
+      &:hover {
+        background-color: rgba($white, 0.1);
+      }
+    }
+  }
 }
 
 // Change the colors of button texts
@@ -45,13 +84,17 @@ body.admin .body-background {
   }
 }
 
+button[type="button"] {
+  border-radius: $border-radius-light-s;
+}
+
 .status-card {
   border-radius: $border-radius-light-s;
 }
 
 a.status-card {
   border: none;
-  background-color: rgba($white, 0.3);
+  background-color: $card-background;
 
   &:hover {
     background-color: rgba($white, 0.5);
@@ -59,7 +102,7 @@ a.status-card {
 
   &.compact {
     border: none;
-    background-color: rgba($white, 0.3);
+    background-color: $card-background;
 
     &:hover {
       background-color: rgba($white, 0.5);
@@ -68,7 +111,7 @@ a.status-card {
 }
 
 .status-card__image {
-  background: $classic-alternative-color;
+  background: lighten($classic-alternative-color, 5%);
 }
 
 .status-card__actions button,
@@ -100,7 +143,24 @@ a.status-card {
 .filter-form,
 .directory__card__bar {
   background: $transparent;
-  border-bottom: 1px solid darken($ui-base-color, 8%);
+  border-bottom: $ui-base-border;
+}
+
+.card.h-card {
+  .card__img img {
+    border-radius: $border-radius-light $border-radius-light 0 0;
+  }
+  .card__bar {
+    border-radius: 0 0 $border-radius-light $border-radius-light;
+    background: $account-background-color;
+  }
+
+  &:hover {
+    background: transparent;
+    .card__bar {
+      background: $card-background-action;
+    }
+  }
 }
 
 .scrollable .directory__list {
@@ -111,13 +171,14 @@ a.status-card {
 
 .directory__card,
 .table-of-contents {
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
 }
 
 .column-back-button,
 .column-header {
+  color: $darker-text-color;
   background: $ui-base-color;
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
   border-radius: $border-radius-light;
 
   @media screen and (max-width: $no-gap-breakpoint) {
@@ -158,7 +219,7 @@ a.status-card {
 .account__header {
   background: $account-background-color;
   box-shadow: $card-box-shadow;
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
   border-bottom: 0;
   border-radius: $border-radius-light $border-radius-light 0 0;
   margin-top: $post-spacer;
@@ -166,13 +227,13 @@ a.status-card {
 
 .account__section-headline {
   background: lighten($ui-base-color, 6%);
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
   border-radius: 0 0 $border-radius-light $border-radius-light;
 
   a.active {
     background: lighten($ui-base-color, 10%);
-    border-left: 1px solid darken($ui-base-color, 8%);
-    border-right: 1px solid darken($ui-base-color, 8%);
+    border-left: $ui-base-border;
+    border-right: $ui-base-border;
     border-radius: 0 0 $border-radius-light $border-radius-light;
 
     &:first-child {
@@ -215,14 +276,14 @@ a.status-card {
 
 .column-subheading {
   background: lighten($ui-base-color, 4%);
-  border-bottom: 1px solid darken($ui-base-color, 8%);
+  border-bottom: $ui-base-border;
 }
 
 .getting-started,
 .scrollable {
   .column-link {
     background: $transparent;
-    border-bottom: 1px solid darken($ui-base-color, 8%);
+    border-bottom: $ui-base-border;
 
     &:hover,
     &:active,
@@ -242,14 +303,15 @@ a.status-card {
 
 .getting-started__wrapper {
   background: $account-background-color;
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
   border-radius: $border-radius-light;
+  height: unset !important;
 }
 
 .getting-started {
   .navigation-bar {
-    // border-top: 1px solid darken($ui-base-color, 8%);
-    border-bottom: 1px solid darken($ui-base-color, 8%);
+    // border-top: $ui-base-border;
+    border-bottom: $ui-base-border;
 
     @media screen and (max-width: $no-gap-breakpoint) {
       border-top: 0;
@@ -279,8 +341,12 @@ a.status-card {
 .box-widget textarea,
 .statuses-grid .detailed-status,
 .audio-player {
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
   border-radius: $border-radius-light;
+}
+
+.setting-text {
+  background: $card-background-action;
 }
 
 .box-widget input[type="text"],
@@ -345,7 +411,7 @@ a.status-card {
 .notification__filter-bar {
   margin-top: $post-spacer;
   background: lighten($ui-base-color, 6%);
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
   border-radius: $border-radius-light;
 
   button {
@@ -364,13 +430,13 @@ a.status-card {
 
       &:first-child {
         border-left: 0;
-        border-right: 1px solid darken($ui-base-color, 8%);
+        border-right: $ui-base-border;
         border-radius: $border-radius-light 0 $border-radius-light
           $border-radius-light;
       }
       &:last-child {
         border-right: 0;
-        border-left: 1px solid darken($ui-base-color, 8%);
+        border-left: $ui-base-border;
         border-radius: 0 $border-radius-light $border-radius-light
           $border-radius-light;
       }
@@ -380,7 +446,7 @@ a.status-card {
 
 .compose-form .compose-form__buttons-wrapper {
   background: lighten($ui-base-color, 6%);
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
   // border-top: 0;
   border-radius: 0 0 $border-radius-light $border-radius-light;
 }
@@ -399,7 +465,7 @@ a.status-card {
   }
 }
 
-.icon-button {
+button.icon-button {
   border-radius: $border-radius-light-s;
 
   &:hover,
@@ -408,17 +474,13 @@ a.status-card {
     background-color: $card-background;
   }
 
-  &.active {
-    color: $ui-primary-color;
-  }
-
-  &.start-icon.active {
-    color: $gold-star;
-  }
-
   &.bookmark-icon.active {
     color: $red-bookmark;
   }
+}
+
+button.icon-button.start-icon.active {
+  color: $gold-star !important;
 }
 
 .account__header__tabs__buttons .icon-button {
@@ -495,9 +557,13 @@ a.status-card {
 
 // Change the background colors of statuses
 .focusable:focus {
-  background: $blue;
-  box-shadow: $card-box-shadow;
+  background: rgba($white, 0.2);
   border-radius: $border-radius-light;
+
+  .detailed-status,
+  .detailed-status__action-bar {
+    background: transparent;
+  }
 }
 
 .status.status-direct {
@@ -532,6 +598,10 @@ a.status-card {
   &:hover {
     background: darken($ui-base-color, 4%);
   }
+}
+
+.status__content__read-more-button {
+  color: $ui-link-color;
 }
 
 // Change the background colors of media and video spoilers
@@ -611,7 +681,6 @@ a.status-card {
 .actions-modal ul li:not(:empty) a:focus button,
 .actions-modal ul li:not(:empty) a:hover,
 .actions-modal ul li:not(:empty) a:hover button,
-.admin-wrapper .sidebar ul .simple-navigation-active-leaf a,
 .simple_form .block-button,
 .simple_form .button,
 .simple_form button {
@@ -635,7 +704,7 @@ a.status-card {
 .report-modal__comment .setting-text__wrapper,
 .report-modal__comment .setting-text {
   background: $dropdown-background;
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
 }
 
 .report-modal__comment {
@@ -648,7 +717,7 @@ a.status-card {
 
 .column-header__collapsible-inner {
   background: lighten($ui-base-color, 4%);
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
   border-top: 0;
   border-radius: $border-radius-light;
 }
@@ -681,7 +750,7 @@ a.status-card {
 
 .embed-modal .embed-modal__container .embed-modal__html {
   background: $transparent;
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
 
   &:focus {
     border-color: darken($ui-base-color, 12%);
@@ -711,7 +780,7 @@ a.status-card {
 
 .tabs-bar {
   background: $ui-base-color;
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
   border-bottom: 0;
   border-radius: $border-radius-light;
 
@@ -771,10 +840,26 @@ a.status-card {
 .landing .hero-widget__text {
   border-top: 0;
   border-bottom: 0;
+  border-radius: $border-radius-light;
 }
 
 .simple_form {
-  .button {
+  .hint code {
+    background: $card-background;
+  }
+  .button,
+  button {
+    border-radius: $border-radius-light;
+  }
+
+  .input.with_label .label_input > label {
+    color: $darker-text-color;
+  }
+
+  select {
+    background: $card-background
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='#{hex-color(darken($ui-base-color, 12%))}'/></svg>")
+      no-repeat right 8px center / auto 16px;
     border-radius: $border-radius-light;
   }
 
@@ -783,8 +868,10 @@ a.status-card {
   input[type="email"],
   input[type="password"],
   textarea {
-    border-color: $ui-base-color;
     color: $highlight-text-color;
+    background: $card-background;
+    border-color: $ui-base-color;
+    border-radius: $border-radius-light;
 
     &:hover {
       border-color: darken($ui-base-color, 12%);
@@ -793,7 +880,7 @@ a.status-card {
     &:focus,
     &:active,
     &:focus:invalid:not(:placeholder-shown) {
-      background: $card-background;
+      background: $card-background-action-light;
       border-color: darken($ui-base-color, 12%);
     }
 
@@ -803,9 +890,14 @@ a.status-card {
   }
 }
 
+input[type="checkbox"]:checked + span {
+  border-color: $ui-primary-color;
+  background-color: $ui-primary-color;
+}
+
 .landing .hero-widget__footer {
   background: $card-background-action;
-  // border: 1px solid darken($ui-base-color, 8%);
+  // border: $ui-base-border;
   border-radius: $border-radius-light;
 
   @media screen and (max-width: $no-gap-breakpoint) {
@@ -861,7 +953,7 @@ a.status-card {
 }
 
 .activity-stream {
-  border: 1px solid darken($ui-base-color, 8%);
+  border: $ui-base-border;
 
   &--under-tabs {
     border-top: 0;
@@ -942,10 +1034,21 @@ a.status-card {
 .status__content,
 .reply-indicator__content {
   a {
-    color: $link-text-color;
+    color: $ui-link-color;
 
     &.unhandled-link {
-      color: $link-text-color;
+      color: $ui-link-color;
+    }
+  }
+}
+
+.reply-indicator {
+  background: $card-background;
+  border-radius: $border-radius-light;
+
+  &__cancel {
+    .icon-button.inverted {
+      color: $action-button-color;
     }
   }
 }
@@ -959,8 +1062,11 @@ a.status-card {
 }
 
 .public-layout {
+  position: relative;
+  height: 100vh;
+
   .account__section-headline {
-    border: 1px solid darken($ui-base-color, 8%);
+    border: $ui-base-border;
 
     @media screen and (max-width: $no-gap-breakpoint) {
       border-top: 0;
@@ -973,8 +1079,7 @@ a.status-card {
     box-shadow: none;
   }
 
-  .public-account-bio,
-  .hero-widget__text {
+  .public-account-bio {
     background: $account-background-color;
     box-shadow: $card-box-shadow;
     border-radius: $border-radius-light;
@@ -987,13 +1092,13 @@ a.status-card {
 
     a {
       display: block;
-      padding: 1rem 0;
+      padding-bottom: 1rem;
     }
   }
 
   .header {
     background: $ui-base-color;
-    border: 1px solid darken($ui-base-color, 8%);
+    border: $ui-base-border;
 
     @media screen and (max-width: $no-gap-breakpoint) {
       border: 0;
@@ -1020,7 +1125,7 @@ a.status-card {
     &__bar {
       &::before {
         background: $account-background-color;
-        border: 1px solid darken($ui-base-color, 8%);
+        border: $ui-base-border;
         border-top: 0;
       }
 
@@ -1030,7 +1135,7 @@ a.status-card {
 
       @media screen and (max-width: $no-columns-breakpoint) {
         background: $account-background-color;
-        border: 1px solid darken($ui-base-color, 8%);
+        border: $ui-base-border;
         border-top: 0;
       }
     }
@@ -1068,6 +1173,7 @@ a.status-card {
     left: 0;
     bottom: 0;
     width: 100%;
+    padding-bottom: 1.5rem;
 
     h4,
     li,
@@ -1098,6 +1204,12 @@ a.status-card {
       }
     }
   }
+}
+
+.hero-widget__text {
+  background: $account-background-color;
+  box-shadow: $card-box-shadow;
+  border-radius: $border-radius-light;
 }
 
 .notification__filter-bar button.active::after,
@@ -1171,13 +1283,13 @@ a.status-card {
 
 .landing__brand {
   align-items: center;
-  font-family: "queerhaus-font", "mastodon-font-sans-serif", sans-serif;
-  letter-spacing: 1rem;
-  font-size: 1rem;
-  font-weight: 200;
 
   h1 a.brand {
     color: $pink;
+    font-family: "queerhaus-font", "mastodon-font-sans-serif", sans-serif;
+    letter-spacing: 1rem;
+    font-size: 3.8rem;
+    font-weight: 200;
   }
 }
 
@@ -1199,5 +1311,60 @@ a.status-card {
 
   .account__avatar {
     border-radius: $border-radius-light;
+  }
+}
+
+.container-alt .form-container {
+  background: $account-background-color;
+  box-shadow: $card-box-shadow;
+  border-radius: $border-radius-light;
+  margin-bottom: 2rem;
+
+  .hero-widget__text {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+.flash-message {
+  border-radius: $border-radius-light;
+}
+
+.item-list {
+  .column-subheading:first-child {
+    border: $ui-base-border;
+    border-bottom: 0;
+    border-radius: $border-radius-light $border-radius-light 0 0;
+  }
+
+  .column-link {
+    background: $card-background-action;
+    border: $ui-base-border;
+    border-bottom: 0;
+  }
+
+  article:first-child {
+    .column-link {
+      border-radius: $border-radius-light $border-radius-light 0 0;
+    }
+  }
+  article:last-child {
+    .column-link {
+      border-radius: 0 0 $border-radius-light $border-radius-light;
+      border-bottom: $ui-base-border;
+    }
+  }
+}
+
+.input-copy {
+  background: $card-background;
+  border-radius: $border-radius-light;
+
+  &:hover {
+    background: $card-background-action-light;
+  }
+  input[type="text"] {
+    background: none !important;
   }
 }

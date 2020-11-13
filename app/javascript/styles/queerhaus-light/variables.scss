@@ -7,18 +7,18 @@ $pink: #c144d5;
 $purple: #bd7fff;
 $blue: #9ea4ee;
 $turquoise: #7bc6d9;
-$yellow: #d8bf03;
-$gold-star: $yellow;
-// $pink-light: hsl(292, 100%, 86%);
+$yellow: #e5b90b;
 
-$classic-base-color: #282c37;
-$classic-primary-color: $pink;
 $classic-highlight-color: #721d80;
+$classic-base-color: darken($classic-highlight-color, 20%);
+$classic-primary-color: $pink;
 $classic-secondary-color: $purple;
 $classic-alternative-color: $blue;
 
 // Differences
-$success-green: lighten(#3c754d, 8%);
+$gold-star: $yellow;
+$red-bookmark: #fb6a6a;
+$success-green: #227b5b;
 
 $base-overlay-background: $white !default;
 $valid-value-color: $success-green !default;
@@ -29,13 +29,16 @@ $ui-primary-color: $classic-primary-color;
 $ui-secondary-color: darken($classic-highlight-color, 20%) !default;
 $ui-highlight-color: $classic-primary-color;
 $ui-background-light: #f8f6fe;
+$ui-link-color: darken($ui-base-color, 8%);
+$ui-base-border: 1px solid $ui-link-color;
 
 $primary-text-color: $black !default;
 $darker-text-color: darken($classic-highlight-color, 20%) !default;
 $highlight-text-color: $classic-highlight-color;
-$link-text-color: $classic-highlight-color;
 $dark-text-color: #444b5d;
-$action-button-color: #606984;
+$action-button-color: #6b7594;
+$action-button-active-color: $ui-link-color; // turquoise variant
+// $action-button-active-color: #6cc6d5; // turquoise variant
 
 $inverted-text-color: $black !default;
 $lighter-text-color: $classic-base-color !default;
@@ -46,6 +49,7 @@ $border-radius-light-s: 6px;
 $border-radius-light-xs: 4px;
 $card-background: rgba($white, 0.3);
 $card-background-action: rgba($white, 0.75);
+$card-background-action-light: rgba($white, 0.5);
 $card-box-shadow: inset 0 0 150px 5px rgba($white, 0.3);
 $account-background-color: rgba($white, 0.6) !default;
 $dropdown-background: $ui-background-light;
