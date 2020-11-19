@@ -46,15 +46,29 @@ class LinkFooter extends React.PureComponent {
 
     return (
       <div className='getting-started__footer'>
+        <p>
+          Queer Haus does not work like other social networks, please read <a href="http://queer.haus/about/more">our about page that explains the basics</a>.
+        </p>
+        <p>
+          If something looks broken, send us a message.
+          You can reach us at our collective account <a href="https://queer.haus/web/accounts/191">@dolphin</a> or our personal accounts:<br/>
+          <a href="https://queer.haus/web/accounts/5">@exstral</a> <a href="https://queer.haus/web/accounts/166">@vincentreynaud</a> <a href="https://queer.haus/web/accounts/167">@RustySofa</a> <a href="https://queer.haus/web/accounts/234">@monkysoda</a> <a href="https://queer.haus/web/accounts/302">@blablablorges</a> <a href="https://queer.haus/web/accounts/304">@marum</a>
+        </p>
+        <p>
+          Let’s communicate and organise! 🔥
+        </p>
+
         <ul>
           <li><a href='/about/more' target='_blank'>About us</a> · </li>
-          <li><a href='/about/more#apps-on-mobile' target='_blank'><FormattedMessage id='navigation_bar.apps' defaultMessage='Mobile apps' /></a> · </li>
+          <li><a href='https://opencollective.com/queerhaus' target='_blank'><FormattedMessage id='getting_started.donate' defaultMessage='Donate' /></a> · </li>
+          <li><a href='/terms' target='_blank'><FormattedMessage id='getting_started.terms' defaultMessage='Terms of service' /></a> · </li>
+          <li><a href='/about/more#apps-on-mobile' target='_blank'>Mobile&nbsp;apps</a> · </li>
           <li><a href='https://docs.joinmastodon.org' target='_blank'><FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' /></a> · </li>
           <li><a href='/auth/sign_out' onClick={this.handleLogoutClick}><FormattedMessage id='navigation_bar.logout' defaultMessage='Logout' /></a></li>
         </ul>
 
         <p>
-          <span>Logo by Landon Whittaker</span><br/>
+          <span>logo by Landon Whittaker</span><br/>
           <FormattedMessage
             id='getting_started.queerhaus_open_source_notice'
             defaultMessage='we are open source {github}'

@@ -191,6 +191,10 @@ a.status-card.compact:hover  {
   background: none;
 }
 
+.getting-started__footer p {
+  color: $ui-secondary-color;
+}
+.getting-started__footer p a,
 .getting-started__footer a {
   color: $ui-secondary-color;
   text-decoration: underline;
