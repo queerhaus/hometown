@@ -47,7 +47,7 @@ class LinkFooter extends React.PureComponent {
     return (
       <div className='getting-started__footer'>
         <p>
-          Queer Haus does not work like other social networks, please read <a href="http://queer.haus/about/more">our about page that explains the basics</a>.
+          Welcome to Queer Haus! Don't be shy, click around, explore, and please read <a href="http://queer.haus/about/more">our about page that explains the basics</a>.
         </p>
         <p>
           If something looks broken, send us a message.
