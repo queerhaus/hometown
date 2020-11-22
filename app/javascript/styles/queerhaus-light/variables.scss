@@ -3,13 +3,13 @@ $black: #000000;
 $white: #ffffff;
 $transparent: transparent;
 
-$pink: #c144d5;
+$pink: #b641c8;
 $purple: #bd7fff;
 $blue: #9ea4ee;
 $turquoise: #7bc6d9;
 $yellow: #e5b90b;
 
-$classic-highlight-color: #721d80;
+$classic-highlight-color: #5d1868;
 $classic-base-color: darken($classic-highlight-color, 20%);
 $classic-primary-color: $pink;
 $classic-secondary-color: $purple;
@@ -18,7 +18,7 @@ $classic-alternative-color: $blue;
 // Differences
 $gold-star: $yellow;
 $red-bookmark: #fb6a6a;
-$success-green: #227b5b;
+$success-green: #2c6d41;
 
 $base-overlay-background: $white !default;
 $valid-value-color: $success-green !default;
@@ -36,7 +36,7 @@ $primary-text-color: $black !default;
 $darker-text-color: darken($classic-highlight-color, 20%) !default;
 $highlight-text-color: $classic-highlight-color;
 $dark-text-color: #444b5d;
-$action-button-color: #6b7594;
+$action-button-color: #5c657f;
 $action-button-active-color: $ui-link-color; // turquoise variant
 // $action-button-active-color: #6cc6d5; // turquoise variant
 
