@@ -2,7 +2,8 @@ name: Docker Build
 on:
   push:
     branches:
-      - master
+      - develop
+      - production
 
 env:
   # Beware! The last part of this image name is global for your user or organization.
