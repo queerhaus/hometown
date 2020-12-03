@@ -68,7 +68,7 @@ class Directory extends React.PureComponent {
 
   getParams = (props, state) => ({
     order: state.order === null ? (props.params.order || 'active') : state.order,
-    local: state.local === null ? (props.params.local || false) : state.local,
+    local: state.local === null ? (props.params.local || true) : state.local,
   });
 
   handleMove = dir => {
