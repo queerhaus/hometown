@@ -6,6 +6,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import MovedNote from './moved_note';
 import { FormattedMessage } from 'react-intl';
 import { NavLink } from 'react-router-dom';
+import classNames from 'classnames';
 
 export default class Header extends ImmutablePureComponent {
 
@@ -96,7 +97,7 @@ export default class Header extends ImmutablePureComponent {
     }
 
     return (
-      <div className='account-timeline__header'>
+      <div className={classNames('account-timeline__header', account.get('acct').indexOf('@') === -1 ? 'account-local' : '')}>
         {account.get('moved') && <MovedNote from={account} to={account.get('moved')} />}
 
         <InnerHeader

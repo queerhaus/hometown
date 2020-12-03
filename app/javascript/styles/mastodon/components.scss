@@ -1146,6 +1146,12 @@
 
 .status__visibility {
   padding-right: 15px;
+
+  @media screen and (max-width: 400px) {
+    /* could not figure out how to make this gracefully hide based on space,
+       so just hiding it on small screens where it will break the status layout */
+    display: none;
+  }
 }
 
 .status__visibility-icon {
@@ -4251,7 +4257,7 @@ a.status-card.compact:hover {
   background: $simple-background-color;
   box-shadow: 2px 4px 15px rgba($base-shadow-color, 0.4);
   border-radius: 4px;
-  margin-left: 40px;
+  margin-left: 20px;
   overflow: hidden;
 
   &.top {

@@ -13,74 +13,75 @@
 
   .landing__grid
     .landing__grid__column.landing__grid__column-registration
-      .box-widget
-        = render 'registration'
+      -#.hero-widget
+      -#- if @instance_presenter.hero.present? || @instance_presenter.thumbnail.present?
+      -#  .hero-widget__img
+      -#    = image_tag @instance_presenter.hero&.file&.url || @instance_presenter.thumbnail&.file&.url, alt: @instance_presenter.site_title
+      -#- else
+      -#  %div{:class => ("originalhero")}
+      -#    = svg_logo
+      -#    %h1
+      -#      = link_to root_url, class: 'brand' do
+      -#        = site_title
 
-      .directory
-        - if Setting.profile_directory
-          .directory__tag
-            = optional_link_to Setting.profile_directory, explore_path do
-              %h4
-                = fa_icon 'address-book fw'
-                = t('about.discover_users')
-                %small= t('about.browse_directory')
-
-              .avatar-stack
-                - @instance_presenter.sample_accounts.each do |account|
-                  = image_tag current_account&.user&.setting_auto_play_gif ? account.avatar_original_url : account.avatar_static_url, alt: '', class: 'account__avatar'
-
-        - if Setting.timeline_preview
-          .directory__tag
-            = optional_link_to Setting.timeline_preview, public_timeline_path do
-              %h4
-                = fa_icon 'globe fw'
-                = t('about.see_whats_happening')
-                %small= t('about.browse_public_posts', title: site_title)
-
-        .directory__tag
-          = link_to 'https://joinmastodon.org/apps', target: '_blank', rel: 'noopener noreferrer' do
-            %h4
-              = fa_icon 'tablet fw'
-              = t('about.get_apps')
-              %small= t('about.apps_platforms', title: site_title)
+      .hero-widget__text
+        = @instance_presenter.site_description.html_safe.presence || t('about.about_mastodon_html')
+        = link_to about_more_path do
+          = t('about.learn_more')
+          = fa_icon 'angle-double-right'
 
     .landing__grid__column.landing__grid__column-login
       .box-widget
         = render 'login'
 
       .hero-widget
-        - if @instance_presenter.hero.present? || @instance_presenter.thumbnail.present?
-          .hero-widget__img
-            = image_tag @instance_presenter.hero&.file&.url || @instance_presenter.thumbnail&.file&.url, alt: @instance_presenter.site_title
-        - else
-          %div{:class => ("originalhero")}
-            = svg_logo
-            %h1
-              = link_to root_url, class: 'brand' do
-                = site_title
 
-        .hero-widget__text
-          %p
-            = @instance_presenter.site_short_description.html_safe.presence || t('about.about_mastodon_html')
-            = link_to about_more_path do
-              = t('about.learn_more')
-              = fa_icon 'angle-double-right'
+      .hero-widget__footer
+        .hero-widget__footer__column
+          %h4= t 'about.administered_by'
 
-        .hero-widget__footer
-          .hero-widget__footer__column
-            %h4= t 'about.administered_by'
+          = account_link_to @instance_presenter.contact_account
 
-            = account_link_to @instance_presenter.contact_account
+        .hero-widget__footer__column
+          %h4= t 'about.server_stats'
 
-          .hero-widget__footer__column
-            %h4= t 'about.server_stats'
+          .hero-widget__counters__wrapper
+            .hero-widget__counter
+              %strong= number_to_human @instance_presenter.user_count, strip_insignificant_zeros: true
+              %span= t 'about.user_count_after', count: @instance_presenter.user_count
+            .hero-widget__counter
+              %strong= number_to_human @instance_presenter.active_user_count, strip_insignificant_zeros: true
+              %span
+                = t 'about.active_count_after'
+                %abbr{ title: t('about.active_footnote') }
 
-            .hero-widget__counters__wrapper
-              .hero-widget__counter
-                %strong= number_to_human @instance_presenter.user_count, strip_insignificant_zeros: true
-                %span= t 'about.user_count_after', count: @instance_presenter.user_count
-              .hero-widget__counter
-                %strong= number_to_human @instance_presenter.active_user_count, strip_insignificant_zeros: true
-                %span
-                  = t 'about.active_count_after'
-                  %abbr{ title: t('about.active_footnote') } *
+      -#.box-widget
+      -#  = render 'registration'
+
+      -#.directory
+      -#  - if Setting.profile_directory
+      -#    .directory__tag
+      -#      = optional_link_to Setting.profile_directory, explore_path do
+      -#        %h4
+      -#          = fa_icon 'address-book fw'
+      -#          = t('about.discover_users')
+      -#          %small= t('about.browse_directory')
+      -#
+      -#        .avatar-stack
+      -#          - @instance_presenter.sample_accounts.each do |account|
+      -#            = image_tag current_account&.user&.setting_auto_play_gif ? account.avatar_original_url : account.avatar_static_url, width: 48, height: 48, alt: '', class: 'account__avatar'
+      -#
+      -#  - if Setting.timeline_preview
+      -#    .directory__tag
+      -#      = optional_link_to Setting.timeline_preview, public_timeline_path do
+      -#        %h4
+      -#          = fa_icon 'globe fw'
+      -#          = t('about.see_whats_happening')
+      -#          %small= t('about.browse_public_posts', title: site_title)
+      -#
+      -#  .directory__tag
+      -#    = link_to 'https://joinmastodon.org/apps', target: '_blank', rel: 'noopener noreferrer' do
+      -#      %h4
+      -#        = fa_icon 'tablet fw'
+      -#        = t('about.get_apps')
+      -#        %small= t('about.apps_platforms', title: site_title)

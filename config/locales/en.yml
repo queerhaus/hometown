@@ -50,7 +50,7 @@ en:
       one: user
       other: users
     user_count_before: Home to
-    what_is_mastodon: What is Hometown/Mastodon?
+    what_is_mastodon: What is the Fediverse?
   accounts:
     choices_html: "%{name}'s choices:"
     endorsements_hint: You can endorse people you follow from the web interface, and they will show up here.
