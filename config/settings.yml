@@ -2,18 +2,18 @@
 # important settings can be changed from the admin interface.
 
 defaults: &defaults
-  site_title: Hometown
+  site_title: Queer Haus
   site_short_description: ''
   site_description: ''
   site_extended_description: ''
   site_terms: ''
-  site_contact_username: ''
-  site_contact_email: ''
+  site_contact_username: 'admin'
+  site_contact_email: 'admin@example.com'
   registrations_mode: 'open'
   profile_directory: true
   closed_registrations_message: ''
   open_deletion: true
-  min_invite_role: 'admin'
+  min_invite_role: 'user'
   timeline_preview: true
   show_staff_badge: true
   default_sensitive: false
@@ -31,14 +31,14 @@ defaults: &defaults
   show_application: true
   system_font_ui: false
   noindex: false
-  theme: 'default'
+  theme: 'queerhaus-bright'
   aggregate_reblogs: true
   advanced_layout: false
   use_blurhash: true
   use_pending_items: false
   trends: true
   trendable_by_default: false
-  crop_images: true
+  crop_images: false
   notification_emails:
     follow: false
     reblog: false
