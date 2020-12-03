@@ -6,17 +6,12 @@
   = render partial: 'shared/og'
 
 .grid-4
-  .column-0
-    .public-account-header.public-account-header--no-bar
-      .public-account-header__image
-        - if @instance_presenter.hero.present? || @instance_presenter.thumbnail.present?
-          = image_tag @instance_presenter.hero&.file&.url || @instance_presenter.thumbnail&.file&.url, alt: @instance_presenter.site_title, class: 'parallax'
-        - else
-          %div{:class => ("originalheader")}
-            = svg_logo
-            %h1
-              = link_to root_url, class: 'brand' do
-                = site_title
+  - if @instance_presenter.hero.present?
+    .column-0
+      .public-account-header.public-account-header--no-bar
+        .public-account-header__image
+          = image_tag @instance_presenter.hero&.file&.url, alt: @instance_presenter.site_title, class: 'parallax'
+
 
   .column-1
     .landing-page__call-to-action{ dir: 'ltr' }
@@ -80,6 +75,13 @@
               %p= t('about.unavailable_content_description.suspended')
               = render partial: 'domain_blocks', locals: { domain_blocks: blocks }
 
+          %h2#allowlist= 'Our allowlist'
+          %p= 'We federate only with these other instances in the fediverse. See our reasoning for this above.'
+          %ul{ style: 'columns: 3 200px' }
+            - @allows.each do |site|
+              %li
+                = link_to site.domain, 'https://' + site.domain
+
   .column-4
     %ul.table-of-contents
       - @table_of_contents.each do |item|
@@ -90,6 +92,8 @@
             %ul
               - item.children.each do |sub_item|
                 %li= link_to sub_item.title, "##{sub_item.anchor}"
+      %li
+        = link_to 'Allowlist', "#allowlist"
 
       - if display_blocks? && !@blocks.empty?
         %li= link_to t('about.unavailable_content'), '#unavailable-content'

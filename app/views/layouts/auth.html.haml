@@ -8,6 +8,14 @@
         = link_to root_path, class: 'brand' do
           = site_title
 
+    - if @instance_presenter
+      .form-container
+        .hero-widget__text
+          = @instance_presenter.site_description.html_safe.presence || t('about.about_mastodon_html')
+          = link_to about_more_path do
+            = t('about.learn_more')
+            = fa_icon 'angle-double-right'
+
     .form-container
       = render 'flashes'
 
