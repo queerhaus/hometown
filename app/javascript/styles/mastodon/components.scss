@@ -1137,21 +1137,10 @@
 
 .status__relative-time,
 .status__visibility-icon,
-.notification__relative_time,
-.status__visibility {
+.notification__relative_time {
   color: $dark-text-color;
   float: right;
   font-size: 14px;
-}
-
-.status__visibility {
-  padding-right: 15px;
-
-  @media screen and (max-width: 400px) {
-    /* could not figure out how to make this gracefully hide based on space,
-       so just hiding it on small screens where it will break the status layout */
-    display: none;
-  }
 }
 
 .status__visibility-icon {

@@ -56,6 +56,7 @@ const messages = defineMessages({
   unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
   private_short: { id: 'privacy.private.short', defaultMessage: 'Followers-only' },
   direct_short: { id: 'privacy.direct.short', defaultMessage: 'Direct' },
+  local_only_short: { id: 'privacy.local_only.short', defaultMessage: 'Local-only' },
 });
 
 export default @injectIntl
@@ -432,19 +433,20 @@ class Status extends ImmutablePureComponent {
       'unlisted': { icon: 'unlock', text: intl.formatMessage(messages.unlisted_short) },
       'private': { icon: 'lock', text: intl.formatMessage(messages.private_short) },
       'direct': { icon: 'envelope', text: intl.formatMessage(messages.direct_short) },
+      'local_only': { icon: 'users', text: intl.formatMessage(messages.local_only_short) },
     };
 
-    const visibilityIcon = visibilityIconInfo[status.get('visibility')];
+    let visibilityIcon = visibilityIconInfo[status.get('visibility')];
 
-    // TODO not very pretty, but it works
-    let visibility = status.get('visibility');
-    let visibilityText = intl.formatMessage({ id: 'privacy.' + visibility + '.short', defaultMessage: visibility });
+    // Override visibility with local only setting when needed
     if (status.get('local_only')) {
-      let local_only_text = intl.formatMessage({ id: 'privacy.local_only.short', defaultMessage: 'Local-only' });
-      if (visibility === 'public') {
-        visibilityText = local_only_text;
+      if (status.get('visibility') === 'public') {
+        // This is the most common case, status is public and local only, show with simple local only icon
+        visibilityIcon = visibilityIconInfo['local_only'];
       } else {
-        visibilityText += ` (${local_only_text})`;
+        // This status is a more unusual combo of local only + another visibility than public
+        // To show this we add it to the tooltip (text) only
+        visibilityIcon.text += ' + ' + visibilityIconInfo['local_only'].text;
       }
     }
 
@@ -458,8 +460,6 @@ class Status extends ImmutablePureComponent {
             <div className='status__info'>
               <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener noreferrer'><RelativeTimestamp timestamp={status.get('created_at')} /></a>
               <span className='status__visibility-icon'><Icon id={visibilityIcon.icon} title={visibilityIcon.text} /></span>
-
-              <span className="status__visibility">{visibilityText}</span>
 
               <a onClick={this.handleAccountClick} data-id={status.getIn(['account', 'id'])} href={status.getIn(['account', 'url'])} title={status.getIn(['account', 'acct'])} className='status__display-name' target='_blank' rel='noopener noreferrer'>
                 <div className='status__avatar'>
