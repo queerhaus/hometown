@@ -2,8 +2,7 @@ name: Docker Build
 on:
   push:
     branches:
-      - develop
-      - production
+      - main
 
 env:
   # Beware! The last part of this image name is global for your user or organization.
@@ -17,7 +16,7 @@ env:
 jobs:
 
   prepare:
-    name: Prepare Docker Image
+    name: Build and Deploy
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
@@ -36,3 +35,12 @@ jobs:
           docker pull $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }} || true
           docker build --cache-from $DOCKER_IMAGE_BUILD:latest --cache-from $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }} --tag $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }} .
           docker push $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }}
+
+      - name: Deploy new image on staging server
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.DEPLOY_PRIVATE_KEY }}"
+          ssh -o StrictHostKeyChecking=no -p 2020 -l deploy sylvia.machine.queer.haus time
