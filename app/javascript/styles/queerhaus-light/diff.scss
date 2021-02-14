@@ -191,6 +191,52 @@ a.status-card {
   border: $ui-base-border;
 }
 
+// Profile directory cards
+
+.scrollable {
+  .directory__list {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.directory__list {
+  .directory__card {
+    &.card-local {
+      border-radius: $border-radius-light;
+      border: 0;
+
+      .directory__card__img {
+        border-radius: $border-radius-light $border-radius-light 0 0;
+      }
+
+      .directory__card__bar {
+        background: lighten($ui-base-color, 8%);
+        border-radius: 0;
+        border-left: $ui-base-border !important;
+        border-right: $ui-base-border !important;
+        border-bottom: 0 !important;
+      }
+
+      .directory__card__extra {
+        background: $account-background-color;
+        border-left: $ui-base-border;
+        border-right: $ui-base-border;
+
+        .account__header__content {
+          border: 0;
+        }
+
+        &:last-child {
+          border-radius: 0 0 $border-radius-light $border-radius-light;
+          border-bottom: $ui-base-border;
+        }
+      }
+    }
+  }
+}
+
 .column-back-button,
 .column-header {
   color: $darker-text-color;
