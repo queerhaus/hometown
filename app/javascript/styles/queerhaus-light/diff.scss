@@ -21,9 +21,9 @@ html {
   background: rgba($ui-base-color, 0.5);
   background: linear-gradient(
     165deg,
-    lighten($purple, 5%) 0%,
-    lighten($blue, 5%) 40%,
-    lighten($turquoise, 5%) 100%
+    lighten($purple, 1%) 0%,
+    lighten($blue, 1%) 40%,
+    lighten($turquoise, 1%) 100%
   );
 }
 
@@ -152,7 +152,7 @@ a.status-card {
 
 .filter-form,
 .directory__card__bar {
-  background: lighten($ui-base-color, 4%);
+  background: $ui-active-tab-color;
   border-radius: $border-radius-light;
   border: $ui-base-border;
   border-top: 0;
@@ -212,7 +212,7 @@ a.status-card {
       }
 
       .directory__card__bar {
-        background: lighten($ui-base-color, 8%);
+        background: $account-background-color;
         border-radius: 0;
         border-left: $ui-base-border !important;
         border-right: $ui-base-border !important;
@@ -229,7 +229,9 @@ a.status-card {
         }
 
         &:last-child {
+          background: $ui-active-tab-color;
           border-radius: 0 0 $border-radius-light $border-radius-light;
+          border-top: $ui-base-border;
           border-bottom: $ui-base-border;
         }
       }
@@ -240,7 +242,7 @@ a.status-card {
 .column-back-button,
 .column-header {
   color: $darker-text-color;
-  background: $ui-base-color;
+  background: lighten($ui-base-color, 4%);
   border: $ui-base-border;
   border-radius: $border-radius-light;
 
@@ -295,12 +297,12 @@ a.status-card {
 }
 
 .account__section-headline {
-  background: lighten($ui-base-color, 6%);
+  background: $ui-base-tab-color;
   border: $ui-base-border;
   border-radius: 0 0 $border-radius-light $border-radius-light;
 
   a.active {
-    background: lighten($ui-base-color, 10%);
+    background: $ui-active-tab-color;
     border-left: $ui-base-border;
     border-right: $ui-base-border;
     border-radius: 0 0 $border-radius-light $border-radius-light;
@@ -438,7 +440,13 @@ a.status-card {
 }
 
 .search__input {
+  background: $card-background;
+  box-shadow: $card-box-shadow;
   color: darken($highlight-text-color, 4%);
+
+  &:focus {
+    background: $card-background-action-light;
+  }
 
   &::placeholder {
     color: rgba($highlight-text-color, 0.75);
@@ -484,16 +492,16 @@ a.status-card {
 
 .notification__filter-bar {
   margin-top: $post-spacer;
-  background: lighten($ui-base-color, 6%);
+  background: $ui-base-tab-color;
   border: $ui-base-border;
   border-radius: $border-radius-light;
 
   button {
     border-radius: $border-radius-light;
-    background: lighten($ui-base-color, 6%);
+    background: $ui-base-tab-color;
 
     &.active {
-      background: $ui-base-color;
+      background: lighten($ui-base-color, 2%);
 
       &:before {
         content: none;
@@ -519,7 +527,7 @@ a.status-card {
 }
 
 .compose-form .compose-form__buttons-wrapper {
-  background: lighten($ui-base-color, 6%);
+  background: $ui-base-tab-color;
   border: $ui-base-border;
   // border-top: 0;
   border-radius: 0 0 $border-radius-light $border-radius-light;
@@ -594,7 +602,7 @@ button.icon-button.start-icon.active {
   }
 
   .autosuggest-textarea__suggestions {
-    background: lighten($ui-base-color, 6%);
+    background: $ui-base-tab-color;
   }
 
   .autosuggest-textarea__suggestions__item {
@@ -624,7 +632,7 @@ button.icon-button.start-icon.active {
   border-color: darken($ui-base-color, 4%);
 
   &:first-child {
-    background: lighten($ui-base-color, 6%);
+    background: $ui-base-tab-color;
   }
 }
 
@@ -803,7 +811,7 @@ button.icon-button.start-icon.active {
 }
 
 .column-header__collapsible-inner {
-  background: lighten($ui-base-color, 4%);
+  background: lighten($ui-base-color, 8%);
   border: $ui-base-border;
   border-top: 0;
   border-radius: $border-radius-light;
@@ -819,7 +827,7 @@ button.icon-button.start-icon.active {
 .block-modal__action-bar,
 .onboarding-modal__paginator,
 .error-modal__footer {
-  background: lighten($ui-base-color, 6%);
+  background: $ui-base-tab-color;
 
   .onboarding-modal__nav,
   .error-modal__nav {
@@ -866,7 +874,7 @@ button.icon-button.start-icon.active {
 }
 
 .tabs-bar {
-  background: $ui-base-color;
+  background: lighten($ui-base-color, 4%);
   border: $ui-base-border;
   border-bottom: 0;
   border-radius: $border-radius-light;
@@ -885,7 +893,7 @@ button.icon-button.start-icon.active {
     &:hover,
     &:active,
     &:focus {
-      background: $ui-base-color;
+      background: transparent;
       border-bottom-color: darken($ui-base-color, 8%);
     }
 
@@ -1420,8 +1428,12 @@ input[type="checkbox"]:checked + span {
       padding: 0 10px;
       border: 0;
 
+      a {
+        color: $purple-acid;
+      }
+
       dl {
-        border: 1px solid lighten($ui-base-color, 10%);
+        border: $ui-light-border;
         border-bottom: 0;
 
         dd {
@@ -1429,8 +1441,8 @@ input[type="checkbox"]:checked + span {
         }
 
         dt {
-          background: rgba(lighten($ui-base-color, 10%), 0.4);
-          border-right: 1px solid lighten($ui-base-color, 10%);
+          background: rgba(lighten($ui-base-color, 12%), 0.5);
+          border-right: $ui-light-border;
         }
 
         &:first-child {
@@ -1447,7 +1459,7 @@ input[type="checkbox"]:checked + span {
 
         &:last-child {
           border-radius: 0 0 $border-radius-light $border-radius-light;
-          border-bottom: 1px solid lighten($ui-base-color, 10%);
+          border-bottom: $ui-light-border;
 
           dd {
             border-radius: 0 0 $border-radius-light 0;

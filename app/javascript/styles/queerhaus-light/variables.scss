@@ -3,13 +3,16 @@ $black: #000000;
 $white: #ffffff;
 $transparent: transparent;
 
-$pink: #b641c8;
+$pink: #bd3bc4;
 $purple: #bd7fff;
+$purple-acid: #b042ff;
 $blue: #9ea4ee;
-$turquoise: #7bc6d9;
+$turquoise: #95e8c3;
 $yellow: #e5b90b;
+// $pink-gradient: #c572ba;
+// $turquoise: #7bc6d9;
 
-$classic-highlight-color: #5d1868;
+$classic-highlight-color: #761985;
 $classic-base-color: darken($classic-highlight-color, 20%);
 $classic-primary-color: $pink;
 $classic-secondary-color: $purple;
@@ -24,20 +27,23 @@ $base-overlay-background: $white !default;
 $valid-value-color: $success-green !default;
 
 $ui-base-color: $classic-secondary-color !default;
-$ui-base-lighter-color: #b0c0cf;
+$ui-base-tab-color: lighten($ui-base-color, 6%);
+$ui-active-tab-color: lighten($ui-base-color, 10%);
 $ui-primary-color: $classic-primary-color;
 $ui-secondary-color: darken($classic-highlight-color, 20%) !default;
 $ui-highlight-color: $classic-primary-color;
+$ui-link-color: #8f31ed;
+// $ui-link-color: #852ac6;
+$ui-base-border: 1px solid $purple-acid;
+$ui-light-border: 1px solid $ui-base-tab-color;
 $ui-background-light: #f8f6fe;
-$ui-link-color: darken($ui-base-color, 8%);
-$ui-base-border: 1px solid $ui-link-color;
 
 $primary-text-color: $black !default;
 $darker-text-color: darken($classic-highlight-color, 20%) !default;
 $highlight-text-color: $classic-highlight-color;
 $dark-text-color: #444b5d;
 $action-button-color: #5c657f;
-$action-button-active-color: $ui-link-color; // turquoise variant
+$action-button-active-color: #9e51ec; // derived from link color
 // $action-button-active-color: #6cc6d5; // turquoise variant
 
 $inverted-text-color: $black !default;
