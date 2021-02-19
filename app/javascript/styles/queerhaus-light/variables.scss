@@ -36,6 +36,8 @@ $ui-link-color: #8f31ed;
 // $ui-link-color: #852ac6;
 $ui-base-border: 1px solid $purple-acid;
 $ui-light-border: 1px solid $ui-base-tab-color;
+$ui-mobile-content-border: 1px solid
+  rgba(darken($classic-alternative-color, 12%), 0.25);
 $ui-background-light: #f8f6fe;
 
 $primary-text-color: $black !default;
