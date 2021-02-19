@@ -421,9 +421,9 @@ class Status extends ImmutablePureComponent {
     }
 
     if (otherAccounts && otherAccounts.size > 0) {
-      statusAvatar = <AvatarComposite accounts={otherAccounts} size={48} />;
+      statusAvatar = <AvatarComposite accounts={otherAccounts} size={50} />;
     } else if (account === undefined || account === null) {
-      statusAvatar = <Avatar account={status.get('account')} size={48} />;
+      statusAvatar = <Avatar account={status.get('account')} size={50} />;
     } else {
       statusAvatar = <AvatarOverlay account={status.get('account')} friend={account} />;
     }

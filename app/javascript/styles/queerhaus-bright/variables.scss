@@ -13,6 +13,7 @@ $yellow: #ffed66;
 $pink: #ff66ad;
 $purple: #a866ff;
 $green: #4cffa8;
+$feed-background: rgba(255, 255, 255, 0.8);
 
 // Variants
 $blue-dark: darken($blue, 10%);
@@ -23,6 +24,7 @@ $pink-dark: darken($pink, 25%);
 
 $purple-darker: darken($purple, 50%);
 
+$yellow-light: lighten($yellow, 20%);
 $purple-light: lighten($purple, 25%);
 $blue-light: lighten($blue, 20%);
 
@@ -36,7 +38,7 @@ $ui-base-color: $classic-secondary-color !default;
 $ui-base-lighter-color: #b0c0cf;
 $ui-primary-color: #9bcbed;
 $ui-secondary-color: $classic-base-color !default;
-$ui-highlight-color: $pink;
+$ui-highlight-color: $purple-dark;
 
 $primary-text-color: $purple-darker !default;
 $darker-text-color: $classic-base-color !default;
