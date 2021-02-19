@@ -15,8 +15,8 @@ env:
 
 jobs:
 
-  prepare:
-    name: Build and Deploy
+  build:
+    name: Build
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
@@ -36,7 +36,12 @@ jobs:
           docker build --cache-from $DOCKER_IMAGE_BUILD:latest --cache-from $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }} --tag $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }} .
           docker push $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }}
 
-      - name: Deploy new image on staging server
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-18.04
+    needs: build
+    steps:
+      - name: Trigger deployment on staging server
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
