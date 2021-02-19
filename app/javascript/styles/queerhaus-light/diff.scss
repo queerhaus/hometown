@@ -21,9 +21,9 @@ html {
   background: rgba($ui-base-color, 0.5);
   background: linear-gradient(
     165deg,
-    lighten($purple, 5%) 0%,
-    lighten($blue, 5%) 40%,
-    lighten($turquoise, 5%) 100%
+    lighten($purple, 1%) 0%,
+    lighten($blue, 1%) 40%,
+    lighten($turquoise, 1%) 100%
   );
 }
 
@@ -77,7 +77,13 @@ body.admin .body-background {
 // Change the colors of button texts
 .button {
   color: $white;
-  border-radius: $border-radius-light-s;
+  border-radius: $border-radius-light;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: darken($ui-primary-color, 4%);
+  }
 
   &.button-alternative-2 {
     color: $white;
@@ -85,11 +91,11 @@ body.admin .body-background {
 }
 
 button[type="button"] {
-  border-radius: $border-radius-light-s;
+  border-radius: $border-radius-light;
 }
 
 .status-card {
-  border-radius: $border-radius-light-s;
+  border-radius: $border-radius-light;
 }
 
 a.status-card {
@@ -112,6 +118,10 @@ a.status-card {
 
 .status-card__image {
   background: lighten($classic-alternative-color, 5%);
+}
+
+.status-card__content {
+  background-color: $card-background-action-light;
 }
 
 .status-card__actions button,
@@ -142,8 +152,15 @@ a.status-card {
 
 .filter-form,
 .directory__card__bar {
-  background: $transparent;
-  border-bottom: $ui-base-border;
+  background: $ui-active-tab-color;
+  border-radius: $border-radius-light;
+  border: $ui-base-border;
+  border-top: 0;
+}
+
+.card__img {
+  background: darken($ui-base-color, 8%);
+  border-radius: $border-radius-light $border-radius-light 0 0;
 }
 
 .card.h-card {
@@ -174,15 +191,64 @@ a.status-card {
   border: $ui-base-border;
 }
 
+// Profile directory cards
+
+.scrollable {
+  .directory__list {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.directory__list {
+  .directory__card {
+    &.card-local {
+      border-radius: $border-radius-light;
+      border: 0;
+
+      .directory__card__img {
+        border-radius: $border-radius-light $border-radius-light 0 0;
+      }
+
+      .directory__card__bar {
+        background: $account-background-color;
+        border-radius: 0;
+        border-left: $ui-base-border !important;
+        border-right: $ui-base-border !important;
+        border-bottom: 0 !important;
+      }
+
+      .directory__card__extra {
+        background: $account-background-color;
+        border-left: $ui-base-border;
+        border-right: $ui-base-border;
+
+        .account__header__content {
+          border: 0;
+        }
+
+        &:last-child {
+          background: $ui-active-tab-color;
+          border-radius: 0 0 $border-radius-light $border-radius-light;
+          border-top: $ui-base-border;
+          border-bottom: $ui-base-border;
+        }
+      }
+    }
+  }
+}
+
 .column-back-button,
 .column-header {
   color: $darker-text-color;
-  background: $ui-base-color;
+  background: lighten($ui-base-color, 4%);
   border: $ui-base-border;
   border-radius: $border-radius-light;
 
   @media screen and (max-width: $no-gap-breakpoint) {
     border-top: 0;
+    border-radius: 0;
   }
 
   &--slim-button {
@@ -219,19 +285,24 @@ a.status-card {
 .account__header {
   background: $account-background-color;
   box-shadow: $card-box-shadow;
-  border: $ui-base-border;
   border-bottom: 0;
   border-radius: $border-radius-light $border-radius-light 0 0;
   margin-top: $post-spacer;
 }
 
+.account__header__bar {
+  border: $ui-base-border;
+  border-top: 0;
+  border-bottom: 0;
+}
+
 .account__section-headline {
-  background: lighten($ui-base-color, 6%);
+  background: $ui-base-tab-color;
   border: $ui-base-border;
   border-radius: 0 0 $border-radius-light $border-radius-light;
 
   a.active {
-    background: lighten($ui-base-color, 10%);
+    background: $ui-active-tab-color;
     border-left: $ui-base-border;
     border-right: $ui-base-border;
     border-radius: 0 0 $border-radius-light $border-radius-light;
@@ -306,6 +377,11 @@ a.status-card {
   border: $ui-base-border;
   border-radius: $border-radius-light;
   height: unset !important;
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-top: 0;
+    border-radius: 0;
+  }
 }
 
 .getting-started {
@@ -364,7 +440,13 @@ a.status-card {
 }
 
 .search__input {
-  color: $highlight-text-color;
+  background: $card-background;
+  box-shadow: $card-box-shadow;
+  color: darken($highlight-text-color, 4%);
+
+  &:focus {
+    background: $card-background-action-light;
+  }
 
   &::placeholder {
     color: rgba($highlight-text-color, 0.75);
@@ -410,16 +492,16 @@ a.status-card {
 
 .notification__filter-bar {
   margin-top: $post-spacer;
-  background: lighten($ui-base-color, 6%);
+  background: $ui-base-tab-color;
   border: $ui-base-border;
   border-radius: $border-radius-light;
 
   button {
     border-radius: $border-radius-light;
-    background: lighten($ui-base-color, 6%);
+    background: $ui-base-tab-color;
 
     &.active {
-      background: $ui-base-color;
+      background: lighten($ui-base-color, 2%);
 
       &:before {
         content: none;
@@ -445,7 +527,7 @@ a.status-card {
 }
 
 .compose-form .compose-form__buttons-wrapper {
-  background: lighten($ui-base-color, 6%);
+  background: $ui-base-tab-color;
   border: $ui-base-border;
   // border-top: 0;
   border-radius: 0 0 $border-radius-light $border-radius-light;
@@ -466,7 +548,7 @@ a.status-card {
 }
 
 button.icon-button {
-  border-radius: $border-radius-light-s;
+  border-radius: $border-radius-light;
 
   &:hover,
   &:focus,
@@ -484,7 +566,11 @@ button.icon-button.start-icon.active {
 }
 
 .account__header__tabs__buttons .icon-button {
-  border-radius: $border-radius-light-s;
+  border-radius: $border-radius-light;
+  background: $card-background;
+  &:hover {
+    background: $card-background-action;
+  }
 }
 
 // Change the colors used in compose-form
@@ -516,7 +602,7 @@ button.icon-button.start-icon.active {
   }
 
   .autosuggest-textarea__suggestions {
-    background: lighten($ui-base-color, 6%);
+    background: $ui-base-tab-color;
   }
 
   .autosuggest-textarea__suggestions__item {
@@ -546,7 +632,7 @@ button.icon-button.start-icon.active {
   border-color: darken($ui-base-color, 4%);
 
   &:first-child {
-    background: lighten($ui-base-color, 6%);
+    background: $ui-base-tab-color;
   }
 }
 
@@ -555,23 +641,32 @@ button.icon-button.start-icon.active {
   border-color: $ui-base-color;
 }
 
-// Change the background colors of statuses
 .focusable:focus {
-  background: rgba($white, 0.2);
+  background: rgba($white, 0.5);
   border-radius: $border-radius-light;
 
   .detailed-status,
-  .detailed-status__action-bar {
+  .detailed-status__action-bar,
+  .status.status.status-direct {
     background: transparent;
+  }
+
+  .status {
+    background-color: transparent;
   }
 }
 
 .status.status-direct {
   background: darken($ui-base-color, 4%);
+
+  &:not(.read) {
+    background: $card-background;
+    box-shadow: inset 0 0 70px 5px rgba($white, 0.75);
+  }
 }
 
-.focusable:focus .status.status-direct {
-  // background: darken($ui-base-color, 8%);
+.icon-button.disabled {
+  color: lighten($action-button-color, 13%);
 }
 
 .detailed-status,
@@ -716,7 +811,7 @@ button.icon-button.start-icon.active {
 }
 
 .column-header__collapsible-inner {
-  background: lighten($ui-base-color, 4%);
+  background: lighten($ui-base-color, 8%);
   border: $ui-base-border;
   border-top: 0;
   border-radius: $border-radius-light;
@@ -732,7 +827,7 @@ button.icon-button.start-icon.active {
 .block-modal__action-bar,
 .onboarding-modal__paginator,
 .error-modal__footer {
-  background: lighten($ui-base-color, 6%);
+  background: $ui-base-tab-color;
 
   .onboarding-modal__nav,
   .error-modal__nav {
@@ -779,13 +874,14 @@ button.icon-button.start-icon.active {
 }
 
 .tabs-bar {
-  background: $ui-base-color;
+  background: lighten($ui-base-color, 4%);
   border: $ui-base-border;
   border-bottom: 0;
   border-radius: $border-radius-light;
 
   @media screen and (max-width: $no-gap-breakpoint) {
     border-top: 0;
+    border-radius: 0;
   }
 
   &__link {
@@ -797,7 +893,7 @@ button.icon-button.start-icon.active {
     &:hover,
     &:active,
     &:focus {
-      background: $ui-base-color;
+      background: transparent;
       border-bottom-color: darken($ui-base-color, 8%);
     }
 
@@ -1023,7 +1119,8 @@ input[type="checkbox"]:checked + span {
 
 .compose-form .compose-form__warning {
   border-color: $ui-highlight-color;
-  background-color: rgba($ui-highlight-color, 0.1);
+  background-color: $card-background-action-light;
+  border-radius: $border-radius-light;
 
   &,
   a {
@@ -1056,6 +1153,12 @@ input[type="checkbox"]:checked + span {
 .button.logo-button {
   color: $white;
 
+  &:hover,
+  &:focus,
+  &:active {
+    background: darken($ui-primary-color, 4%);
+  }
+
   svg {
     fill: $white;
   }
@@ -1063,7 +1166,7 @@ input[type="checkbox"]:checked + span {
 
 .public-layout {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
 
   .account__section-headline {
     border: $ui-base-border;
@@ -1093,12 +1196,14 @@ input[type="checkbox"]:checked + span {
     a {
       display: block;
       padding-bottom: 1rem;
+      color: $ui-link-color;
     }
   }
 
   .header {
     background: $ui-base-color;
     border: $ui-base-border;
+    margin-bottom: 0;
 
     @media screen and (max-width: $no-gap-breakpoint) {
       border: 0;
@@ -1240,17 +1345,26 @@ input[type="checkbox"]:checked + span {
   color: $primary-text-color;
 }
 
-// Added on top
-
-.status {
+.status,
+.conversation {
   border-radius: $border-radius-light;
   background-color: $card-background;
   box-shadow: $card-box-shadow;
   border: none;
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-bottom: 1px solid lighten($classic-alternative-color, 4%);
+    border-radius: 0;
+  }
 }
 
-.status__wrapper {
+.status__wrapper,
+.conversation {
   margin: $post-spacer 0;
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    margin: 0;
+  }
 }
 
 .tabs-bar__wrapper {
@@ -1309,21 +1423,94 @@ input[type="checkbox"]:checked + span {
     background: $ui-base-color;
   }
 
+  &__bio {
+    .account__header__fields {
+      padding: 0 10px;
+      border: 0;
+
+      a {
+        color: $purple-acid;
+      }
+
+      dl {
+        border: $ui-light-border;
+        border-bottom: 0;
+
+        dd {
+          background: $card-background;
+        }
+
+        dt {
+          background: rgba(lighten($ui-base-color, 12%), 0.5);
+          border-right: $ui-light-border;
+        }
+
+        &:first-child {
+          border-radius: $border-radius-light $border-radius-light 0 0;
+
+          dd {
+            border-radius: 0 $border-radius-light 0 0;
+          }
+
+          dt {
+            border-radius: $border-radius-light 0 0 0;
+          }
+        }
+
+        &:last-child {
+          border-radius: 0 0 $border-radius-light $border-radius-light;
+          border-bottom: $ui-light-border;
+
+          dd {
+            border-radius: 0 0 $border-radius-light 0;
+          }
+
+          dt {
+            border-radius: 0 0 0 $border-radius-light;
+          }
+        }
+
+        &:first-child:last-child {
+          border-radius: $border-radius-light;
+
+          dd {
+            border-radius: 0 $border-radius-light $border-radius-light 0;
+          }
+
+          dt {
+            border-radius: $border-radius-light 0 0 $border-radius-light;
+          }
+        }
+      }
+    }
+  }
+
   .account__avatar {
     border-radius: $border-radius-light;
   }
 }
 
-.container-alt .form-container {
-  background: $account-background-color;
-  box-shadow: $card-box-shadow;
-  border-radius: $border-radius-light;
-  margin-bottom: 2rem;
+.container-alt {
+  .logo-container {
+    @media screen and (max-width: $no-gap-breakpoint) {
+      margin: 2rem 0;
+    }
+  }
+  .form-container {
+    background: $account-background-color;
+    box-shadow: $card-box-shadow;
+    border-radius: $border-radius-light;
+    margin-bottom: 2rem;
 
-  .hero-widget__text {
-    background: none;
-    box-shadow: none;
-    padding: 0;
+    @media screen and (max-width: $no-gap-breakpoint) {
+      margin: 10px 6px;
+    }
+
+    .hero-widget__text {
+      background: none;
+      box-shadow: none;
+      padding: 0;
+    }
   }
 }
 
@@ -1366,5 +1553,86 @@ input[type="checkbox"]:checked + span {
   }
   input[type="text"] {
     background: none !important;
+  }
+}
+
+.media-gallery {
+  border-radius: $border-radius-light;
+}
+
+.load-more {
+  margin: $post-spacer 0;
+  background: $card-background;
+  border-radius: $border-radius-light;
+
+  &:hover {
+    background: $card-background-action-light;
+  }
+}
+
+.load-gap {
+  border: 0;
+}
+
+.radio-button__input {
+  border-color: darken($ui-primary-color, 4%);
+
+  &.checked {
+    border-color: darken($ui-primary-color, 4%);
+    background: darken($ui-primary-color, 4%);
+  }
+}
+
+.rich-formatting a {
+  color: $ui-link-color;
+}
+
+// .introduction__frame background
+.public-layout {
+  .landing-page__call-to-action {
+    background: $card-background;
+    border-radius: $border-radius-light;
+    box-shadow: $card-box-shadow;
+
+    .row__mascot {
+      margin: 0;
+
+      .landing-page__mascot {
+        left: 0;
+        bottom: 0;
+
+        img {
+          height: 110%;
+        }
+      }
+    }
+  }
+
+  .contact-widget {
+    background: $card-background;
+    border-radius: $border-radius-light;
+    box-shadow: $card-box-shadow;
+  }
+
+  .table-of-contents {
+    background: lighten($ui-base-color, 4%);
+    min-height: unset;
+    border-radius: $border-radius-light;
+
+    li {
+      a {
+        border-bottom: $ui-base-border;
+      }
+
+      &:last-child a {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .grid-4 {
+    .column-3 .box-widget {
+      margin-bottom: 8rem;
+    }
   }
 }
