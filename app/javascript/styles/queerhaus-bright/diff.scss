@@ -78,13 +78,16 @@ body.admin .body-background {
 }
 
 .status-card {
-  background: $white;
+  background: none;
   border: none;
   margin-top: 10px;
 }
+.status-card.horizontal {
+  border-radius: 25px;
+}
 a.status-card:hover,
 a.status-card.compact:hover  {
-  background: $pink;
+  background: rgba($ui-highlight-color, 0.2);
 }
 
 .status-card__image {
@@ -423,7 +426,8 @@ a.status-card.compact:hover  {
 .status,
 .conversation,
 .notification {
-  margin: 0 2px;
+  margin-left: 2px;
+  margin-right: 2px;
   border: none;
   border-radius: 25px;
   background: $feed-background;
@@ -534,6 +538,19 @@ button.icon-button i.fa-retweet:hover {
 .media-spoiler,
 .video-player__spoiler {
   background: $ui-base-color;
+}
+
+.spoiler-button {
+  left: 10px;
+  top: 10px;
+
+  .icon-button.overlayed {
+    border-radius: 25px;
+  }
+}
+
+.media-gallery {
+  border-radius: 25px;
 }
 
 .privacy-dropdown.active .privacy-dropdown__value.active .icon-button {
