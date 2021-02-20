@@ -1231,6 +1231,7 @@ button.icon-button i.fa-retweet:hover {
   background: $blue-dark;
   margin: 0 25px;
   border-radius: 0 0 25px 25px;
+  box-shadow: inset 0 0 25px -10px $purple;
 
   img.announcements__mastodon {
     border-radius: 0 0 0 25px;
