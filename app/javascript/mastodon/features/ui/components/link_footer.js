@@ -69,11 +69,7 @@ class LinkFooter extends React.PureComponent {
 
         <p>
           <span>logo by Landon Whittaker</span><br/>
-          <FormattedMessage
-            id='getting_started.queerhaus_open_source_notice'
-            defaultMessage='we are open source {github}'
-            values={{ github: <span><a href={source_url} rel='noopener noreferrer' target='_blank'>{repository}</a></span> }}
-          />
+          <span>all our projects are <a rel='noopener noreferrer' href='https://github.com/queerhaus'>open source</a></span>
         </p>
       </div>
     );
