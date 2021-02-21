@@ -190,12 +190,19 @@ a.status-card.compact:hover  {
   background: none;
 }
 
+.getting-started__footer {
+  background: $feed-background;
+  padding: 20px 20px 0 20px;
+  border-radius: 25px;
+  margin-bottom: 10px;
+  box-shadow: inset 0 0 25px -10px $purple;
+}
 .getting-started__footer p {
-  color: $ui-secondary-color;
+  color: $purple-darker;
 }
 .getting-started__footer p a,
 .getting-started__footer a {
-  color: $ui-secondary-color;
+  color: $purple-darker;
   text-decoration: underline;
 }
 
