@@ -13,20 +13,31 @@ $yellow: #ffed66;
 $pink: #ff66ad;
 $purple: #a866ff;
 $green: #4cffa8;
-$feed-background: rgba(255, 255, 255, 0.8);
 
 // Variants
 $blue-dark: darken($blue, 10%);
+$blue-darker: darken($blue, 40%);
 $purple-dark: #843de1;
-$green-dark: darken($green, 35%);
+$purple-darker: darken($purple, 50%);
+$green-dark: darken($green, 20%);
+$green-darker: darken($green, 40%);
 $yellow-dark: darken($yellow, 25%);
 $pink-dark: darken($pink, 25%);
-
-$purple-darker: darken($purple, 50%);
 
 $yellow-light: lighten($yellow, 20%);
 $purple-light: lighten($purple, 25%);
 $blue-light: lighten($blue, 20%);
+
+// Privacy / visibility levels
+$feed-background: rgba(255, 255, 255, 0.8);
+$privacy-public-text: #007ac4;
+$privacy-public-glow: $blue;
+$privacy-local-text: #8e37ff;
+$privacy-local-glow: $purple;
+$privacy-private-text: #008a08;
+$privacy-private-glow: $green;
+$privacy-direct-text: #d51ab7;
+$privacy-direct-glow: #ff0bc2;
 
 // Differences
 $success-green: lighten(#3c754d, 8%);
