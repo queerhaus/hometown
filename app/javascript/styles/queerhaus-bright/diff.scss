@@ -2,7 +2,7 @@
 // Sass color functions, "darken" and "lighten" are automatically replaced.
 
 html {
-  scrollbar-color: $ui-base-color rgba($ui-base-color, 0.25);
+  scrollbar-color: $highlight-text-color $purple-light;
   min-height: 100%;
 }
 
