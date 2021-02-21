@@ -1075,11 +1075,40 @@ button.icon-button i.fa-retweet:hover {
   }
 
   .landing {
+
+    h1 a.brand {
+      color: $purple-darker;
+    }
+    .qh-landing-logo {
+      width: 80px;
+      padding-right: 2rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      h1 a.brand {
+        font-size: 2em;
+      }
+      .qh-landing-logo {
+        width: 40px;
+        padding-right: 2rem;
+      }
+    }
+
+    &__grid__column-login {
+      display: block;
+    }
+
+    .hero-widget {
+      border: none;
+    }
+
     .box-widget,
     .hero-widget__footer,
     .hero-widget__text {
       border-radius: 25px;
       box-shadow: inset 0 0 25px -10px $purple;
+      margin-bottom: 10px;
+      border: none;
     }
 
     .hero-widget__text {
@@ -1382,10 +1411,6 @@ button.icon-button i.fa-retweet:hover {
   background: $blue;
 }
 
-.qh-landing-logo {
-  width: 80px;
-  padding-right: 2rem;
-}
 
 
 .table--invites .input-copy button {
