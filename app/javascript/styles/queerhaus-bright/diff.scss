@@ -189,13 +189,29 @@ a.status-card.compact:hover  {
 .getting-started__wrapper {
   background: none;
 }
+.layout-multiple-columns .getting-started__wrapper {
+  margin-top: 10px;
+}
+.layout-multiple-columns .getting-started__wrapper div:first-child {
+  border-radius: 25px 25px 0 0;
+}
+.getting-started__wrapper a:last-child {
+  border-radius: 0 0 25px 25px;
+}
 
 .getting-started__footer {
-  background: $feed-background;
   padding: 20px 20px 0 20px;
   border-radius: 25px;
-  margin-bottom: 10px;
+  background: $feed-background;
   box-shadow: inset 0 0 25px -10px $purple;
+  margin-bottom: 10px;
+}
+.layout-multiple-columns .getting-started__footer,
+.columns-area--mobile .getting-started__footer {
+  background: $white;
+  margin: 0 5px 10px 5px;
+  padding: 15px 15px 5px 15px;
+  box-shadow: none;
 }
 .getting-started__footer p {
   color: $purple-darker;
@@ -220,21 +236,25 @@ a.status-card.compact:hover  {
 }
 
 .column-subheading {
-  background: none;
+  background: $white;
+  margin: 0 5px;
 }
 
 .getting-started,
 .scrollable {
   .column-link {
     background: $white;
-    border-radius: 25px;
-    margin-bottom: 4px;
+    margin: 0 5px;
     padding: 13px;
 
     &:hover,
     &:active,
     &:focus {
-      background: $purple;
+      background: $purple-light;
+    }
+
+    &.active {
+      color: $ui-highlight-color;
     }
   }
 }
@@ -286,8 +306,7 @@ a.status-card.compact:hover  {
   border-bottom: 0;
 }
 
-.compose-panel .navigation-bar,
-.is-composing .navigation-bar {
+.navigation-bar {
   padding: 10px;
   background: $purple-light;
   border-radius: 25px 25px 0 0;
@@ -1366,4 +1385,9 @@ button.icon-button i.fa-retweet:hover {
 .qh-landing-logo {
   width: 80px;
   padding-right: 2rem;
+}
+
+
+.table--invites .input-copy button {
+  display: none;
 }
