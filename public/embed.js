@@ -25,6 +25,7 @@
     [].forEach.call(document.querySelectorAll('iframe.mastodon-embed'), function(iframe) {
       iframe.scrolling      = 'no';
       iframe.style.overflow = 'hidden';
+      iframe.sandbox = 'allow-same-origin allow-scripts'
 
       iframes.push(iframe);
 

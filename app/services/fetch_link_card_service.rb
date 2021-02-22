@@ -153,6 +153,7 @@ class FetchLinkCardService < BaseService
                                                height: @card.height,
                                                allowtransparency: 'true',
                                                scrolling: 'no',
+                                               sandbox: 'allow-same-origin allow-scripts',
                                                frameborder: '0')
     else
       @card.type = :link
