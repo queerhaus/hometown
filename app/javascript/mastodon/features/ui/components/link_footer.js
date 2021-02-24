@@ -61,8 +61,9 @@ class LinkFooter extends React.PureComponent {
         <ul>
           <li><a href='/about/more' target='_blank'>About us</a> · </li>
           <li><a href='https://opencollective.com/queerhaus' target='_blank'><FormattedMessage id='getting_started.donate' defaultMessage='Donate' /></a> · </li>
-          <li><a href='/terms' target='_blank'><FormattedMessage id='getting_started.terms' defaultMessage='Terms of service' /></a> · </li>
+          <li><a href='https://matrix.to/#/#queerhaus:matrix.org?via=matrix.org' target='_blank'>Chat</a> · </li>
           <li><a href='/about/more#apps-on-mobile' target='_blank'>Mobile&nbsp;apps</a> · </li>
+          <li><a href='/terms' target='_blank'><FormattedMessage id='getting_started.terms' defaultMessage='Terms of service' /></a> · </li>
           <li><a href='https://docs.joinmastodon.org' target='_blank'><FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' /></a> · </li>
           <li><a href='/auth/sign_out' onClick={this.handleLogoutClick}><FormattedMessage id='navigation_bar.logout' defaultMessage='Logout' /></a></li>
         </ul>
