@@ -835,8 +835,10 @@ button.icon-button i.fa-retweet:hover {
     }
 
     &.active {
+      background: $purple-light;
+
       &:hover {
-        background: none;
+        background: $purple-light;
       }
     }
   }
