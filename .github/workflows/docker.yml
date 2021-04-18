@@ -1,8 +1,7 @@
 name: Docker Build
+
 on:
   push:
-    branches:
-      - main
 
 env:
   # Beware! The last part of this image name is global for your user or organization.
@@ -21,23 +20,37 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-
-      - name: Build docker image using previous image as cache
+      - name: Log in to Github docker registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Build docker images using latest as cache
+        run: |
           docker pull $DOCKER_IMAGE_BUILD:latest || true
           docker build --cache-from $DOCKER_IMAGE_BUILD:latest --target build-dep --tag $DOCKER_IMAGE_BUILD:latest .
+          docker pull $DOCKER_IMAGE:latest || true
+          docker build --cache-from $DOCKER_IMAGE_BUILD:latest --cache-from $DOCKER_IMAGE:latest --tag $DOCKER_IMAGE:latest .
+
+      - name: Slugify branch name for use in docker image tags
+        if: github.ref == 'refs/heads/main'
+        shell: bash
+        run: echo "##[set-output name=slug;]$(echo $GITHUB_REF | sed -E 's/refs\/(heads|tags)\///g' | iconv -t ascii//TRANSLIT | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z)"
+        id: branch_slug
+        # Usage: ${{ steps.branch_slug.outputs.slug }}
+
+      - name: Push docker images to Github registry
+        if: github.ref == 'refs/heads/main'
+        run: |
           docker push $DOCKER_IMAGE_BUILD:latest
-          docker pull $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }} || true
-          docker build --cache-from $DOCKER_IMAGE_BUILD:latest --cache-from $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }} --tag $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }} .
-          docker push $DOCKER_IMAGE:${{ steps.extract_branch.outputs.branch }}
+          docker push $DOCKER_IMAGE:latest
+          docker tag $DOCKER_IMAGE_BUILD:latest $DOCKER_IMAGE_BUILD:${{ steps.branch_slug.outputs.slug }}
+          docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:${{ steps.branch_slug.outputs.slug }}
+          docker push $DOCKER_IMAGE_BUILD:${{ steps.branch_slug.outputs.slug }}
+          docker push $DOCKER_IMAGE:${{ steps.branch_slug.outputs.slug }}
 
   deploy:
     name: Deploy
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-18.04
     needs: build
     steps:
