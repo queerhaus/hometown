@@ -897,7 +897,7 @@ en:
       one: 1 use
       other: "%{count} uses"
     max_uses_prompt: No limit
-    prompt: Generate and share links with others to grant access to this server
+    prompt: Generate and share links with others to grant access to this server. You get 1 invite / week.
     table:
       expires_at: Expires
       uses: Uses
