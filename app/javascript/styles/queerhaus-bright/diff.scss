@@ -71,6 +71,7 @@ body.admin .body-background {
 // Change the colors of button texts
 .button {
   color: $white;
+  border-radius: 20px;
 
   &.button-alternative-2 {
     color: $white;
@@ -306,6 +307,11 @@ border-top: 0;
   border-bottom: 0;
 }
 
+.compose-panel .navigation-bar {
+  padding: 10px;
+  flex: none;
+}
+
 .navigation-bar {
   padding: 10px;
   background: $purple-light;
@@ -332,7 +338,7 @@ border-top: 0;
   right: 5px;
 }
 .compose-form .spoiler-input.spoiler-input--visible {
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 .compose-form button {
   border-radius: 25px;
@@ -365,12 +371,6 @@ border-top: 0;
 }
 .columns-area--mobile .compose-form {
   padding: 0 5px;
-}
-
-
-.notification__filter-bar {
-  margin: 0 25px;
-  box-shadow: inset 0 0 25px -10px $purple;
 }
 
 .drawer__header {
@@ -499,8 +499,13 @@ border-top: 0;
   left: 20px;
   top: 20px;
 }
-.account__avatar {
-  border-radius: 25px;
+
+.account__avatar,
+.account__avatar-overlay-base {
+  border-radius: 15px;
+}
+.account__avatar-overlay-overlay {
+  border-radius: 8px;
 }
 
 .status-reply {
@@ -1292,9 +1297,15 @@ button.icon-button i.fa-retweet:hover {
   background: none;
 }
 
-.account__header__tabs__buttons .icon-button {
+.account__header__tabs__buttons button.icon-button {
   border: 0;
-  background: none;
+  color: white;
+  background: $purple-dark;
+  width: 50px;
+}
+.account__header__tabs__buttons button.icon-button:hover {
+  color: white;
+  background: $purple-darker;
 }
 
 .account__header__bar .avatar .account__avatar {
@@ -1329,7 +1340,9 @@ button.icon-button i.fa-retweet:hover {
 .notification__filter-bar {
   background: $blue-dark;
   border: 0;
+  margin: 0 25px;
   border-radius: 0 0 25px 25px;
+  box-shadow: inset 0 0 25px -10px $purple;
 }
 
 .notification__filter-bar button,
@@ -1337,9 +1350,26 @@ button.icon-button i.fa-retweet:hover {
   background: none;
 }
 
-.notification__filter-bar button::after,
-.account__section-headline a::after {
-  border-color: transparent transparent $blue;
+.account__section-headline a.active,
+.account__section-headline a:hover {
+  background: $purple-light;
+  box-shadow: inset 0 0 25px -10px $purple;
+}
+
+.notification__filter-bar button:hover,
+.notification__filter-bar button.active {
+  background: $blue-light;
+  box-shadow: inset 0 0 25px -10px $purple;
+}
+
+.notification__filter-bar button:first-child,
+.account__section-headline a:first-child {
+  border-radius: 0 0 0 25px;
+}
+
+.notification__filter-bar button:last-child,
+.account__section-headline a:last-child {
+  border-radius: 0 0 25px 0;
 }
 
 .notification__filter-bar button.active::after,
