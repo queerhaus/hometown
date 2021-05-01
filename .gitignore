@@ -13,6 +13,7 @@
 /node_modules/
 /.cache/
 /.yarnrc
+/.yarn/
 
 # Ignore the default SQLite database.
 /db/*.sqlite3

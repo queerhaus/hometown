@@ -13,11 +13,12 @@ ifeq ($(UNAME_S),Linux)
 endif
 
 init: install
-	docker-compose run --rm sidekiq bash -c "bundle exec rails db:environment:set RAILS_ENV=development &&\
-												          				 bundle exec rails db:setup RAILS_ENV=development &&\
-												          				 bundle exec rails db:migrate RAILS_ENV=development"
+	docker-compose run --rm sidekiq bash -c "\
+		bundle exec rails db:environment:set RAILS_ENV=development &&\
+		bundle exec rails db:setup RAILS_ENV=development &&\
+		bundle exec rails db:migrate RAILS_ENV=development"
 	docker-compose down
-	echo "Hometown initialization finished! You can now start all containers using: $ make up"
+	@echo "\nHometown initialization finished! You can now start all containers using: $ make up"
 
 up: install
 	docker-compose up
@@ -32,8 +33,11 @@ clean:
 
 
 install: build-development
+	docker-compose down
 	docker-compose up -d db
-	docker-compose run --rm webpack bash -c "bundle install --deployment && yarn install"
+	docker-compose run --rm webpack bash -c "\
+		bundle install -j`nproc` --deployment && \
+		yarn install --pure-lockfile"
 
 build-development:
 	docker build --target development \
