@@ -8,9 +8,33 @@ We try to contribute back to the upstream projects whenever we can.
 
 ## Local development environment
 
-Mastodon comes with a preconfigured local environment using vagrant. You have to install Vagrant and Virtualbox on your machine for it to work.
+Hometown comes with a preconfigured local environment using docker. 
 
-An admin account with the e-mail `admin@mastodon.local` and password `mastodonadmin` is created automatically during setup. Use that to login.
+1. Install Docker https://www.docker.com/products/docker-desktop
+2. Make sure that docker is correctly set up in your environment. This command should print an empty list of containers that are running:<br>
+  `$ docker ps`<br>
+  If that gives you an error, resolve that using standard Docker guides _before continuing_.
+
+3. Initialize the project by installing dependencies and creating the database<br>
+    `$ make init`<br>
+    This can take up to 30 minutes depending on your machine, be patient. You should see lots of output as it goes through these steps: docker image build, bundle install, yarn install, database setup<br>
+    The output will pause at some points. If you wonder what docker is doing, open a new terminal and run this handy command:<br>
+    `docker stats`
+
+4. Start the containers<br>
+  `$ make up`<br>
+   Wait until webpack has compiled all resources, takes a minute or two.
+
+6. Then you can access Hometown on http://localhost:3000
+
+7. Press CTRL-C to stop the services.
+
+### Start local environment next time
+Simply run this command and all dependencies are updated and containers rebuilt as needed using caches.<br>
+`$ make up`
+
+### Docker performance tip
+If you are on macOS, the main slowdown comes from the virtual machine volume mount. One tip is to go to your docker settings and disable "Use gRPC FUSE for file sharing". For some of us the old osxfs file sharing is actually faster when used with "delegated" volumes.
 
 
 ## License

@@ -10,7 +10,6 @@ env:
   # Also keep in mind that with open source public github projects, these images can never be deleted.
   # https://help.github.com/en/packages/publishing-and-managing-packages/deleting-a-package
   DOCKER_IMAGE: docker.pkg.github.com/queerhaus/hometown/hometown
-  DOCKER_IMAGE_BUILD: docker.pkg.github.com/queerhaus/hometown/hometown-build-dep
 
 jobs:
 
@@ -20,16 +19,26 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Cache bundler
+        uses: actions/cache@v2
+        with:
+          path: docker/data/bundler-cache
+          key: bundler-${{ hashFiles('Gemfile.lock') }}
+
+      - name: Cache yarn
+        uses: actions/cache@v2
+        with:
+          path: docker/data/yarn-cache
+          key: yarn-${{ hashFiles('yarn.lock') }}
+
       - name: Log in to Github docker registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-      - name: Build docker images using latest as cache
+      - name: Build docker image using latest as cache
         run: |
-          docker pull $DOCKER_IMAGE_BUILD:latest || true
-          docker build --cache-from $DOCKER_IMAGE_BUILD:latest --target build-dep --tag $DOCKER_IMAGE_BUILD:latest .
           docker pull $DOCKER_IMAGE:latest || true
-          docker build --cache-from $DOCKER_IMAGE_BUILD:latest --cache-from $DOCKER_IMAGE:latest --tag $DOCKER_IMAGE:latest .
+          PRODUCTION_IMAGE=$DOCKER_IMAGE:latest make build-production
 
       - name: Slugify branch name for use in docker image tags
         if: github.ref == 'refs/heads/main'
@@ -38,14 +47,11 @@ jobs:
         id: branch_slug
         # Usage: ${{ steps.branch_slug.outputs.slug }}
 
-      - name: Push docker images to Github registry
+      - name: Push docker image to Github registry
         if: github.ref == 'refs/heads/main'
         run: |
-          docker push $DOCKER_IMAGE_BUILD:latest
           docker push $DOCKER_IMAGE:latest
-          docker tag $DOCKER_IMAGE_BUILD:latest $DOCKER_IMAGE_BUILD:${{ steps.branch_slug.outputs.slug }}
           docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:${{ steps.branch_slug.outputs.slug }}
-          docker push $DOCKER_IMAGE_BUILD:${{ steps.branch_slug.outputs.slug }}
           docker push $DOCKER_IMAGE:${{ steps.branch_slug.outputs.slug }}
 
   deploy:
