@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 as build-dep
+FROM ubuntu:20.04 as development
 
 # Use bash for the shell
 SHELL ["bash", "-c"]
@@ -17,18 +17,20 @@ RUN ARCH= && \
     *) echo "unsupported architecture"; exit 1 ;; \
   esac && \
     echo "Etc/UTC" > /etc/localtime && \
-	apt update && \
-	apt -y install wget python && \
+	apt-get update && \
+	apt-get -y install wget python && \
 	cd ~ && \
 	wget https://nodejs.org/download/release/v$NODE_VER/node-v$NODE_VER-linux-$ARCH.tar.gz && \
 	tar xf node-v$NODE_VER-linux-$ARCH.tar.gz && \
 	rm node-v$NODE_VER-linux-$ARCH.tar.gz && \
-	mv node-v$NODE_VER-linux-$ARCH /opt/node
+	mv node-v$NODE_VER-linux-$ARCH /opt/node && \
+	apt-get remove -y --purge --autoremove wget python && \
+	apt-get clean && rm -rf /var/lib/apt/lists/
 
 # Install jemalloc
 ENV JE_VER="5.2.1"
-RUN apt update && \
-	apt -y install make autoconf gcc g++ && \
+RUN apt-get update && \
+	apt-get -y install wget make autoconf gcc g++ && \
 	cd ~ && \
 	wget https://github.com/jemalloc/jemalloc/archive/$JE_VER.tar.gz && \
 	tar xf $JE_VER.tar.gz && \
@@ -36,14 +38,17 @@ RUN apt update && \
 	./autogen.sh && \
 	./configure --prefix=/opt/jemalloc && \
 	make -j$(nproc) > /dev/null && \
-	make install_bin install_include install_lib
+	make install_bin install_include install_lib && \
+	rm -rf /root/jemalloc-* && \
+	apt-get remove -y --purge --autoremove wget make autoconf gcc g++ && \
+	apt-get clean && rm -rf /var/lib/apt/lists/
 
 # Install Ruby
 ENV RUBY_VER="2.6.6"
 ENV CPPFLAGS="-I/opt/jemalloc/include"
 ENV LDFLAGS="-L/opt/jemalloc/lib/"
-RUN apt update && \
-	apt -y install build-essential \
+RUN apt-get update && \
+	apt-get -y install wget build-essential \
 		bison libyaml-dev libgdbm-dev libreadline-dev \
 		libncurses5-dev libffi-dev zlib1g-dev libssl-dev && \
 	cd ~ && \
@@ -56,30 +61,13 @@ RUN apt update && \
 	  --disable-install-doc && \
 	ln -s /opt/jemalloc/lib/* /usr/lib/ && \
 	make -j$(nproc) > /dev/null && \
-	make install
-
-ENV PATH="${PATH}:/opt/ruby/bin:/opt/node/bin"
-
-RUN npm install -g yarn && \
-	gem install bundler && \
-	apt update && \
-	apt -y install git libicu-dev libidn11-dev \
-	libpq-dev libprotobuf-dev protobuf-compiler
-
-COPY Gemfile* package.json yarn.lock /opt/mastodon/
-
-RUN cd /opt/mastodon && \
-  bundle config set deployment 'true' && \
-  bundle config set without 'development test' && \
-	bundle install -j$(nproc) && \
-	yarn install --pure-lockfile
-
-FROM ubuntu:20.04
-
-# Copy over all the langs needed for runtime
-COPY --from=build-dep /opt/node /opt/node
-COPY --from=build-dep /opt/ruby /opt/ruby
-COPY --from=build-dep /opt/jemalloc /opt/jemalloc
+	make install && \
+	rm -rf /root/ruby-* && \
+	apt-get remove -y --purge --autoremove \
+	  wget build-essential \
+		bison libyaml-dev libgdbm-dev libreadline-dev \
+		libncurses5-dev libffi-dev zlib1g-dev libssl-dev && \
+	apt-get clean && rm -rf /var/lib/apt/lists/
 
 # Add more PATHs to the PATH
 ENV PATH="${PATH}:/opt/ruby/bin:/opt/node/bin:/opt/mastodon/bin"
@@ -87,53 +75,67 @@ ENV PATH="${PATH}:/opt/ruby/bin:/opt/node/bin:/opt/mastodon/bin"
 # Create the mastodon user
 ARG UID=991
 ARG GID=991
-RUN apt update && \
+RUN apt-get update && \
 	echo "Etc/UTC" > /etc/localtime && \
-	ln -s /opt/jemalloc/lib/* /usr/lib/ && \
-	apt install -y whois wget && \
+	apt-get install -y whois wget && \
 	addgroup --gid $GID mastodon && \
 	useradd -m -u $UID -g $GID -d /opt/mastodon mastodon && \
-	echo "mastodon:`head /dev/urandom | tr -dc A-Za-z0-9 | head -c 24 | mkpasswd -s -m sha-256`" | chpasswd
+	echo "mastodon:`head /dev/urandom | tr -dc A-Za-z0-9 | head -c 24 | mkpasswd -s -m sha-256`" | chpasswd && \
+	ln -s /opt/mastodon /mastodon
 
 # Install mastodon runtime deps
-RUN apt -y --no-install-recommends install \
+RUN apt-get -y --no-install-recommends install \
+    build-essential git libicu-dev libidn11-dev \
+    libpq-dev libprotobuf-dev protobuf-compiler \
 	  libssl1.1 libpq5 imagemagick ffmpeg \
 	  libicu66 libprotobuf17 libidn11 libyaml-0-2 \
 	  file ca-certificates tzdata libreadline8 && \
-	apt -y install gcc && \
-	ln -s /opt/mastodon /mastodon && \
-	gem install bundler && \
-	rm -rf /var/cache && \
-	rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g yarn && \
+	  gem install bundler
 
 # Add tini
 ENV TINI_VERSION="0.18.0"
 ENV TINI_SUM="12d20136605531b09a2c2dac02ccee85e1b874eb322ef6baf7561cd93f93c855"
 ADD https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini /tini
-RUN echo "$TINI_SUM tini" | sha256sum -c -
-RUN chmod +x /tini
+RUN echo "$TINI_SUM tini" | sha256sum -c - && chmod +x /tini
 
-# Copy over mastodon source, and dependencies from building, and set permissions
-COPY --chown=mastodon:mastodon . /opt/mastodon
-COPY --from=build-dep --chown=mastodon:mastodon /opt/mastodon /opt/mastodon
-
-# Run mastodon services in prod mode
-ENV RAILS_ENV="production"
-ENV NODE_ENV="production"
+# Set the work dir and the container entry point
+WORKDIR /opt/mastodon
+ENTRYPOINT ["/tini", "--"]
+EXPOSE 3000 4000
 
 # Tell rails to serve static files
 ENV RAILS_SERVE_STATIC_FILES="true"
 ENV BIND="0.0.0.0"
 
+# Run mastodon services in development mode
+ENV RAILS_ENV="development"
+ENV NODE_ENV="development"
+
 # Set the run user
 USER mastodon
+
+
+FROM development as production-base
+
+# Copy over mastodon source, and set permissions
+COPY --chown=mastodon:mastodon . /opt/mastodon
+
+# Run mastodon services in production mode
+ENV RAILS_ENV="production"
+ENV NODE_ENV="production"
+
+
+FROM production-base as production
+
+# Install dependencies
+RUN bundle install -j$(nproc) --deployment --without 'development test' && \
+	  yarn install --pure-lockfile
 
 # Precompile assets
 RUN cd ~ && \
 	OTP_SECRET=precompile_placeholder SECRET_KEY_BASE=precompile_placeholder rails assets:precompile && \
 	yarn cache clean
 
-# Set the work dir and the container entry point
-WORKDIR /opt/mastodon
-ENTRYPOINT ["/tini", "--"]
-EXPOSE 3000 4000
