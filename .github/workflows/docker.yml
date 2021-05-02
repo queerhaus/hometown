@@ -22,22 +22,33 @@ jobs:
       - name: Cache bundler
         uses: actions/cache@v2
         with:
-          path: docker/data/bundler-cache
-          key: bundler-${{ hashFiles('Gemfile.lock') }}
+          path: vendor
+          key: vendor-${{ hashFiles('Gemfile.lock') }}
 
       - name: Cache yarn
         uses: actions/cache@v2
         with:
-          path: docker/data/yarn-cache
-          key: yarn-${{ hashFiles('yarn.lock') }}
+          path: node_modules
+          key: node-${{ hashFiles('yarn.lock') }}
+
+      - name: Cache docker
+        uses: actions/cache@v2
+        with:
+          path: docker/cache
+          key: docker-${{ hashFiles('Dockerfile') }}-${{ github.sha }}
+          restore-keys: |
+            docker-${{ hashFiles('Dockerfile') }}-
 
       - name: Log in to Github docker registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-      - name: Build docker image using latest as cache
+#      - name: Pull previous build image to use as cache
+#        run: |
+#          docker pull $DOCKER_IMAGE:latest || true
+
+      - name: Build production docker image
         run: |
-          docker pull $DOCKER_IMAGE:latest || true
           PRODUCTION_IMAGE=$DOCKER_IMAGE:latest make build-production
 
       - name: Slugify branch name for use in docker image tags
@@ -50,6 +61,8 @@ jobs:
       - name: Push docker image to Github registry
         if: github.ref == 'refs/heads/main'
         run: |
+          docker images | grep hometown
+          docker history $DOCKER_IMAGE:latest
           docker push $DOCKER_IMAGE:latest
           docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:${{ steps.branch_slug.outputs.slug }}
           docker push $DOCKER_IMAGE:${{ steps.branch_slug.outputs.slug }}

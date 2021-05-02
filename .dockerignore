@@ -9,6 +9,5 @@ neo4j
 *.swp
 *~
 .vagrant
-node_modules
-vendor
 docker/data
+docker/cache

@@ -46,6 +46,7 @@
 
 # Ignore volumes optionally created by docker-compose
 /docker/data
+/docker/cache
 
 # ignore Helm lockfile, dependency charts, and local values file
 /chart/Chart.lock

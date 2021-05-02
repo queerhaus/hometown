@@ -28,6 +28,7 @@ down:
 
 clean:
 	docker rm -f hometown-build
+	docker buildx rm hometown || true
 	docker-compose down
 	docker volume rm -f $(DOCKER_PROJECT)_db $(DOCKER_PROJECT)_redis
 
@@ -40,39 +41,41 @@ install: build-development
 		yarn install --pure-lockfile"
 
 build-development:
+	DOCKER_BUILDKIT=1 \
 	docker build --target development \
 		--build-arg UID=$(UID) \
 		--build-arg GID=$(GID) \
 		--tag $(LOCAL_IMAGE) .
 
 build-production:
-	# Build base image
-	docker rm -f hometown-build
-	docker build --target production-base \
-		--cache-from $(PRODUCTION_IMAGE) \
+	# Docker buildx works and produces a cache folder that we can save to Github Actions cache.
+	# The negative with buildx local cache output is that it keeps growing over time,
+	# and quickly reaches gigabytes upon gigabytes of size.
+	# https://github.com/moby/buildkit/issues/1947
+
+	# I was hoping to use buildkit cache mounts for bundler and yarn caches,
+	# but until they are stored in the buildkit cache output,
+	# we cannot save them in GitHub actions cache.
+	# https://github.com/moby/buildkit/issues/1512
+	# https://github.com/moby/buildkit/issues/1474
+	# So to get around this, we build and then extract the vendor and node_modules from the image.
+
+	# Build base image using buildx with local cache
+	docker buildx rm hometown || true
+	docker buildx create --name hometown --use
+	docker buildx build \
+		--cache-from type=local,src=docker/cache \
+		--cache-to type=local,dest=docker/cache \
 		--build-arg UID=`id -u ${USER}` \
 		--build-arg GID=`id -g ${USER}` \
-		--tag $(PRODUCTION_IMAGE) .
+		--target production \
+		--tag $(PRODUCTION_IMAGE) --load .
+	docker buildx rm hometown
 
-	# Install dependencies with cached volumes
-	mkdir -p $(PWD)/docker/data/yarn-cache
-	mkdir -p $(PWD)/docker/data/bundler-cache/vendor
-	docker run -i -d --name hometown-build \
-		-v $(PWD)/docker/data/yarn-cache:/data/yarn-cache \
-		$(PRODUCTION_IMAGE) bash
-	docker cp $(PWD)/docker/data/bundler-cache/vendor hometown-build:/opt/mastodon/
-	docker exec -i hometown-build bundle install -j`nproc` --deployment --without 'development test'
-	docker cp hometown-build:/opt/mastodon/vendor $(PWD)/docker/data/bundler-cache/
-	docker exec -i -e YARN_CACHE_FOLDER=/data/yarn-cache hometown-build yarn install -j`nproc` --pure-lockfile
-	docker commit hometown-build $(PRODUCTION_IMAGE)
+	# Build finished, store our new cache folders
+	rm -rf ./vendor ./node_modules
 	docker rm -f hometown-build
-
-	# Precompile assets without cached volumes
 	docker run -i -d --name hometown-build $(PRODUCTION_IMAGE) bash
-	docker exec -i hometown-build bash -c "\
-		OTP_SECRET=precompile_placeholder \
-		SECRET_KEY_BASE=precompile_placeholder \
-		rails assets:precompile"
-	docker commit hometown-build $(PRODUCTION_IMAGE)
+	docker cp hometown-build:/opt/mastodon/vendor ./
+	docker cp hometown-build:/opt/mastodon/node_modules ./
 	docker rm -f hometown-build
-

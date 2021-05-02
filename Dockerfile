@@ -1,11 +1,17 @@
+#syntax=docker/dockerfile:1.2
 FROM ubuntu:20.04 as development
 
 # Use bash for the shell
 SHELL ["bash", "-c"]
 
+# Enable super fast apt caches for use with --mount=type=cache
+RUN rm -f /etc/apt/apt.conf.d/docker-clean; \
+    echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
+
 # Install Node v12 (LTS)
 ENV NODE_VER="12.16.3"
-RUN ARCH= && \
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
+  ARCH= && \
     dpkgArch="$(dpkg --print-architecture)" && \
   case "${dpkgArch##*-}" in \
     amd64) ARCH='x64';; \
@@ -23,13 +29,12 @@ RUN ARCH= && \
 	wget https://nodejs.org/download/release/v$NODE_VER/node-v$NODE_VER-linux-$ARCH.tar.gz && \
 	tar xf node-v$NODE_VER-linux-$ARCH.tar.gz && \
 	rm node-v$NODE_VER-linux-$ARCH.tar.gz && \
-	mv node-v$NODE_VER-linux-$ARCH /opt/node && \
-	apt-get remove -y --purge --autoremove wget python && \
-	apt-get clean && rm -rf /var/lib/apt/lists/
+	mv node-v$NODE_VER-linux-$ARCH /opt/node
 
 # Install jemalloc
 ENV JE_VER="5.2.1"
-RUN apt-get update && \
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
+  apt-get update && \
 	apt-get -y install wget make autoconf gcc g++ && \
 	cd ~ && \
 	wget https://github.com/jemalloc/jemalloc/archive/$JE_VER.tar.gz && \
@@ -39,15 +44,14 @@ RUN apt-get update && \
 	./configure --prefix=/opt/jemalloc && \
 	make -j$(nproc) > /dev/null && \
 	make install_bin install_include install_lib && \
-	rm -rf /root/jemalloc-* && \
-	apt-get remove -y --purge --autoremove wget make autoconf gcc g++ && \
-	apt-get clean && rm -rf /var/lib/apt/lists/
+	rm -rf /root/jemalloc-*
 
 # Install Ruby
 ENV RUBY_VER="2.6.6"
 ENV CPPFLAGS="-I/opt/jemalloc/include"
 ENV LDFLAGS="-L/opt/jemalloc/lib/"
-RUN apt-get update && \
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
+  apt-get update && \
 	apt-get -y install wget build-essential \
 		bison libyaml-dev libgdbm-dev libreadline-dev \
 		libncurses5-dev libffi-dev zlib1g-dev libssl-dev && \
@@ -62,12 +66,7 @@ RUN apt-get update && \
 	ln -s /opt/jemalloc/lib/* /usr/lib/ && \
 	make -j$(nproc) > /dev/null && \
 	make install && \
-	rm -rf /root/ruby-* && \
-	apt-get remove -y --purge --autoremove \
-	  wget build-essential \
-		bison libyaml-dev libgdbm-dev libreadline-dev \
-		libncurses5-dev libffi-dev zlib1g-dev libssl-dev && \
-	apt-get clean && rm -rf /var/lib/apt/lists/
+	rm -rf /root/ruby-*
 
 # Add more PATHs to the PATH
 ENV PATH="${PATH}:/opt/ruby/bin:/opt/node/bin:/opt/mastodon/bin"
@@ -75,8 +74,9 @@ ENV PATH="${PATH}:/opt/ruby/bin:/opt/node/bin:/opt/mastodon/bin"
 # Create the mastodon user
 ARG UID=991
 ARG GID=991
-RUN apt-get update && \
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
 	echo "Etc/UTC" > /etc/localtime && \
+  apt-get update && \
 	apt-get install -y whois wget && \
 	addgroup --gid $GID mastodon && \
 	useradd -m -u $UID -g $GID -d /opt/mastodon mastodon && \
@@ -84,16 +84,15 @@ RUN apt-get update && \
 	ln -s /opt/mastodon /mastodon
 
 # Install mastodon runtime deps
-RUN apt-get -y --no-install-recommends install \
-    build-essential git libicu-dev libidn11-dev \
-    libpq-dev libprotobuf-dev protobuf-compiler \
-	  libssl1.1 libpq5 imagemagick ffmpeg \
-	  libicu66 libprotobuf17 libidn11 libyaml-0-2 \
-	  file ca-certificates tzdata libreadline8 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-RUN npm install -g yarn && \
-	  gem install bundler
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
+  apt-get update && \
+  apt-get -y --no-install-recommends install \
+  build-essential git libicu-dev libidn11-dev \
+  libpq-dev libprotobuf-dev protobuf-compiler \
+  libssl1.1 libpq5 imagemagick ffmpeg \
+  libicu66 libprotobuf17 libidn11 libyaml-0-2 \
+  file ca-certificates tzdata libreadline8 && \
+  npm install -g yarn && gem install bundler
 
 # Add tini
 ENV TINI_VERSION="0.18.0"
@@ -118,7 +117,7 @@ ENV NODE_ENV="development"
 USER mastodon
 
 
-FROM development as production-base
+FROM development as production
 
 # Copy over mastodon source, and set permissions
 COPY --chown=mastodon:mastodon . /opt/mastodon
@@ -127,15 +126,14 @@ COPY --chown=mastodon:mastodon . /opt/mastodon
 ENV RAILS_ENV="production"
 ENV NODE_ENV="production"
 
+# Install ruby dependencies
+RUN bundle install -j$(nproc) --deployment --without 'development test'
 
-FROM production-base as production
-
-# Install dependencies
-RUN bundle install -j$(nproc) --deployment --without 'development test' && \
-	  yarn install --pure-lockfile
+# Install node dependencies
+RUN yarn install --pure-lockfile
 
 # Precompile assets
 RUN cd ~ && \
-	OTP_SECRET=precompile_placeholder SECRET_KEY_BASE=precompile_placeholder rails assets:precompile && \
-	yarn cache clean
-
+	OTP_SECRET=precompile_placeholder \
+	SECRET_KEY_BASE=precompile_placeholder \
+	rails assets:precompile
