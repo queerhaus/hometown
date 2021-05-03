@@ -33,7 +33,7 @@ class Api::V1::Accounts::CredentialsController < Api::BaseController
       'setting_default_privacy' => source_params.fetch(:privacy, @account.user.setting_default_privacy),
       'setting_default_sensitive' => source_params.fetch(:sensitive, @account.user.setting_default_sensitive),
       'setting_default_language' => source_params.fetch(:language, @account.user.setting_default_language),
-      'setting_default_federation' => source_params.fetch(:federation, @account.user.setting_default_federation),
+      'setting_force_local_only' => source_params.fetch(:force_local_only, @account.user.setting_force_local_only),
     }
   end
 end
