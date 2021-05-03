@@ -1,0 +1,83 @@
+name: Docker Build
+
+on:
+  push:
+
+env:
+  # Beware! The last part of this image name is global for your user or organization.
+  # This "docker.pkg.github.com/queerhaus/hometown/hometown" is exactly the same image as
+  # this "docker.pkg.github.com/queerhaus/foobaroo/hometown"
+  # Also keep in mind that with open source public github projects, these images can never be deleted.
+  # https://help.github.com/en/packages/publishing-and-managing-packages/deleting-a-package
+  DOCKER_IMAGE: docker.pkg.github.com/queerhaus/hometown/hometown
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Cache bundler
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: vendor-${{ hashFiles('Gemfile.lock') }}
+
+      - name: Cache yarn
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: node-${{ hashFiles('yarn.lock') }}
+
+      - name: Cache docker
+        uses: actions/cache@v2
+        with:
+          path: docker/cache
+          key: docker-${{ hashFiles('Dockerfile') }}-${{ github.sha }}
+          restore-keys: |
+            docker-${{ hashFiles('Dockerfile') }}-
+
+      - name: Log in to Github docker registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+#      - name: Pull previous build image to use as cache
+#        run: |
+#          docker pull $DOCKER_IMAGE:latest || true
+
+      - name: Build production docker image
+        run: |
+          PRODUCTION_IMAGE=$DOCKER_IMAGE:latest make build-production
+
+      - name: Slugify branch name for use in docker image tags
+        if: github.ref == 'refs/heads/main'
+        shell: bash
+        run: echo "##[set-output name=slug;]$(echo $GITHUB_REF | sed -E 's/refs\/(heads|tags)\///g' | iconv -t ascii//TRANSLIT | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z)"
+        id: branch_slug
+        # Usage: ${{ steps.branch_slug.outputs.slug }}
+
+      - name: Push docker image to Github registry
+        if: github.ref == 'refs/heads/main'
+        run: |
+          docker images | grep hometown
+          docker history $DOCKER_IMAGE:latest
+          docker push $DOCKER_IMAGE:latest
+          docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:${{ steps.branch_slug.outputs.slug }}
+          docker push $DOCKER_IMAGE:${{ steps.branch_slug.outputs.slug }}
+
+  deploy:
+    name: Deploy
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-18.04
+    needs: build
+    steps:
+      - name: Trigger deployment on staging server
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.DEPLOY_PRIVATE_KEY }}"
+          ssh -o StrictHostKeyChecking=no -p 2020 -l deploy sylvia.machine.queer.haus time
