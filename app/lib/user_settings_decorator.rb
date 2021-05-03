@@ -20,7 +20,7 @@ class UserSettingsDecorator
     user.settings['default_privacy']     = default_privacy_preference if change?('setting_default_privacy')
     user.settings['default_sensitive']   = default_sensitive_preference if change?('setting_default_sensitive')
     user.settings['default_language']    = default_language_preference if change?('setting_default_language')
-    user.settings['default_federation']  = default_federation_preference if change?('setting_default_federation')
+    user.settings['force_local_only']    = force_local_only_preference if change?('setting_force_local_only')
     user.settings['unfollow_modal']      = unfollow_modal_preference if change?('setting_unfollow_modal')
     user.settings['boost_modal']         = boost_modal_preference if change?('setting_boost_modal')
     user.settings['delete_modal']        = delete_modal_preference if change?('setting_delete_modal')
@@ -58,8 +58,8 @@ class UserSettingsDecorator
     boolean_cast_setting 'setting_default_sensitive'
   end
 
-  def default_federation_preference
-    boolean_cast_setting 'setting_default_federation'
+  def force_local_only_preference
+    boolean_cast_setting 'setting_force_local_only'
   end
 
   def unfollow_modal_preference
