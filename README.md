@@ -84,7 +84,33 @@ Hometown uses [semantic versioning](https://semver.org) and follows a versioning
 
 ## Contributing to Hometown
 
-Setting up your Hometown development environment is [exactly like setting up your Mastodon development environment](https://docs.joinmastodon.org/dev/overview/). Pull requests should be made to the `hometown-dev` branch, which is our default branch in Github.
+Pull requests should be made to the `hometown-dev` branch, which is our default branch in Github.
+
+## Local development environment
+
+Hometown comes with a preconfigured local environment using docker. 
+
+1. Install Docker https://www.docker.com/products/docker-desktop
+2. Make sure that docker is correctly set up in your environment. This command should print an empty list of containers that are running:<br>
+  `$ docker ps`<br>
+  If that gives you an error, resolve that using standard Docker guides _before continuing_.
+
+3. Initialize the project by installing dependencies and creating the database<br>
+    `$ make init`<br>
+    This can take up to 30 minutes depending on your machine, be patient. You should see lots of output as it goes through these steps: docker image build, bundle install, yarn install, database setup<br>
+    The output will pause at some points. If you wonder what docker is doing, open a new terminal and run this handy command:<br>
+    `docker stats`
+
+4. Start the containers<br>
+  `$ make up`<br>
+   Wait until webpack has compiled all resources, takes a minute or two.
+
+6. Then you can access Hometown on http://localhost:3000
+
+7. Press CTRL-C to stop the services.
+
+8. To start it again next time, run this command and all dependencies are updated and containers rebuilt as needed.<br>
+`$ make up`
 
 ## License
 

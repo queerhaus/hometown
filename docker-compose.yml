@@ -1,55 +1,42 @@
-version: '3'
+version: '3.5'
+# This docker setup is for local development and not intended for production use!
+
+volumes:
+  db:
+  redis:
+
 services:
 
   db:
-    restart: always
+    restart: unless-stopped
     image: postgres:9.6-alpine
     shm_size: 256mb
-    networks:
-      - internal_network
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
+      test: ["CMD", "pg_isready", "-U", "mastodon"]
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
+    environment:
+      # Disable authentication  https://www.postgresql.org/docs/current/auth-trust.html
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: mastodon
+      POSTGRES_PASSWORD: mastodon
 
   redis:
-    restart: always
+    restart: unless-stopped
     image: redis:6.0-alpine
-    networks:
-      - internal_network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
     volumes:
-      - ./redis:/data
-
-#  es:
-#    restart: always
-#    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.10
-#    environment:
-#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-#      - "cluster.name=es-mastodon"
-#      - "discovery.type=single-node"
-#      - "bootstrap.memory_lock=true"
-#    networks:
-#      - internal_network
-#    healthcheck:
-#      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
-#    volumes:
-#      - ./elasticsearch:/usr/share/elasticsearch/data
-#    ulimits:
-#      memlock:
-#        soft: -1
-#        hard: -1
+      - redis:/data
 
   web:
-    build: .
-    image: tootsuite/mastodon
-    restart: always
-    env_file: .env.production
-    command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
-    networks:
-      - external_network
-      - internal_network
+    build:
+      context: .
+      target: development
+    image: queerhaus/hometown:development
+    restart: unless-stopped
+    env_file: .env.docker
+    command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -b 0.0.0.0 -p 3000"
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:3000/health || exit 1"]
     ports:
@@ -57,19 +44,32 @@ services:
     depends_on:
       - db
       - redis
+      - webpack
 #      - es
     volumes:
-      - ./public/system:/mastodon/public/system
+      - .:/mastodon:delegated
+
+  webpack:
+    build:
+      context: .
+      target: development
+    image: queerhaus/hometown:development
+    restart: unless-stopped
+    env_file: .env.docker
+    command: ./bin/webpack-dev-server --listen-host 0.0.0.0
+    ports:
+      - "127.0.0.1:3035:3035"
+    volumes:
+      - .:/mastodon:delegated
 
   streaming:
-    build: .
-    image: tootsuite/mastodon
-    restart: always
-    env_file: .env.production
+    build:
+      context: .
+      target: development
+    image: queerhaus/hometown:development
+    restart: unless-stopped
+    env_file: .env.docker
     command: node ./streaming
-    networks:
-      - external_network
-      - internal_network
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1"]
     ports:
@@ -77,39 +77,19 @@ services:
     depends_on:
       - db
       - redis
+    volumes:
+      - .:/mastodon:delegated
 
   sidekiq:
-    build: .
-    image: tootsuite/mastodon
-    restart: always
-    env_file: .env.production
+    build:
+      context: .
+      target: development
+    image: queerhaus/hometown:development
+    restart: unless-stopped
+    env_file: .env.docker
     command: bundle exec sidekiq
     depends_on:
       - db
       - redis
-    networks:
-      - external_network
-      - internal_network
     volumes:
-      - ./public/system:/mastodon/public/system
-## Uncomment to enable federation with tor instances along with adding the following ENV variables
-## http_proxy=http://privoxy:8118
-## ALLOW_ACCESS_TO_HIDDEN_SERVICE=true
-#  tor:
-#    image: sirboops/tor
-#    networks:
-#      - external_network
-#      - internal_network
-#
-#  privoxy:
-#    image: sirboops/privoxy
-#    volumes:
-#      - ./priv-config:/opt/config
-#    networks:
-#      - external_network
-#      - internal_network
-
-networks:
-  external_network:
-  internal_network:
-    internal: true
+      - .:/mastodon:delegated
