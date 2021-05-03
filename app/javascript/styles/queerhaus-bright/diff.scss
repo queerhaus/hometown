@@ -1018,6 +1018,9 @@ button.icon-button i.fa-retweet:hover {
     fill: $white;
   }
 }
+.button.logo-button.button--destructive:hover {
+  background: $pink-dark;
+}
 
 .container-alt .form-container {
   max-width: 450px;
@@ -1292,20 +1295,29 @@ button.icon-button i.fa-retweet:hover {
   box-shadow: inset 0 0 25px -10px $purple;
 }
 
+.column-link--transparent .icon-with-badge__badge {
+  color: $white;
+}
+
 .account__header__bar {
   border: 0;
   background: none;
 }
 
 .account__header__tabs__buttons button.icon-button {
-  border: 0;
-  color: white;
-  background: $purple-dark;
+  color: $purple;
+  border: 2px solid $purple;
   width: 50px;
+  border-radius: 20px;
 }
 .account__header__tabs__buttons button.icon-button:hover {
-  color: white;
-  background: $purple-darker;
+  color: $purple;
+  background: $purple-light;
+}
+.account__header__tabs__buttons button.icon-button.active {
+  color: $white;
+  background: $purple-dark;
+  border-color: $purple-dark;
 }
 
 .account__header__bar .avatar .account__avatar {
