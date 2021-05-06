@@ -31,6 +31,7 @@ class PublicFeed
       scope.merge!(instance_only_statuses_scope)
     end
     scope.merge!(media_only_scope) if media_only?
+    scope.merge!(instance_only_statuses_scope) if federated_only?
 
     scope.cache_ids.to_a_paginated_by_id(limit, max_id: max_id, since_id: since_id, min_id: min_id)
   end
@@ -49,6 +50,18 @@ class PublicFeed
 
   def local_only?
     options[:local]
+  end
+
+  def federated_only?
+    # Dirty fix, but the only way to do it atm
+    # without changing core code. The API call for the
+    # federated and local buttons are almost identical, 
+    # apart from the fact that the `local` argument is true
+    # for the local timeline and nil for the federated one.
+
+    # While this is enough to tell them apart for now, 
+    # future updates to Mastodon might break this.
+    @options[:local] == nil
   end
 
   def remote_only?
@@ -88,6 +101,8 @@ class PublicFeed
   end
 
   def instance_only_statuses_scope
+    # Name is misleading, this condition basically gets rid 
+    # of everything local
     Status.where(local_only: [false, nil])
   end
 
