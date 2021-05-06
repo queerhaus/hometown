@@ -91,6 +91,9 @@ class Status < ApplicationRecord
   scope :without_replies, -> { where('statuses.reply = FALSE OR statuses.in_reply_to_account_id = statuses.account_id') }
   scope :without_reblogs, -> { where('statuses.reblog_of_id IS NULL') }
   scope :without_local_only, -> { where(local_only: [false, nil]) }
+  
+  scope :with_federated_only, -> { where(local_only: [false, nil]) }
+
   scope :with_public_visibility, -> { where(visibility: :public) }
   scope :tagged_with, ->(tag_ids) { joins(:statuses_tags).where(statuses_tags: { tag_id: tag_ids }) }
   scope :in_chosen_languages, ->(account) { where(language: nil).or where(language: account.chosen_languages) }
