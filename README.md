@@ -32,6 +32,10 @@ Hometown comes with a preconfigured local environment using docker.
 8. To start it again next time, run this command and all dependencies are updated and containers rebuilt as needed.<br>
 `$ make up`
 
+9. Want to start over with a clean dev environment? Run this to stop all and delete databases.<br>
+`$ make clean`
+Then start from the top again with init and up.
+
 
 ## License
 
