@@ -12,7 +12,6 @@
 # Ignore yarn config and downloaded libraries.
 /node_modules/
 /.cache/
-/.yarnrc
 /.yarn/
 
 # Ignore the default SQLite database.
