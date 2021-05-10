@@ -36,6 +36,7 @@
     = yield :header_tags
 
   %body{ class: body_classes }
+    .body-background
     = content_for?(:content) ? yield(:content) : yield
 
     .logo-resources
