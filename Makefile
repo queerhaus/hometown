@@ -1,5 +1,5 @@
-LOCAL_IMAGE ?= "queerhaus/hometown:development"
-PRODUCTION_IMAGE ?= "queerhaus/hometown:production"
+DOCKER_IMAGE_DEV ?= "queerhaus/hometown:development"
+DOCKER_IMAGE_PROD ?= "queerhaus/hometown:production"
 UID ?= "991"
 GID ?= "991"
 DOCKER_PROJECT = $(shell basename "$$PWD")
@@ -18,30 +18,30 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 init: install
-	docker-compose run --rm sidekiq bash -c "\
+	docker-compose -f docker-compose.local.yml run --rm sidekiq bash -c "\
 		bundle exec rails db:environment:set RAILS_ENV=development &&\
 		bundle exec rails db:setup RAILS_ENV=development &&\
 		bundle exec rails db:migrate RAILS_ENV=development"
-	docker-compose down
+	docker-compose -f docker-compose.local.yml down
 	@echo "\nHometown initialization finished! You can now start all containers using: $ make up"
 
 up: install
-	docker-compose up
+	docker-compose -f docker-compose.local.yml up
 
 down:
-	docker-compose down
+	docker-compose -f docker-compose.local.yml down
 
 clean:
 	docker rm -f hometown-build
 	docker buildx rm hometown || true
-	docker-compose down
+	docker-compose -f docker-compose.local.yml down
 	docker volume rm -f $(DOCKER_PROJECT)_db $(DOCKER_PROJECT)_redis
 
 
 install: build-development
-	docker-compose down
-	docker-compose up -d db
-	docker-compose run --rm webpack bash -c "\
+	docker-compose -f docker-compose.local.yml down
+	docker-compose -f docker-compose.local.yml up -d db
+	docker-compose -f docker-compose.local.yml run --rm webpack bash -c "\
 		bundle install -j$(NPROC) --deployment && \
 		yarn install --pure-lockfile"
 
@@ -50,7 +50,7 @@ build-development:
 	docker build --target development \
 		--build-arg UID=$(UID) \
 		--build-arg GID=$(GID) \
-		--tag $(LOCAL_IMAGE) .
+		--tag $(DOCKER_IMAGE_DEV) .
 
 build-production:
 	# Docker buildx works and produces a cache folder that we can save to Github Actions cache.
@@ -74,13 +74,13 @@ build-production:
 		--build-arg UID=`id -u ${USER}` \
 		--build-arg GID=`id -g ${USER}` \
 		--target production \
-		--tag $(PRODUCTION_IMAGE) --load .
+		--tag $(DOCKER_IMAGE_PROD) --load .
 	docker buildx rm hometown
 
 	# Build finished, store our new cache folders
 	rm -rf ./vendor ./node_modules
 	docker rm -f hometown-build
-	docker run -i -d --name hometown-build $(PRODUCTION_IMAGE) bash
+	docker run -i -d --name hometown-build $(DOCKER_IMAGE_PROD) bash
 	docker cp hometown-build:/opt/mastodon/vendor ./
 	docker cp hometown-build:/opt/mastodon/node_modules ./
 	docker rm -f hometown-build

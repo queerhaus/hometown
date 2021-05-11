@@ -116,6 +116,7 @@ RUN dpkgArch="$(dpkg --print-architecture)" && \
 WORKDIR /opt/mastodon
 ENTRYPOINT ["/tini", "--"]
 EXPOSE 3000 4000
+USER mastodon
 
 # Tell rails to serve static files
 ENV RAILS_SERVE_STATIC_FILES="true"
@@ -125,8 +126,8 @@ ENV BIND="0.0.0.0"
 ENV RAILS_ENV="development"
 ENV NODE_ENV="development"
 
-# Set the run user
-USER mastodon
+# Tell bundler to install to the vendor folder
+RUN cd /opt/mastodon && bundle config set deployment 'true'
 
 
 FROM development as production
@@ -137,6 +138,8 @@ COPY --chown=mastodon:mastodon . /opt/mastodon
 # Run mastodon services in production mode
 ENV RAILS_ENV="production"
 ENV NODE_ENV="production"
+RUN cd /opt/mastodon && \
+  bundle config set without 'development test'
 
 # Install ruby dependencies
 RUN bundle install -j$(nproc) --deployment --without 'development test'
