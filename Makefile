@@ -17,6 +17,15 @@ ifeq ($(UNAME_S),Darwin)
 	NPROC = $(shell sysctl -n hw.ncpu)
 endif
 
+up:
+ifeq ($(shell docker volume list | grep $(DOCKER_PROJECT)_db),)
+	@echo "No database volume found, running init script..."
+	make init
+else
+	make install
+endif
+	docker-compose -f docker-compose.local.yml up
+
 init: install
 	docker-compose -f docker-compose.local.yml run --rm sidekiq bash -c "\
 		bundle exec rails db:environment:set RAILS_ENV=development &&\
@@ -24,9 +33,6 @@ init: install
 		bundle exec rails db:migrate RAILS_ENV=development"
 	docker-compose -f docker-compose.local.yml down
 	@echo "\nHometown initialization finished! You can now start all containers using: $ make up"
-
-up: install
-	docker-compose -f docker-compose.local.yml up
 
 down:
 	docker-compose -f docker-compose.local.yml down
