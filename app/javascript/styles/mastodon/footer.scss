@@ -1,3 +1,15 @@
+.getting-started__footer {
+  height: 25vh; // use viewport stuff so it resizes nicely
+  overflow-y: auto;
+}
+
+.getting-started__footer_container {
+  position: fixed; // fix
+  bottom: 0px;     // to the bottom, as it should be displayed
+  width: 285px;    // hard code width to be the same as the hard coded column
+                   // width
+}
+
 .public-layout {
   .footer {
     text-align: left;
