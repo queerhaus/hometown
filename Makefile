@@ -3,13 +3,18 @@ PRODUCTION_IMAGE ?= "queerhaus/hometown:production"
 UID ?= "991"
 GID ?= "991"
 DOCKER_PROJECT = $(shell basename "$$PWD")
+NPROC = 1
 
 # On Linux docker runs natively and the user in the container has to match current user.
 # Otherwise files are created that cannot be read outside the container without sudo.
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
+	NPROC = $(shell nproc)
 	UID=`id -u ${USER}`
 	GID=`id -g ${USER}`
+endif
+ifeq ($(UNAME_S),Darwin)
+	NPROC = $(shell sysctl -n hw.ncpu)
 endif
 
 init: install
@@ -37,7 +42,7 @@ install: build-development
 	docker-compose down
 	docker-compose up -d db
 	docker-compose run --rm webpack bash -c "\
-		bundle install -j`nproc` --deployment && \
+		bundle install -j$(NPROC) --deployment && \
 		yarn install --pure-lockfile"
 
 build-development:
