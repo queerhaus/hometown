@@ -80,6 +80,13 @@
               %p= t('about.unavailable_content_description.suspended')
               = render partial: 'domain_blocks', locals: { domain_blocks: blocks }
 
+          %h2#allowlist= 'Our allowlist'
+          %p= 'We federate only with these other instances in the fediverse. See our reasoning for this above.'
+          %ul{ style: 'columns: 3 200px' }
+            - @allows.each do |site|
+              %li
+                = link_to site.domain, 'https://' + site.domain
+
   .column-4
     %ul.table-of-contents
       - @table_of_contents.each do |item|
@@ -90,6 +97,8 @@
             %ul
               - item.children.each do |sub_item|
                 %li= link_to sub_item.title, "##{sub_item.anchor}"
+      %li
+        = link_to 'Allowlist', "#allowlist"
 
       - if display_blocks? && !@blocks.empty?
         %li= link_to t('about.unavailable_content'), '#unavailable-content'
