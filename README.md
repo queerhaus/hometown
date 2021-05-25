@@ -84,8 +84,47 @@ Hometown uses [semantic versioning](https://semver.org) and follows a versioning
 
 ## Contributing to Hometown
 
-Setting up your Hometown development environment is [exactly like setting up your Mastodon development environment](https://docs.joinmastodon.org/dev/overview/). Pull requests should be made to the `hometown-dev` branch, which is our default branch in Github.
+Pull requests should be made to the `hometown-dev` branch, which is our default branch in Github.
 
+## Local development environment
+
+Queer Haus comes with a preconfigured local environment using docker.
+
+### Prerequisites
+1. Install make<br>
+   Mac: `brew install make`<br>
+   Ubuntu: `sudo apt install make`<br>
+   Windows: https://stackoverflow.com/questions/32127524/how-to-install-and-use-make-in-windows
+
+2. Install Docker<br>
+   Ubuntu: https://docs.docker.com/engine/install/ubuntu/<br>
+   Mac/Windows: https://www.docker.com/products/docker-desktop
+
+3. Make sure that docker is correctly set up in your environment.
+   This command should print an empty list of containers that are running:<br>
+   `$ docker ps`<br>
+   If that command gives you an error, resolve that using standard Docker guides _before continuing_. 
+   The command should not require sudo, if it does, your setup is not working correctly.
+
+### Usage
+
+1. Initialize the project and start the containers<br>
+  `$ make up`<br>
+   The first time this build can take up to 30 minutes depending on your machine.
+   Wait until all services has started and webpack says it has compiled all resources.
+
+2. Then you can access Queer Haus on http://localhost:3000
+
+3. Press CTRL-C to stop the services.
+
+4. To start it again next time, run the same command. 
+   Dependencies are updated and containers rebuilt as needed.<br>
+   `$ make up`
+
+5. Want to start over with a clean dev environment? 
+   Run 'clean' to stop everything and delete all databases.<br>
+   `$ make clean`
+   
 ## License
 
 Copyright (C) 2016-2020 Eugen Rochko & other Mastodon contributors (see [AUTHORS.md](AUTHORS.md))
