@@ -46,29 +46,31 @@ class LinkFooter extends React.PureComponent {
 
     return (
       <div className='getting-started__footer'>
+        <p>
+          Welcome to Queer Haus! Don't be shy, click around, explore, and please read <a href="http://queer.haus/about/more">our about page that explains the basics</a>.
+        </p>
+        <p>
+          If something looks broken, send us a message.
+          You can reach us at our collective account <a href="https://queer.haus/web/accounts/191">@dolphin</a> or our personal accounts:<br/>
+          <a href="https://queer.haus/web/accounts/5">@exstral</a> <a href="https://queer.haus/web/accounts/166">@vincentreynaud</a> <a href="https://queer.haus/web/accounts/167">@RustySofa</a> <a href="https://queer.haus/web/accounts/234">@monkysoda</a> <a href="https://queer.haus/web/accounts/302">@blablablorges</a> <a href="https://queer.haus/web/accounts/304">@marum</a>
+        </p>
+        <p>
+          Let’s communicate and organise! 🔥
+        </p>
+
         <ul>
-          {invitesEnabled && <li><a href='/invites' target='_blank'><FormattedMessage id='getting_started.invite' defaultMessage='Invite people' /></a> · </li>}
-          {withHotkeys && <li><Link to='/keyboard-shortcuts'><FormattedMessage id='navigation_bar.keyboard_shortcuts' defaultMessage='Hotkeys' /></Link> · </li>}
-          <li><a href='/auth/edit'><FormattedMessage id='getting_started.security' defaultMessage='Security' /></a> · </li>
-          <li><a href='/about/more' target='_blank'><FormattedMessage id='navigation_bar.info' defaultMessage='About this server' /></a> · </li>
-          <li><a href='https://joinmastodon.org/apps' target='_blank'><FormattedMessage id='navigation_bar.apps' defaultMessage='Mobile apps' /></a> · </li>
+          <li><a href='/about/more' target='_blank'>About us</a> · </li>
+          <li><a href='https://opencollective.com/queerhaus' target='_blank'><FormattedMessage id='getting_started.donate' defaultMessage='Donate' /></a> · </li>
+          <li><a href='https://matrix.to/#/#queerhaus:matrix.org?via=matrix.org' target='_blank'>Chat</a> · </li>
+          <li><a href='/about/more#apps-on-mobile' target='_blank'>Mobile&nbsp;apps</a> · </li>
           <li><a href='/terms' target='_blank'><FormattedMessage id='getting_started.terms' defaultMessage='Terms of service' /></a> · </li>
-          <li><a href='/settings/applications' target='_blank'><FormattedMessage id='getting_started.developers' defaultMessage='Developers' /></a> · </li>
           <li><a href='https://docs.joinmastodon.org' target='_blank'><FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' /></a> · </li>
           <li><a href='/auth/sign_out' onClick={this.handleLogoutClick}><FormattedMessage id='navigation_bar.logout' defaultMessage='Logout' /></a></li>
         </ul>
 
         <p>
-          <FormattedMessage
-            id='getting_started.open_source_notice'
-            defaultMessage='Mastodon is open source software. You can contribute or report issues on GitHub at {github}.'
-            values={{ github: <span><a href={source_url} rel='noopener noreferrer' target='_blank'>{repository}</a> (v{version})</span> }}
-          />
-          <FormattedMessage
-            id='getting_started.hometown_open_source_notice'
-            defaultMessage='Hometown is also open source, at {hometown} (v1.0.5).'
-            values={{ hometown: <span><a href='https://github.com/hometown-fork/hometown' rel='noopener' target='_blank'>hometown-fork/hometown</a></span> }}
-          />
+          <span>logo by Landon Whittaker</span><br/>
+          <span>all our projects are <a rel='noopener noreferrer' href='https://github.com/queerhaus'>open source</a></span>
         </p>
       </div>
     );
