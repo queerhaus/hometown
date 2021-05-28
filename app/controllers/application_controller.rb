@@ -105,8 +105,8 @@ class ApplicationController < ActionController::Base
     respond_with_error(503)
   end
 
-  def too_many_requests
-    respond_with_error(429)
+  def too_many_requests(exc)
+    respond_with_alert(exc)
   end
 
   def single_user_mode?
@@ -139,5 +139,10 @@ class ApplicationController < ActionController::Base
       format.any  { render "errors/#{code}", layout: 'error', status: code, formats: [:html] }
       format.json { render json: { error: Rack::Utils::HTTP_STATUS_CODES[code] }, status: code }
     end
+  end
+
+  def respond_with_alert(exc)
+    flash[:alert] = exc.message
+    redirect_back fallback_location: root_path
   end
 end
