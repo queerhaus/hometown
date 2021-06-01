@@ -54,18 +54,17 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
 	make install && \
 	rm -rf /root/ruby-$RUBY_VER
 
+
+FROM build-dep as prod-dep
+
 # Install bundle dependencies
 RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,sharing=locked,target=/var/lib/apt \
 	apt-get update && apt-get install -y --no-install-recommends \
 	  git libicu-dev libidn11-dev \
 	  libpq-dev libprotobuf-dev protobuf-compiler shared-mime-info
-
 RUN npm install -g yarn
-RUN gem install bundler --verbose
-
-
-FROM build-dep as prod-dep
+RUN gem install bundler:1.17.2 --verbose
 
 COPY Gemfile* package.json yarn.lock /opt/mastodon/
 RUN cd /opt/mastodon && \
@@ -130,9 +129,9 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,sharing=locked,target=/var/lib/apt \
 	apt-get update && apt-get install -y --no-install-recommends \
 	git libicu-dev libidn11-dev \
-	libpq-dev libprotobuf-dev protobuf-compiler shared-mime-info && \
-	npm install -g yarn && \
-	gem install bundler --verbose
+	libpq-dev libprotobuf-dev protobuf-compiler shared-mime-info
+RUN npm install -g yarn
+RUN gem install bundler:1.17.2 --verbose
 USER mastodon
 
 # Run mastodon services in development mode

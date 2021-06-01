@@ -19,17 +19,17 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Cache bundler
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: vendor-${{ hashFiles('Gemfile.lock') }}
-
-      - name: Cache yarn
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: node-${{ hashFiles('yarn.lock') }}
+#      - name: Cache bundler
+#        uses: actions/cache@v2
+#        with:
+#          path: vendor
+#          key: vendor-${{ hashFiles('Gemfile.lock') }}
+#
+#      - name: Cache yarn
+#        uses: actions/cache@v2
+#        with:
+#          path: node_modules
+#          key: node-${{ hashFiles('yarn.lock') }}
 
       - name: Cache docker
         uses: actions/cache@v2
@@ -42,10 +42,6 @@ jobs:
       - name: Log in to Github docker registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-#      - name: Pull previous build image to use as cache
-#        run: |
-#          docker pull $DOCKER_IMAGE:latest || true
 
       - name: Build production docker image
         run: |

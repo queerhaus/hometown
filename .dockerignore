@@ -17,3 +17,5 @@ chart
 .vagrant
 docker/data
 docker/cache
+vendor
+node_modules

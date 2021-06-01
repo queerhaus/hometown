@@ -77,19 +77,18 @@ build-production:
 	# So to get around this, we build and then extract the vendor and node_modules from the image.
 
 	# Build base image using buildx with local cache
-	docker buildx rm hometown || true
-	docker buildx create --name hometown --use
+	if ! docker buildx ls | grep -q hometown; then docker buildx create --name hometown; fi
+	docker buildx use hometown
 	docker buildx build \
 		--cache-from type=local,src=docker/cache \
 		--cache-to type=local,dest=docker/cache \
 		--target production \
 		--tag $(DOCKER_IMAGE_PROD) --load .
-	docker buildx rm hometown
 
 	# Build finished, store our new cache folders
-	rm -rf ./vendor ./node_modules
-	docker rm -f hometown-build
-	docker run -i -d --name hometown-build $(DOCKER_IMAGE_PROD) bash
-	docker cp hometown-build:/opt/mastodon/vendor ./
-	docker cp hometown-build:/opt/mastodon/node_modules ./
-	docker rm -f hometown-build
+#	rm -rf ./vendor ./node_modules
+#	docker rm -f hometown-build
+#	docker run -i -d --name hometown-build $(DOCKER_IMAGE_PROD) bash
+#	docker cp hometown-build:/opt/mastodon/vendor ./
+#	docker cp hometown-build:/opt/mastodon/node_modules ./
+#	docker rm -f hometown-build
