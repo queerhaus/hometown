@@ -1,5 +1,5 @@
 DOCKER_IMAGE_LOCAL ?= "queerhaus:local"
-DOCKER_IMAGE_PROD ?= "ghcr.io/queerhaus/hometown"
+DOCKER_IMAGE_PROD ?= "queerhaus:prod"
 DOCKER_PROJECT = $(shell basename "$$PWD")
 DOCKER_DB_INIT_FILE_CHECK = ".docker-db-initialized"
 UNAME_S := $(shell uname -s)
