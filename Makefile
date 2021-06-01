@@ -7,6 +7,9 @@ UID ?= "991"
 GID ?= "991"
 NPROC = 1
 
+# Hide the annoying docker snyk ad
+export DOCKER_SCAN_SUGGEST=false
+
 ifeq ($(UNAME_S),Linux)
 	NPROC = $(shell nproc)
 	UID=`id -u ${USER}`
@@ -49,6 +52,7 @@ install: build-development
 	docker-compose -f docker-compose.local.yml down
 	docker-compose -f docker-compose.local.yml up -d db
 	docker-compose -f docker-compose.local.yml run --rm webpack bash -c "\
+		bundle config set deployment 'true' && \
 		bundle install -j$(NPROC) --deployment && \
 		yarn install --pure-lockfile"
 

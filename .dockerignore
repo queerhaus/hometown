@@ -12,6 +12,8 @@ postgres
 redis
 elasticsearch
 chart
+.git
+.cache
 .vagrant
 docker/data
 docker/cache
