@@ -14,7 +14,8 @@ module InviteLimiter
       after_create do
         by = public_send(options[:by])
         
-        if not by.admin # only limit if user is not admin
+        # Only limit if user is not admin or mod
+        if not (by.admin or by.moderator) 
           invite_limiter(by, options).record!
           @invite_limit_recorded = true # record for rollback
         end
