@@ -1,0 +1,15 @@
+
+name: Run Linter for every commit
+on:
+  push:
+    branches:
+    - '!main'
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+    - run: |-
+        gem install rubocop rubocop-rails
+        git fetch && git diff-tree -r --no-commit-id --name-only main@\{u\} head | xargs ls -1 2>/dev/null | xargs rubocop --force-exclusion

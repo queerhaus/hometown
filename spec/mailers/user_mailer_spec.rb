@@ -23,14 +23,14 @@ describe UserMailer, type: :mailer do
 
     it 'renders confirmation instructions' do
       receiver.update!(locale: nil)
-      expect(mail.body.encoded).to include I18n.t('devise.mailer.confirmation_instructions.title')
+      expect(mail.body.encoded).to include I18n.t('devise.mailer.confirmation_instructions.title', title: Setting.site_title)
       expect(mail.body.encoded).to include 'spec'
       expect(mail.body.encoded).to include Rails.configuration.x.local_domain
     end
 
     include_examples 'localized subject',
                      'devise.mailer.confirmation_instructions.subject',
-                     instance: Rails.configuration.x.local_domain
+                     instance: Rails.configuration.x.local_domain, title: Setting.site_title
   end
 
   describe 'reconfirmation_instructions' do
@@ -43,7 +43,8 @@ describe UserMailer, type: :mailer do
       expect(mail.body.encoded).to include Rails.configuration.x.local_domain
       expect(mail.subject).to eq I18n.t('devise.mailer.reconfirmation_instructions.subject',
                                         instance: Rails.configuration.x.local_domain,
-                                        locale: I18n.default_locale)
+                                        locale: I18n.default_locale,
+                                        title: Setting.site_title)
     end
   end
 
@@ -52,7 +53,7 @@ describe UserMailer, type: :mailer do
 
     it 'renders reset password instructions' do
       receiver.update!(locale: nil)
-      expect(mail.body.encoded).to include I18n.t('devise.mailer.reset_password_instructions.title')
+      expect(mail.body.encoded).to include I18n.t('devise.mailer.reset_password_instructions.title', title: Setting.site_title)
       expect(mail.body.encoded).to include 'spec'
     end
 
@@ -65,7 +66,7 @@ describe UserMailer, type: :mailer do
 
     it 'renders password change notification' do
       receiver.update!(locale: nil)
-      expect(mail.body.encoded).to include I18n.t('devise.mailer.password_change.title')
+      expect(mail.body.encoded).to include I18n.t('devise.mailer.password_change.title', title: Setting.site_title)
     end
 
     include_examples 'localized subject',
@@ -77,7 +78,7 @@ describe UserMailer, type: :mailer do
 
     it 'renders email change notification' do
       receiver.update!(locale: nil)
-      expect(mail.body.encoded).to include I18n.t('devise.mailer.email_changed.title')
+      expect(mail.body.encoded).to include I18n.t('devise.mailer.email_changed.title', title: Setting.site_title)
     end
 
     include_examples 'localized subject',
