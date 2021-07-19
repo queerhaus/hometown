@@ -239,7 +239,7 @@ class AccountCard extends ImmutablePureComponent {
               <FormattedMessage id='account.posts' defaultMessage='Toots' />
             </small>
           </div>
-          <div className='accounts-table__count'>
+          {/* <div className='accounts-table__count'>
             <ShortNumber value={account.get('followers_count')} />{' '}
             <small>
               <FormattedMessage
@@ -247,7 +247,7 @@ class AccountCard extends ImmutablePureComponent {
                 defaultMessage='Followers'
               />
             </small>
-          </div>
+          </div> */}
           <div className='accounts-table__count'>
             {account.get('last_status_at') === null ? (
               <FormattedMessage
